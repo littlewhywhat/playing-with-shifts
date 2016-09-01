@@ -15,3 +15,5 @@ valg:
 	valgrind $(BIN)/$(MAIN) 
 gdb:
 	gdb ./$(BIN)/$(MAIN)
+test: $(BIN)/$(MAIN) 
+	./$(BIN)/$(MAIN) > ./$(BIN)/output; diff ./$(BIN)/output ./test/output0
