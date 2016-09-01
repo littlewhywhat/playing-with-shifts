@@ -13,3 +13,5 @@ clean:
 	$(RM) $(BIN)
 valg:
 	valgrind $(BIN)/$(MAIN) 
+gdb:
+	gdb ./$(BIN)/$(MAIN)
