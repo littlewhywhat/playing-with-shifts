@@ -6,7 +6,7 @@ MAIN = program
 RM = rm -r -f
 
 compile: $(BIN) 
-	$(CC) $(CFLAGS) $(SRC)/$(MAIN).cpp -o $(BIN)/$(MAIN)
+	$(CC) $(CFLAGS) $(SRC)/$(MAIN).cpp -o $(BIN)/$(MAIN) 2>&1 | less
 $(BIN):
 	mkdir $(BIN)
 clean:
