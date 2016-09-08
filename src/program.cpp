@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <cstdint>
+#include <set>
 
 class Node;
 
@@ -38,7 +39,6 @@ class Graph {
     std::vector<Node*> m_Nodes;
   public:
     Graph(uint32_t size) {
-        std::cout << "graph" << std::endl;
         for (uint32_t i = 0; i < size; i++)
             m_Nodes.push_back(new Node(i));
     }
@@ -53,7 +53,53 @@ class Graph {
         return m_Nodes;
     }
 };
- 
+
+// 0 - A, 1 - B
+
+class Strategy {
+  private:
+    int m_Val;
+  public:
+    Strategy(int val) : m_Val(val) {}
+    void incr() { m_Val++; }
+    int32_t countB() {
+        int val = m_Val;
+        int32_t i = 0;
+        while (val != 0) {
+            if (val % 2 != 0)
+                i++;
+            val /= 2;
+        }
+        return i;
+    }
+};
+
+class Language {
+  private:
+    std::set<std::string> m_Words;
+  public:
+    void add(std::string word) {
+        m_Words.insert(word);
+    }
+    bool has(std::string word) {
+        auto search = m_Words.find(word);
+        return search != m_Words.end();
+    }
+    friend std::ostream & operator << (std::ostream & out, Language & l) {
+        out << "language:" << std::endl;
+        for (std::string word : l.m_Words)
+            out << word << std::endl;
+        return out;
+    }
+};
+
+class Mode {
+  public:
+    bool good_strategy(Strategy s, Language l) const {
+        return true;
+    }
+};
+
 Graph readgraph() {
     Graph graph(4);
     graph.addEdge(0, 1, '0');
@@ -65,32 +111,45 @@ Graph readgraph() {
     return graph;
 }
 
-void dive(Node * node, int & count, int & lim, std::string & str) {
+void dive(Language & l, Node * node, int & count, int & lim, std::string & str) {
     if (count == lim) {
-        std::cout << str <<  std::endl;
+        l.add(str);
         return;
     }
     for (Edge * edge : node -> out()) {
         count += 1;
         str.push_back(edge -> m_Label);
-        dive(edge -> m_Node, count, lim, str);
+        dive(l, edge -> m_Node, count, lim, str);
         count -= 1;
         str.pop_back();
     }
 }
 
-void readlang(Graph & graph, int lim) {
+Language readlang(Graph & graph, int lim) {
+    Language l;
     int count = 0;
     std::string buffer;
     for (Node * node : graph.nodes()) {
-       std::cout << node -> val() << ":" << std::endl;
-       dive(node, count, lim, buffer); 
+       dive(l, node, count, lim, buffer); 
     }
+    return l;
 }
 
 int main (void) {
     std::cout << "calculating... " << std::endl;
     Graph graph = readgraph();
-    readlang(graph, 3);
+    Language lang = readlang(graph, 5);
+    Strategy strat(0);
+    Mode mode;
+    int slen = 3;
+    int max = 0;
+    int num = 1 << slen;
+    for (int i = 0; i < num; i++) {
+        if (mode.good_strategy(strat, lang)
+                && max < strat.countB())
+            max = strat.countB();
+        strat.incr();
+    }
+    std::cout << max << std::endl;
     return 0;
 }
