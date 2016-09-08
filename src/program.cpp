@@ -54,7 +54,7 @@ class Graph {
     }
 };
  
-Graph read() {
+Graph readgraph() {
     Graph graph(4);
     graph.addEdge(0, 1, '0');
     graph.addEdge(0, 1, '1');
@@ -65,7 +65,7 @@ Graph read() {
     return graph;
 }
 
-void recurse(Node * node, int & count, int & lim, std::string & str) {
+void dive(Node * node, int & count, int & lim, std::string & str) {
     if (count == lim) {
         std::cout << str <<  std::endl;
         return;
@@ -73,21 +73,24 @@ void recurse(Node * node, int & count, int & lim, std::string & str) {
     for (Edge * edge : node -> out()) {
         count += 1;
         str.push_back(edge -> m_Label);
-        recurse(edge -> m_Node, count, lim, str);
+        dive(edge -> m_Node, count, lim, str);
         count -= 1;
         str.pop_back();
     }
 }
 
-int main (void) {
-    int lim = 3;
-    std::cout << "calculating... " << std::endl;
-    Graph graph = read();
+void readlang(Graph & graph, int lim) {
     int count = 0;
     std::string buffer;
     for (Node * node : graph.nodes()) {
        std::cout << node -> val() << ":" << std::endl;
-       recurse(node, count, lim, buffer); 
+       dive(node, count, lim, buffer); 
     }
+}
+
+int main (void) {
+    std::cout << "calculating... " << std::endl;
+    Graph graph = readgraph();
+    readlang(graph, 3);
     return 0;
 }
