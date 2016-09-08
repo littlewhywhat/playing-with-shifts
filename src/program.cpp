@@ -135,6 +135,46 @@ Language readlang(Graph & graph, int lim) {
     return l;
 }
 
+class TNode {
+  private:
+    char m_Label;
+    std::vector<TNode * > m_Children;
+  public:
+    TNode(char label) : m_Label(label) {}
+    bool hasChild(char label) {
+        for (TNode node : m_Children)
+            if (node -> m_Label == label)
+                return true;
+        return false;
+    }
+    void addChild(char label) {
+        m_Children.push_back(new TNode(label));
+    }
+    const TNode * getChild(char label) {
+        for (TNode * node : m_Children) 
+            if (node -> m_Label == label)
+                return node;
+        return NULL;
+    }
+};
+
+class Tree {
+  private:
+    TNode m_Root;
+    void propagate(TNode & root, std::string word) {
+        if (!root.hasChild(word.at(0)))    
+            root.addChild(word.at(0));
+        propagate(*root.getChild(word.at(0)));
+    }
+  public:
+    void addWord(std::string word) {
+        propagate(root, word);
+    }
+    const TNode & root() const {
+        return root;
+    }
+};
+
 int main (void) {
     std::cout << "calculating... " << std::endl;
     Graph graph = readgraph();
