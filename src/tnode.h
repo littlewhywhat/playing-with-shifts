@@ -24,6 +24,7 @@ class TNode {
         }
     }
   public:
+    static const uint32_t MAX_CHILD = 2;
     TNode() : m_Lbl(0) {} 
     TNode(char lbl) : m_Lbl(lbl) {}
     TNode(const TNode & src) {

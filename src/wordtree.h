@@ -45,6 +45,9 @@ class WordTree {
         swap(src);
         return *this;
    }
+    const TNode * root() const {
+        return m_Root;
+    }
     void addWord(const std::string & word) {
         propagate(m_Root, word, 0);
     }

@@ -46,17 +46,19 @@ WordTree toWordTree(Graph & g, uint32_t lim) {
 int main (void) {
     std::cout << "calculating... " << std::endl;
     Graph graph = readgraph();
-    WordTree wt = toWordTree(graph, 5);
+    WordTree wt = toWordTree(graph, 20);
 
-    Strategy strat(0);
+    Strategy strat(0, 20);
     Mode mode;
-    int slen = 3;
-    int max = 0;
-    int num = 1 << slen;
+    std::cout << wt << std::endl;
+    uint32_t max = 0;
+    int num = 1 << strat.lim();
     for (int i = 0; i < num; i++) {
-        if (mode.good_strategy(strat, wt)
-                && max < strat.countB())
-            max = strat.countB();
+        if (mode.good_strategy(strat, wt)) {
+            std::cout << strat << std::endl; 
+            if (max < strat.countB())
+                max = strat.countB();
+        }
         strat.incr();
     }
     std::cout << max << std::endl;
