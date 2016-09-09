@@ -20,10 +20,8 @@ Graph readgraph() {
     return graph;
 }
 
-int cnt = 0;
 void dive(WordTree & wt, GNode * node, uint32_t & count, uint32_t & lim, std::string & str) {
     if (count == lim) {
-        std::cout << "rec dive" << ++cnt << std::endl;
         wt.addWord(str);
         return;
     }

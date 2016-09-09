@@ -4,7 +4,6 @@
 #include <vector>
 #include <iostream>
 
-int cnt1 = 0;
 class TNode {
   private:
     char m_Lbl;
@@ -25,14 +24,8 @@ class TNode {
         }
     }
   public:
-    TNode() : m_Lbl(0) {
-        cnt1++;
-        std::cout << cnt1 << sizeof *this << std::endl;
-    } 
-    TNode(char lbl) : m_Lbl(lbl) {
-        cnt1++;
-        std::cout << cnt1 << sizeof *this << std::endl;
-    }
+    TNode() : m_Lbl(0) {} 
+    TNode(char lbl) : m_Lbl(lbl) {}
     TNode(const TNode & src) {
         swap(src);
     }
@@ -44,8 +37,6 @@ class TNode {
         return *this;
     }
     ~TNode() {
-        std::cout << "destrauc" << --cnt1 << sizeof *this << std::endl;
-
         deleteChildren(this);
     }
     void addChild(char lbl) {
