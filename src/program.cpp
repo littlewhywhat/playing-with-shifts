@@ -9,6 +9,7 @@
 #include "strategy.h"
 #include "mode1.h"
 #include "mode2.h"
+#include "graph2wt.h"
 
 Graph readgraph() {
     Graph graph(4);
@@ -21,34 +22,13 @@ Graph readgraph() {
     return graph;
 }
 
-void dive(WordTree & wt, GNode * node, uint32_t & count, uint32_t & lim, std::string & str) {
-    if (count == lim) {
-        wt.addWord(str);
-        return;
-    }
-    for (GEdge * edge : node -> out()) {
-        count += 1;
-        str.push_back(edge -> m_Label);
-        dive(wt, edge -> m_Node, count, lim, str);
-        count -= 1;
-        str.pop_back();
-    }
-}
-
-WordTree toWordTree(Graph & g, uint32_t lim) {
-    WordTree wt;
-    uint32_t count = 0;
-    std::string buffer;
-    for (GNode * node : g.nodes())
-        dive(wt, node, count, lim, buffer); 
-    return wt;
-}
-
 int main (void) {
     int wordlen = 5;
     std::cout << "calculating... " << std::endl;
     Graph graph = readgraph();
-    WordTree wt = toWordTree(graph, wordlen);
+    WordTree wt;
+    Graph2Wt g2wt(wordlen);
+    g2wt.translate(graph, wt);
     wt.addWord("01110");
     Alphabet alpha;
     alpha.add('0');
