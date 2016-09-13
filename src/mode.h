@@ -10,7 +10,7 @@
 class Mode {
   public:
     virtual ~Mode() {};
-    virtual bool good_strategy(Strategy & s, WordTree & wt, Alphabet & alpha) const = 0;
+    virtual bool good_strategy(Strategy & s, WordTree & wt, Alphabet & alpha) = 0;
 };
 
 #endif

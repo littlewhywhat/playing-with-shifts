@@ -8,13 +8,16 @@
 #include "graph.h"
 #include "strategy.h"
 #include "mode1.h"
+#include "mode2.h"
 
 Graph readgraph() {
     Graph graph(4);
     graph.addEdge(0, 1, '0');
     graph.addEdge(0, 1, '1');
-    graph.addEdge(1, 0, '0');
-    graph.addEdge(1, 0, '1');
+    graph.addEdge(1, 2, '0');
+    graph.addEdge(1, 3, '1');
+    graph.addEdge(2, 3, '1');
+    graph.addEdge(3, 0, '0');
     return graph;
 }
 
@@ -42,7 +45,7 @@ WordTree toWordTree(Graph & g, uint32_t lim) {
 }
 
 int main (void) {
-    int wordlen = 10;
+    int wordlen = 5;
     std::cout << "calculating... " << std::endl;
     Graph graph = readgraph();
     WordTree wt = toWordTree(graph, wordlen);
@@ -52,7 +55,7 @@ int main (void) {
     alpha.add('1');
 
     Strategy strat(0, wordlen);
-    Mode * mode = new Mode1();
+    Mode * mode = new Mode2();
     std::cout << wt << std::endl;
     uint32_t max = 0;
     int num = 1 << strat.lim();

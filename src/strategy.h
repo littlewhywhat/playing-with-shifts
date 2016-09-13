@@ -20,13 +20,19 @@ class Strategy {
         }
         return i;
     }
+    bool hasNextB(uint32_t pos) const {
+        for (uint32_t i = pos; i < m_Lim; i++)
+            if (at(i))
+                return true;
+        return false;
+    }
     char at(uint32_t pos) const {
         uint32_t val = m_Val;
         val >>= pos;
         return val % 2;
 
     }
-    uint32_t lim() {
+    uint32_t lim() const {
         return m_Lim;
     }
     friend std::ostream & operator << (std::ostream & out, const Strategy & src) {
