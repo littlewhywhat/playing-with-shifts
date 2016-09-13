@@ -58,6 +58,13 @@ class TNode {
     const std::vector<TNode *> & getChildren() const {
         return m_Children;
     }
+    const std::vector<TNode *> getChildren(char letter) const {
+        std::vector<TNode *> children;
+        for (TNode * node : m_Children)
+            if (node -> m_Lbl == letter)
+                children.push_back(node);
+        return children;
+    }
     bool hasChildren() const { 
         return !m_Children.empty();
     }

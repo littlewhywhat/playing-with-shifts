@@ -7,16 +7,14 @@
 #include "wordtree.h"
 #include "graph.h"
 #include "strategy.h"
-#include "mode.h"
+#include "mode1.h"
 
 Graph readgraph() {
     Graph graph(4);
     graph.addEdge(0, 1, '0');
     graph.addEdge(0, 1, '1');
-    graph.addEdge(1, 2, '0');
-    graph.addEdge(1, 3, '1');
-    graph.addEdge(2, 3, '1');
-    graph.addEdge(3, 0, '0');
+    graph.addEdge(1, 0, '0');
+    graph.addEdge(1, 0, '1');
     return graph;
 }
 
@@ -44,24 +42,29 @@ WordTree toWordTree(Graph & g, uint32_t lim) {
 }
 
 int main (void) {
+    int wordlen = 10;
     std::cout << "calculating... " << std::endl;
     Graph graph = readgraph();
-    WordTree wt = toWordTree(graph, 20);
+    WordTree wt = toWordTree(graph, wordlen);
 
-    Strategy strat(0, 20);
-    Mode mode;
+    Alphabet alpha;
+    alpha.add('0');
+    alpha.add('1');
+
+    Strategy strat(0, wordlen);
+    Mode * mode = new Mode1();
     std::cout << wt << std::endl;
     uint32_t max = 0;
     int num = 1 << strat.lim();
     for (int i = 0; i < num; i++) {
-        if (mode.good_strategy(strat, wt)) {
+        if (mode -> good_strategy(strat, wt, alpha)) {
             std::cout << strat << std::endl; 
             if (max < strat.countB())
                 max = strat.countB();
         }
         strat.incr();
     }
-    std::cout << max << std::endl;
-    
+    std::cout << "Max: " << max << std::endl;
+    delete mode;    
     return 0;
 }
