@@ -84,6 +84,12 @@ class Mode2 : public Mode {
             }
             return true;
         } else {
+            if (!s.hasPrevB(turn)) {
+                for (TNode * child : node -> getChildren())
+                    if (good_turn(s, child, turn + 1, alpha))
+                        return true;
+                return false;
+            }
             if (!s.hasNextB(turn))
                 return true;
             if (!m_Rest ->isInit(turn))
@@ -98,8 +104,8 @@ class Mode2 : public Mode {
                     if (!good_turn(s, child, turn + 1, alpha))
                         m_Rest ->remove(letter, turn);
             }
-            if (m_Rest ->empty(turn))
-                std::cout << "Turn A false, pos " << turn << " " << s << std::endl;
+//            if (m_Rest ->empty(turn))
+            //    std::cout << "Turn A false, pos " << turn << " " << s << std::endl;
             return !m_Rest ->empty(turn);
         }
     }

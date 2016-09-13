@@ -49,7 +49,7 @@ int main (void) {
     std::cout << "calculating... " << std::endl;
     Graph graph = readgraph();
     WordTree wt = toWordTree(graph, wordlen);
-
+    wt.addWord("01110");
     Alphabet alpha;
     alpha.add('0');
     alpha.add('1');

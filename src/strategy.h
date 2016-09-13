@@ -20,6 +20,12 @@ class Strategy {
         }
         return i;
     }
+    bool hasPrevB(uint32_t pos) const {
+        for (int i = (int)pos; i >= 0; i--)
+            if (at(i))
+                return true;
+        return false;
+    }
     bool hasNextB(uint32_t pos) const {
         for (uint32_t i = pos; i < m_Lim; i++)
             if (at(i))
