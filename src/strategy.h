@@ -44,7 +44,7 @@ class Strategy {
     friend std::ostream & operator << (std::ostream & out, const Strategy & src) {
         uint32_t val = src.m_Val;
         uint32_t lim = src.m_Lim;
-        out << val << std::endl;
+        //out << val << std::endl;
         while (lim > 0) {
             lim--;
             out << val % 2;

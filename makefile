@@ -6,13 +6,13 @@ MAIN = program
 RM = rm -r -f
 
 compile: $(BIN) 
-	$(CC) $(CFLAGS) $(SRC)/$(MAIN).cpp -o $(BIN)/$(MAIN) 2>&1 | less
+	$(CC) $(CFLAGS) $(SRC)/$(MAIN).cpp -o $(MAIN) 2>&1 | less
 $(BIN):
 	mkdir $(BIN)
 clean:
 	$(RM) $(BIN)
 valg:
-	valgrind $(BIN)/$(MAIN) 
+	valgrind ./$(MAIN) data/graph 5 1 
 gdb:
 	gdb ./$(BIN)/$(MAIN)
 test: $(BIN)/$(MAIN) 
