@@ -56,15 +56,18 @@ int main (int argc, char * argv[]) {
         mode = new Mode2();
     //std::cout << wt << std::endl;
     uint32_t max = 0;
-    int num = 1 << strat.lim();
     std::cout << "good strategies are: " << std::endl;
-    for (int i = 0; i < num; i++) {
+    while (!strat.outOfLen()) {
         if (mode -> good_strategy(strat, wt, alpha)) {
             std::cout << strat << std::endl; 
             if (max < strat.countB())
                 max = strat.countB();
         }
-        strat.incr();
+        if (strat.countB() > max)
+            strat.incr();
+        while (strat.countB() <= max && !strat.outOfLen()) {
+            strat.incr();
+        }
     }
     std::cout << "max = " << max << std::endl;
     delete mode;

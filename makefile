@@ -14,6 +14,6 @@ clean:
 valg:
 	valgrind ./$(MAIN) data/graph 5 1 
 gdb:
-	gdb ./$(BIN)/$(MAIN)
+	gdb --args ./$(MAIN) data/graph 5 1
 test: $(BIN)/$(MAIN) 
 	./$(BIN)/$(MAIN) > ./$(BIN)/output; diff ./$(BIN)/output ./test/output0
