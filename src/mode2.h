@@ -90,8 +90,8 @@ class Mode2 : public Mode {
                         return true;
                 return false;
             }
-            if (!s.hasNextB(turn))
-                return true;
+            //if (!s.hasNextB(turn))
+            //    return true;
             if (!m_Rest ->isInit(turn))
                 m_Rest ->init(node -> getChildren(), turn);
             for (char letter : m_Rest ->elems(turn)) {
