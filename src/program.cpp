@@ -42,8 +42,10 @@ int main (int argc, char * argv[]) {
     WordTree wt;
     Graph2Wt g2wt(wordlen);
     std::cout << "Building wordtree..." << std::endl;
-    g2wt.translate(graph, wt);
-    
+    //g2wt.translate(graph, wt);
+    wt.addWord("011");
+    wt.addWord("100");
+
     Alphabet alpha;
     alpha.add('0');
     alpha.add('1');
@@ -63,11 +65,11 @@ int main (int argc, char * argv[]) {
             if (max < strat.countB())
                 max = strat.countB();
         }
-        if (strat.countB() > max)
+        //if (strat.countB() > max)
             strat.incr();
-        while (strat.countB() <= max && !strat.outOfLen()) {
-            strat.incr();
-        }
+       // while (strat.countB() <= max && !strat.outOfLen()) {
+       //     strat.incr();
+       // }
     }
     std::cout << "max = " << max << std::endl;
     delete mode;

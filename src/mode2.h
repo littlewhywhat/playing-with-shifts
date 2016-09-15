@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <map>
 #include <utility>
+#include <set>
 
 #include "strategy.h"
 #include "wordtree.h"
@@ -66,7 +67,7 @@ class Restricts {
 class Mode2 : public Mode {
   private:
     Restricts * m_Rest;
-    bool good_turn(Strategy & s, const TNode * node, uint32_t turn, Alphabet & alpha) {
+    bool good_turn(Strategy & s, const TNode * node, uint32_t turn, const Alphabet & alpha) {
         if (turn == s.lim())
             return true;
         if (s.at(turn)) {
@@ -111,7 +112,8 @@ class Mode2 : public Mode {
     }
   public:
     ~Mode2() override {}
-    bool good_strategy(Strategy & s, WordTree & wt, Alphabet & alpha) override{        m_Rest = new Restricts(s);
+    bool good_strategy(Strategy & s, const WordTree & wt, const Alphabet & alpha) override{        
+        m_Rest = new Restricts(s);
         bool res = good_turn(s, wt.root(), 0, alpha);
         delete m_Rest;
         return res;

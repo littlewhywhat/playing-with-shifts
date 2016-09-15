@@ -11,7 +11,7 @@
 
 class Mode1 : public Mode {
   private:
-    bool good_turn(Strategy & s, const TNode * node, uint32_t turn, Alphabet & alpha) {
+    bool good_turn(Strategy & s, const TNode * node, uint32_t turn, const Alphabet & alpha) {
         if (turn == s.lim())
             return true;
         if (s.at(turn)) {
@@ -35,7 +35,7 @@ class Mode1 : public Mode {
     }
   public:
     ~Mode1() override {}
-    bool good_strategy(Strategy & s, WordTree & wt, Alphabet & alpha) override{
+    bool good_strategy(Strategy & s, const WordTree & wt, const Alphabet & alpha) override{
         return good_turn(s, wt.root(), 0, alpha);
     }
 };
