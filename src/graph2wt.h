@@ -4,14 +4,14 @@
 #include <string>
 
 #include "graph.h"
-#include "wordtree.h"
+#include "wordtable.h"
 
 class Graph2Wt {
   private:
     uint32_t m_WordLen;
-    void produceNext(WordTree & wt, GNode * node, uint32_t lettercnt, std::string & buffer) const {
+    void produceNext(WordTable & wt, GNode * node, uint32_t lettercnt, std::string & buffer) const {
         if (lettercnt == m_WordLen) {
-            wt.addWord(buffer);
+            wt.add(buffer);
             return;
         }
         for (GEdge * edge : node -> out()) {
@@ -25,7 +25,7 @@ class Graph2Wt {
     }
   public:
     Graph2Wt(uint32_t wordlen) : m_WordLen(wordlen) {}
-    void translate(const Graph & graph, WordTree & wt) const {
+    void translate(const Graph & graph, WordTable & wt) const {
         uint32_t lettercnt = 0;
         std::string buffer;
         for (GNode * node : graph.nodes())

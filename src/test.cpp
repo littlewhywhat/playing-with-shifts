@@ -29,7 +29,6 @@ class GoodStrat {
             mode = new Mode1();
         else 
             mode = new Mode2();
-        Strategy s(0, strat_len);
         std::list<std::string> l;
         std::stringstream ss;
         uint32_t max = (uint32_t)1 << strat_len;

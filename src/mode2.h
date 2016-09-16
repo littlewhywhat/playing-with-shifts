@@ -5,6 +5,7 @@
 #include <map>
 #include <utility>
 #include <set>
+#include <list>
 
 #include "mode.h"
 

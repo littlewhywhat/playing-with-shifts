@@ -1,10 +1,12 @@
 #ifndef WORDTABLE_H
 #define WORDTABLE_H
 
+#include <iostream>
 #include <string>
 #include <vector>
 #include <utility>
 #include <cstdint>
+#include <list>
 
 class WordTable {
   private:
@@ -45,6 +47,11 @@ class WordTable {
                 s_words.push_back(word);
         }
         return s_words;
+    }
+    friend std::ostream & operator << (std::ostream & out, const WordTable & src) {
+        for (auto word : src.m_Words)
+            out << word << std::endl;
+        return out;
     }
 };
 

@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <set>
 
-#include "wordtree.h"
+#include "wordtable.h"
 #include "graph.h"
 #include "strategy.h"
 #include "mode1.h"
@@ -39,37 +39,29 @@ int main (int argc, char * argv[]) {
         std::cout << e << std::endl;
         return 1;
     }
-    WordTree wt;
+    WordTable wt;
     Graph2Wt g2wt(wordlen);
     std::cout << "Building wordtree..." << std::endl;
-    //g2wt.translate(graph, wt);
-    wt.addWord("011");
-    wt.addWord("100");
+    g2wt.translate(graph, wt);
+    std::cout << wt << std::endl;
 
-    Alphabet alpha;
-    alpha.add('0');
-    alpha.add('1');
-
-    Strategy strat(0, wordlen);
     Mode * mode;
     if (mode_code == 1)
         mode = new Mode1();
     else 
         mode = new Mode2();
-    //std::cout << wt << std::endl;
+    
     uint32_t max = 0;
     std::cout << "good strategies are: " << std::endl;
-    while (!strat.outOfLen()) {
-        if (mode -> good_strategy(strat, wt, alpha)) {
-            std::cout << strat << std::endl; 
-            if (max < strat.countB())
-                max = strat.countB();
+    uint32_t max_s = (uint32_t)1 << wordlen;
+    for (uint32_t i = 0; i < max_s; i++) {
+        Strategy s(i, wordlen);
+        if (mode -> good_strat(s, wt)) {
+            std::cout << s << std::endl;
+            uint32_t bcnt = s.countB();
+            if (max < bcnt)
+                max = bcnt;
         }
-        //if (strat.countB() > max)
-            strat.incr();
-       // while (strat.countB() <= max && !strat.outOfLen()) {
-       //     strat.incr();
-       // }
     }
     std::cout << "max = " << max << std::endl;
     delete mode;

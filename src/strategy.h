@@ -21,6 +21,16 @@ class Strategy {
     const std::vector<uint32_t> bids() const {
         return m_BIds;
     }
+    uint32_t countB() const {
+        uint32_t cnt = 0;
+        uint64_t val = m_Val;
+        for (uint32_t i = 0; i < m_Len; i++) {
+            if (val & 1)
+                cnt++;
+            val >>= 1;
+        }
+        return cnt;
+    }
     friend std::ostream & operator << (std::ostream & out, const Strategy & s) {
         uint64_t mask = 1;
         uint64_t val = s.m_Val;
