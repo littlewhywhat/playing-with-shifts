@@ -6,6 +6,8 @@
 #include <vector>
 #include <utility>
 #include <iostream>
+#include <map>
+#include <set>
 
 class WordTable {
   private:
@@ -16,19 +18,36 @@ class WordTable {
     }
     bool has(const std::vector<std::pair<uint32_t, char>> & id_letters) const {
         for (const std::string & word : m_Words) {
-            uint32_t cnt_matches = 0;
+            uint32_t cnt_ltr_matches = 0;
             for (auto id_lttr : id_letters) {
                 uint32_t id = id_lttr.first;
                 char letter = id_lttr.second;
                 if (word.size() <= id || 
                         word.at(id) != letter)
                     break;
-                cnt_matches++;
+                cnt_ltr_matches++;
             }
-            if (cnt_matches == id_letters.size())
+            if (cnt_ltr_matches == id_letters.size())
                 return true;
         }
         return false;
+    }
+    std::list<std::string> findAll(const std::vector<std::pair<uint32_t, char>> & id_letters) const {
+        std::list<std::string> s_words;
+        for (const std::string & word : m_Words) {
+            uint32_t cnt_ltr_matches = 0;
+            for (auto id_lttr : id_letters) {
+                uint32_t id = id_lttr.first;
+                char letter = id_lttr.second;
+                if (word.size() <= id || 
+                        word.at(id) != letter)
+                    break;
+                cnt_ltr_matches++;
+            }
+            if (cnt_ltr_matches == id_letters.size())
+                s_words.push_back(word);
+        }
+        return s_words;
     }
 };
 
@@ -60,24 +79,94 @@ class Strategy {
     }
 };
 
+class Mode {
+  public:
+    virtual ~Mode() {};
+    virtual bool good_strat(const Strategy & s, const WordTable & wt) const = 0;     
+};
 
-
-bool mode1_binary(const Strategy & s, const WordTable & wt) {
-    uint32_t mask = 1;
-    uint32_t max = (uint32_t)1 << s.bids().size();
-    for (uint32_t i = 0; i < max; i++) {
-        std::vector<std::pair<uint32_t, char>> id_letters;
-        uint32_t data = i;
-        for (uint32_t bid : s.bids()) {
-            char letter = (data & mask) + '0';
-            id_letters.push_back(std::make_pair(bid, letter));
-            data >>= 1;
+class Mode1 : public Mode {
+  public:
+    ~Mode1() override {}  
+    bool good_strat(const Strategy & s, const WordTable & wt) const override{
+        uint32_t mask = 1;
+        uint32_t max = (uint32_t)1 << s.bids().size();
+        for (uint32_t i = 0; i < max; i++) {
+            std::vector<std::pair<uint32_t, char>> id_letters;
+            uint32_t data = i;
+            for (uint32_t bid : s.bids()) {
+                char letter = (data & mask) + '0';
+                id_letters.push_back(std::make_pair(bid, letter));
+                data >>= 1;
+            }
+            if (!wt.has(id_letters))
+                return false;
         }
-        if (!wt.has(id_letters))
-            return false;
+        return true;
     }
-    return true;
-}
+};
+
+class Mode2 : public Mode {
+  private:
+    class Cmp {
+      private:
+        std::set<uint32_t> m_Bids;
+      public:
+        Cmp(const std::vector<uint32_t> & bids) {
+            for (auto bid : bids)
+                m_Bids.insert(bid);
+        }
+        bool operator() (const std::string & a, const std::string & b) const {
+            if (a.length() != b.length())
+                return true;
+            for (uint32_t i = 0; i < a.length(); i++) {
+                if (m_Bids.find(i) == m_Bids.end() && a.at(i) != b.at(i)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    };
+  public:
+    ~Mode2() override {}
+    bool good_strat(const Strategy & s, const WordTable & wt) const override {
+        uint32_t mask = 1;
+        uint32_t max = (uint32_t)1 << s.bids().size();
+        Cmp c(s.bids());
+        std::map<std::string, uint32_t, Cmp> g_words(c);
+        uint32_t last_i = max - 1;
+        for (uint32_t i = 0; i < max; i++) {
+            std::vector<std::pair<uint32_t, char>> id_letters;
+            uint32_t data = i;
+            for (uint32_t bid : s.bids()) {
+                char letter = (data & mask) + '0';
+                id_letters.push_back(std::make_pair(bid, letter));
+                data >>= 1;
+            }
+            std::list<std::string> s_words = wt.findAll(id_letters);
+            if (s_words.empty())
+                return false;
+            if (i == 0)
+                for (auto word : s_words)
+                    g_words.insert(std::make_pair(word, 1));
+            else {
+                for (auto word : s_words) {
+                    auto search = g_words.find(word);
+                    if (search != g_words.end())
+                        (*search).second += 1;
+                }
+            }
+            if (i == last_i) {
+                for (auto word : s_words) {
+                    auto search = g_words.find(word);
+                    if (search != g_words.end() && (*search).second == max)
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+};
 
 class GoodStrat {
   private:
@@ -87,20 +176,26 @@ class GoodStrat {
     void addWord(const std::string & word) {
         m_WT.add(word);
     }
-    std::list<std::string> goodstrat(uint32_t strat_len) {
+    std::list<std::string> goodstrat(uint32_t strat_len, uint32_t mode_code) {
+        Mode * mode = NULL;
+        if (mode_code == 1)
+            mode = new Mode1();
+        else 
+            mode = new Mode2();
         Strategy s(0, strat_len);
         std::list<std::string> l;
         std::stringstream ss;
         uint32_t max = (uint32_t)1 << strat_len;
         for (uint32_t i = 0; i < max; i++) {
             Strategy s(i, strat_len);
-            if (mode1_binary(s, m_WT)) {
+            if (mode -> good_strat(s, m_WT)) {
                 ss << s;
                 l.push_back(ss.str());
                 ss.str(std::string());
                 ss.clear();
             }
         }
+        delete mode;
         return l;
     }
 };
@@ -121,14 +216,14 @@ class GsReader {
 
 const int PATH_LEN_ID = 1;
 const int STRAT_LEN_ID = 2;
-//const int MODE_CODE_ID = 3;
+const int MODE_CODE_ID = 3;
 
 int main(int argc, char * argv[]) {
     uint32_t strat_len = std::stoi(argv[STRAT_LEN_ID]);
     GoodStrat gs;
     GsReader gsr;
     gsr.read(gs, argv[PATH_LEN_ID]);
-    std::list<std::string> res = gs.goodstrat(strat_len);
+    std::list<std::string> res = gs.goodstrat(strat_len, std::stoi(argv[MODE_CODE_ID]));
     for (const std::string & s : res) 
         std::cout << s << std::endl;
     return 0;
