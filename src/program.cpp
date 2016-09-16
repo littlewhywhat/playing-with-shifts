@@ -41,7 +41,7 @@ int main (int argc, char * argv[]) {
     }
     WordTable wt;
     Graph2Wt g2wt(wordlen);
-    std::cout << "Building wordtree..." << std::endl;
+    std::cout << "Building wordtable..." << std::endl;
     g2wt.translate(graph, wt);
     std::cout << wt << std::endl;
 
@@ -57,12 +57,10 @@ int main (int argc, char * argv[]) {
     for (uint32_t i = 0; i < max_s; i++) {
         Strategy s(i, wordlen);
         uint32_t bcnt = s.countB();
-        if (bcnt <= max)
-            continue;
-        if (mode -> good_strat(s, wt)) {
+        if (bcnt > max && 
+                mode -> good_strat(s, wt)) {
             std::cout << s << std::endl;
-            if (max < bcnt)
-                max = bcnt;
+            max = bcnt;
         }
     }
     std::cout << "max = " << max << std::endl;
