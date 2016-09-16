@@ -56,9 +56,11 @@ int main (int argc, char * argv[]) {
     uint32_t max_s = (uint32_t)1 << wordlen;
     for (uint32_t i = 0; i < max_s; i++) {
         Strategy s(i, wordlen);
+        uint32_t bcnt = s.countB();
+        if (bcnt <= max)
+            continue;
         if (mode -> good_strat(s, wt)) {
             std::cout << s << std::endl;
-            uint32_t bcnt = s.countB();
             if (max < bcnt)
                 max = bcnt;
         }

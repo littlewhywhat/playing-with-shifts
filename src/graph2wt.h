@@ -2,6 +2,7 @@
 #define GRAPH2WT_H
 
 #include <string>
+#include <set>
 
 #include "graph.h"
 #include "wordtable.h"
@@ -9,9 +10,14 @@
 class Graph2Wt {
   private:
     uint32_t m_WordLen;
-    void produceNext(WordTable & wt, GNode * node, uint32_t lettercnt, std::string & buffer) const {
+    std::set<std::string> m_Words;
+
+    void produceNext(WordTable & wt, GNode * node, uint32_t lettercnt, std::string & buffer) {
         if (lettercnt == m_WordLen) {
-            wt.add(buffer);
+            if (m_Words.find(buffer) == m_Words.end()) {
+                wt.add(buffer);
+                m_Words.insert(buffer);
+            }
             return;
         }
         for (GEdge * edge : node -> out()) {
@@ -25,7 +31,7 @@ class Graph2Wt {
     }
   public:
     Graph2Wt(uint32_t wordlen) : m_WordLen(wordlen) {}
-    void translate(const Graph & graph, WordTable & wt) const {
+    void translate(const Graph & graph, WordTable & wt) {
         uint32_t lettercnt = 0;
         std::string buffer;
         for (GNode * node : graph.nodes())
