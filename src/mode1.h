@@ -3,40 +3,26 @@
 
 #include <cstdint>
 
-#include "strategy.h"
-#include "wordtree.h"
-#include "tnode.h"
 #include "mode.h"
-#include "alphabet.h"
 
 class Mode1 : public Mode {
-  private:
-    bool good_turn(Strategy & s, const TNode * node, uint32_t turn, const Alphabet & alpha) {
-        if (turn == s.lim())
-            return true;
-        if (s.at(turn)) {
-            for (char letter : alpha.letters()) {
-                bool has = false;
-                for (TNode * child : node -> getChildren(letter))
-                    if (good_turn(s, child, turn + 1, alpha)) {
-                        has = true;
-                        break;
-                    }
-                if (!has)
-                    return false;
-            }
-            return true;
-        } else {
-            for (TNode * child : node -> getChildren())
-                if (good_turn(s, child, turn + 1, alpha))
-                    return true;
-            return false;
-        }
-    }
   public:
-    ~Mode1() override {}
-    bool good_strategy(Strategy & s, const WordTree & wt, const Alphabet & alpha) override{
-        return good_turn(s, wt.root(), 0, alpha);
+    ~Mode1() override {}  
+    bool good_strat(const Strategy & s, const WordTable & wt) const override{
+        uint32_t mask = 1;
+        uint32_t max = (uint32_t)1 << s.bids().size();
+        for (uint32_t i = 0; i < max; i++) {
+            std::vector<std::pair<uint32_t, char>> id_letters;
+            uint32_t data = i;
+            for (uint32_t bid : s.bids()) {
+                char letter = (data & mask) + '0';
+                id_letters.push_back(std::make_pair(bid, letter));
+                data >>= 1;
+            }
+            if (!wt.has(id_letters))
+                return false;
+        }
+        return true;
     }
 };
 

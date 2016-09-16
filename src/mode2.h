@@ -6,117 +6,67 @@
 #include <utility>
 #include <set>
 
-#include "strategy.h"
-#include "wordtree.h"
-#include "tnode.h"
 #include "mode.h"
-#include "alphabet.h"
-
-
-class Restricts {
-  private:
-    std::map<uint32_t, std::set<char> *> m_Letters;
-    std::map<uint32_t, bool> m_IsInit;
-    std::set<char> * getSet(uint32_t pos) {
-        auto set = m_Letters.find(pos);
-        if (set == m_Letters.end())
-            throw "No such pos to init"; 
-        return set -> second;
-    }
-  public:
-    Restricts(const Strategy & s) {
-        for (uint32_t i = 0; i < s.lim(); i++)
-            if (!s.at(i)) {
-                m_IsInit.insert(std::make_pair(i, false));
-                m_Letters.insert(std::make_pair(i, new std::set<char> ()));
-            }
-    }
-    ~Restricts() {
-        for (auto pair : m_Letters) 
-            delete pair.second;
-    }
-    bool isInit(uint32_t pos) const {
-        auto search = m_IsInit.find(pos);
-        if (search != m_IsInit.end())
-            return search -> second;
-        throw "No such pos in rest";
-    } 
-    void init(const std::vector<TNode *> & children, uint32_t pos) {
-        m_IsInit.erase(pos);
-        m_IsInit.insert(std::make_pair(pos, true));
-        auto set = getSet(pos);
-        for (TNode * node : children) {
-            set -> insert(node -> getLbl());
-        }
-    }
-    void remove(char lbl, uint32_t pos) {
-        auto set = getSet(pos);
-        set -> erase(lbl);
-    }
-    bool empty(uint32_t pos) {
-        return getSet(pos) -> empty();
-    }
-    const std::set<char> elems(uint32_t pos) {
-        auto set = m_Letters.find(pos);
-        if (set == m_Letters.end())
-            throw "No such pos to init"; 
-        return *set -> second;
-    }
-};
 
 class Mode2 : public Mode {
   private:
-    Restricts * m_Rest;
-    bool good_turn(Strategy & s, const TNode * node, uint32_t turn, const Alphabet & alpha) {
-        if (turn == s.lim())
-            return true;
-        if (s.at(turn)) {
-            for (char letter : alpha.letters()) {
-                bool has = false;
-                for (TNode * child : node -> getChildren(letter))
-                    if (good_turn(s, child, turn + 1, alpha)) {
-                        has = true;
-                        break;
-                    }
-                if (!has) {
-                  //  std::cout << "Turn B false, pos " << turn << " " << s << std::endl;
-                    return false;
-                }
-            }
-            return true;
-        } else {
-            if (!s.hasPrevB(turn)) {
-                for (TNode * child : node -> getChildren())
-                    if (good_turn(s, child, turn + 1, alpha))
-                        return true;
-                return false;
-            }
-            //if (!s.hasNextB(turn))
-            //    return true;
-            if (!m_Rest ->isInit(turn))
-                m_Rest ->init(node -> getChildren(), turn);
-            for (char letter : m_Rest ->elems(turn)) {
-                //std::cout << letter << std::endl;
-                if (!node -> hasChild(letter)) {
-                    m_Rest ->remove(letter, turn);
-                    continue;
-                }
-                for (TNode * child : node -> getChildren(letter))
-                    if (!good_turn(s, child, turn + 1, alpha))
-                        m_Rest ->remove(letter, turn);
-            }
-//            if (m_Rest ->empty(turn))
-            //    std::cout << "Turn A false, pos " << turn << " " << s << std::endl;
-            return !m_Rest ->empty(turn);
+    class Cmp {
+      private:
+        std::set<uint32_t> m_Bids;
+      public:
+        Cmp(const std::vector<uint32_t> & bids) {
+            for (auto bid : bids)
+                m_Bids.insert(bid);
         }
-    }
+        bool operator() (const std::string & a, const std::string & b) const {
+            if (a.length() != b.length())
+                return true;
+            for (uint32_t i = 0; i < a.length(); i++) {
+                if (m_Bids.find(i) == m_Bids.end() && a.at(i) != b.at(i)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    };
   public:
     ~Mode2() override {}
-    bool good_strategy(Strategy & s, const WordTree & wt, const Alphabet & alpha) override{        
-        m_Rest = new Restricts(s);
-        bool res = good_turn(s, wt.root(), 0, alpha);
-        delete m_Rest;
-        return res;
+    bool good_strat(const Strategy & s, const WordTable & wt) const override {
+        uint32_t mask = 1;
+        uint32_t max = (uint32_t)1 << s.bids().size();
+        Cmp c(s.bids());
+        std::map<std::string, uint32_t, Cmp> g_words(c);
+        uint32_t last_i = max - 1;
+        for (uint32_t i = 0; i < max; i++) {
+            std::vector<std::pair<uint32_t, char>> id_letters;
+            uint32_t data = i;
+            for (uint32_t bid : s.bids()) {
+                char letter = (data & mask) + '0';
+                id_letters.push_back(std::make_pair(bid, letter));
+                data >>= 1;
+            }
+            std::list<std::string> s_words = wt.findAll(id_letters);
+            if (s_words.empty())
+                return false;
+            if (i == 0)
+                for (auto word : s_words)
+                    g_words.insert(std::make_pair(word, 1));
+            else {
+                for (auto word : s_words) {
+                    auto search = g_words.find(word);
+                    if (search != g_words.end())
+                        (*search).second += 1;
+                }
+            }
+            if (i == last_i) {
+                for (auto word : s_words) {
+                    auto search = g_words.find(word);
+                    if (search != g_words.end() && (*search).second == max)
+                        return true;
+                }
+            }
+        }
+        return false;
     }
 };
 

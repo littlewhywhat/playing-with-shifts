@@ -1,16 +1,13 @@
 #ifndef MODE_H
 #define MODE_H
 
-#include <cstdint>
-
 #include "strategy.h"
-#include "wordtree.h"
-#include "alphabet.h"
+#include "wordtable.h"
 
 class Mode {
   public:
     virtual ~Mode() {};
-    virtual bool good_strategy(Strategy & s, const WordTree & wt, const Alphabet & alpha) = 0;
+    virtual bool good_strat(const Strategy & s, const WordTable & wt) const = 0;     
 };
 
 #endif
