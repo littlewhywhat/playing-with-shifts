@@ -83,15 +83,18 @@ max = 2
 ## Test
 The program consists of two parts: 
  * translating of graph to wordtable(language) 
+```
+    ./testg2wt
+```
  * computation of strategies using wordtable
+```
+    ./testwt2ss
+```
 
-There are no tests for first part.
-To execute test for second part, use:
+The commands will compile special execution files for each case,
+read some data in data folder and test outputs of graph translation or
+computation algorithm for mode1 and mode2.
 
-`make test`
-
-The command will compile special tprogram execution file,
-read some prespecified wordtables in test folder and test outputs 
-of computation algorithm for mode1 and mode2.
-
-WARNING: this option requires colordiff installed on your machine.
+WARNING: this option requires `colordiff` installed on your machine. 
+You can change DIFF variable in both shell scripts to usual `diff` that 
+is usually installed by default
