@@ -10,7 +10,7 @@ Aim of B - opposite - fill its positions to make some word out of a language.
 
 According to game mode strategy can be called successfull.
 
-This application takes in a graph with labeled edges (so far only '1' or '0' labels are supported),
+This application takes in a graph with labeled edges (`so far only '1' or '0' labels are supported`),
 based on it produces a language of defined length
 and find max number of positions in successful strategy that could be given to B.
 
