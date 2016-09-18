@@ -20,11 +20,11 @@ C++11
 
 run the following command in shell from root folder:
 
-'make'
+`make`
 
 or 
 
-'make compile'
+`make compile`
 
 Both will build an execution file 'program' in root folder.
 
@@ -46,7 +46,7 @@ Graph with 4 nodes and one edge from node 1 to 0 with label 1.
 
 run the following command in shell from root folder:
 
-'./program path_to_graph length_of_language game_mode'
+`./program path_to_graph length_of_language game_mode`
 
 where length_of_language is some positive integer 
 (after 10 in current version answer could take time :)) 
@@ -57,11 +57,11 @@ and game_mode is either 1 or 2.
 
 To start you can try example graphs in 'data' folder:
 
-'make run'
+`make run`
 
 or
 
-'./program data/graph 3 1'
+`./program data/graph 3 1`
 
 will produce the following output:
 
@@ -99,7 +99,7 @@ The program consists of two parts:
 There are no tests for first part.
 To execute test for second part, use:
 
-'make test'
+`make test`
 
 The command will compile special tprogram execution file,
 read some prespecified wordtables in test folder and test outputs 
