@@ -1,9 +1,12 @@
+DATA=data/g2wt
 EXEC=testg2wt
-RES=test/g2wt_res
+RES=$DATA/res
 DIFF=colordiff
 
-echo "graph 3"
-./$EXEC data/graph 3 > ./$RES
-$DIFF ./$RES test/graph_3
+g++ -std=c++11 src/$EXEC.cpp -o $EXEC
 
-rm -f $RES
+echo "graph 3"
+./$EXEC $DATA/graph 3 > ./$RES
+$DIFF ./$RES $DATA/graph_3
+
+rm -f $RES; rm -f $EXEC
