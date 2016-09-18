@@ -28,6 +28,19 @@ make compile
 '''
 it will build an execution file 'program' in root folder.
 
+####Graph format
+
+first line is number of nodes.
+from second line program starts to read edges with startnode, endnode and label 
+specified through comma. Counting of nodes starts from 0.
+
+Example:
+'''
+4
+1,0,1
+'''
+Graph with 4 nodes and one edge from node 1 to 0 with label 1.
+
 ####Run
 
 run the following command in shell from root folder:
