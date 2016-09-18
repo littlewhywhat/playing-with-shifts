@@ -14,21 +14,21 @@ This application takes in a graph with labeled edges (so far only '1' or '0' lab
 based on it produces a language of defined length
 and find max number of positions in successful strategy that could be given to B.
 
-##Build
+## Build
 
 C++11
 
 run the following command in shell from root folder:
-'
-make 
-'
-or 
-'
-make compile
-'
-it will build an execution file 'program' in root folder.
 
-##Graph format
+'make'
+
+or 
+
+'make compile'
+
+Both will build an execution file 'program' in root folder.
+
+## Graph format
 
 first line is number of nodes.
 from second line program starts to read edges with startnode, endnode and label 
@@ -41,7 +41,7 @@ Example:
 '
 Graph with 4 nodes and one edge from node 1 to 0 with label 1.
 
-##Run
+## Run
 
 run the following command in shell from root folder:
 
@@ -52,7 +52,7 @@ where length_of_language is some positive integer
 
 and game_mode is either 1 or 2.
 
-##Example
+## Example
 
 To start you can try example graphs in 'data' folder:
 
@@ -82,10 +82,10 @@ good strategies are:
 max = 2
 '''
 
-##Test
+## Test
 The program consists of two parts: 
-1. translating of graph to wordtable(language) 
-2. computation of strategies using wordtable
+ * translating of graph to wordtable(language) 
+ * computation of strategies using wordtable
 
 There are no tests for first part.
 To execute test for second part, use:
