@@ -14,6 +14,7 @@ This application takes in a graph, based on it produces a language of defined le
 and find max number of positions in successful strategy that could be given to B.
 
 ####Build
+
 run the following command in shell from root folder:
 '''
 make 
