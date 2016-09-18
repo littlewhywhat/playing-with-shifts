@@ -35,11 +35,10 @@ from second line program starts to read edges with startnode, endnode and label
 specified through comma. Counting of nodes starts from 0.
 
 Example:
-
+```
 4 
-
 1,0,1
-
+```
 Graph with 4 nodes and one edge from node 1 to 0 with label 1.
 
 ## Run
@@ -64,32 +63,22 @@ or
 `./program data/graph 3 1`
 
 will produce the following output:
-
+```
 Building wordtable...
-
 001
-
 010
-
 101
-
 110
-
 100
-
 000
-
 011
 
 
 good strategies are:
-
 100
-
 110
-
 max = 2
-
+```
 
 ## Test
 The program consists of two parts: 
