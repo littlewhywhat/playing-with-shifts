@@ -10,74 +10,74 @@ g++ -std=c++11 src/$EXEC.cpp -o $EXEC
 
 echo "full_in"
 echo " - mode1"
-./$EXEC $IN/full_in 3 1 > ./$RES
-$DIFF ./$RES $OUT/full_out
+./$EXEC $IN/full 3 1 > ./$RES
+$DIFF ./$RES $OUT/full
 echo " - mode2"
-./$EXEC $IN/full_in 3 2 > ./$RES
-$DIFF ./$RES $OUT/full_out
+./$EXEC $IN/full 3 2 > ./$RES
+$DIFF ./$RES $OUT/full
 
-echo "input_wt0 100"
+echo "wt0 100"
 echo " - mode1"
-./$EXEC $IN/input_wt0 3 1 > ./$RES
-$DIFF ./$RES $OUT/output_wt01
+./$EXEC $IN/wt0 3 1 > ./$RES
+$DIFF ./$RES $OUT/wt01
 echo " - mode2"
-./$EXEC $IN/input_wt0 3 2 > ./$RES
+./$EXEC $IN/wt0 3 2 > ./$RES
 $DIFF ./$RES $EMPTY
 
-echo "input_wt1 101"
+echo "wt1 101"
 echo " - mode1"
-./$EXEC $IN/input_wt1 3 1 > ./$RES
-$DIFF ./$RES $OUT/output_wt11
+./$EXEC $IN/wt1 3 1 > ./$RES
+$DIFF ./$RES $OUT/wt11
 echo " - mode2"
-./$EXEC $IN/input_wt1 3 2 > ./$RES
-$DIFF ./$RES $OUT/output_wt12
+./$EXEC $IN/wt1 3 2 > ./$RES
+$DIFF ./$RES $OUT/wt12
 
-echo "input_wt2 101"
+echo "wt2 101"
 echo " - mode1"
-./$EXEC $IN/input_wt2 3 1 > ./$RES
-$DIFF ./$RES $OUT/output_wt21
+./$EXEC $IN/wt2 3 1 > ./$RES
+$DIFF ./$RES $OUT/wt21
 echo " - mode2"
-./$EXEC $IN/input_wt2 3 2 > ./$RES
-$DIFF ./$RES $OUT/output_wt22
+./$EXEC $IN/wt2 3 2 > ./$RES
+$DIFF ./$RES $OUT/wt22
 
-echo "input_wt3 110"
+echo "wt3 110"
 echo " - mode1"
-./$EXEC $IN/input_wt3 3 1 > ./$RES
-$DIFF ./$RES $OUT/output_wt31
+./$EXEC $IN/wt3 3 1 > ./$RES
+$DIFF ./$RES $OUT/wt31
 echo " - mode2"
-./$EXEC $IN/input_wt3 3 2 > ./$RES
-$DIFF ./$RES $OUT/output_wt32
+./$EXEC $IN/wt3 3 2 > ./$RES
+$DIFF ./$RES $OUT/wt32
 
-echo "input_wt4 110"
+echo "wt4 110"
 echo " - mode1"
-./$EXEC $IN/input_wt4 3 1 > ./$RES
-$DIFF ./$RES $OUT/output_wt41
+./$EXEC $IN/wt4 3 1 > ./$RES
+$DIFF ./$RES $OUT/wt41
 echo " - mode2"
-./$EXEC $IN/input_wt4 3 2 > ./$RES
-$DIFF ./$RES $OUT/output_wt42
+./$EXEC $IN/wt4 3 2 > ./$RES
+$DIFF ./$RES $OUT/wt42
 
-echo "input_wt5 011"
+echo "wt5 011"
 echo " - mode1"
-./$EXEC $IN/input_wt5 3 1 > ./$RES
-$DIFF ./$RES $OUT/output_wt51
+./$EXEC $IN/wt5 3 1 > ./$RES
+$DIFF ./$RES $OUT/wt51
 echo " - mode2"
-./$EXEC $IN/input_wt5 3 2 > ./$RES
-$DIFF ./$RES $OUT/output_wt52
+./$EXEC $IN/wt5 3 2 > ./$RES
+$DIFF ./$RES $OUT/wt52
 
-echo "input_wt6 011"
+echo "wt6 011"
 echo " - mode1"
-./$EXEC $IN/input_wt6 3 1 > ./$RES
-$DIFF ./$RES $OUT/output_wt61
+./$EXEC $IN/wt6 3 1 > ./$RES
+$DIFF ./$RES $OUT/wt61
 echo " - mode2"
-./$EXEC $IN/input_wt6 3 2 > ./$RES
-$DIFF ./$RES $OUT/output_wt62
+./$EXEC $IN/wt6 3 2 > ./$RES
+$DIFF ./$RES $OUT/wt62
 
-echo "input_wt7 100"
+echo "wt7 100"
 echo " - mode1"
-./$EXEC $IN/input_wt7 3 1 > ./$RES
-$DIFF ./$RES $OUT/output_wt71
+./$EXEC $IN/wt7 3 1 > ./$RES
+$DIFF ./$RES $OUT/wt71
 echo " - mode2"
-./$EXEC $IN/input_wt7 3 2 > ./$RES
-$DIFF ./$RES $OUT/output_wt72
+./$EXEC $IN/wt7 3 2 > ./$RES
+$DIFF ./$RES $OUT/wt72
 
 rm -f $RES; rm -f $EXEC
