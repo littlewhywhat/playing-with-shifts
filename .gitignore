@@ -3,3 +3,6 @@ bin
 program
 testg2wt
 testwt2ss
+gmon.out
+speed.txt
+gprof.out
