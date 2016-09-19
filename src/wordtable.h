@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <list>
 
-#include "i_lttr_vector.h"
+#include "comb.h"
 
 class WordTable {
   private:
@@ -17,10 +17,11 @@ class WordTable {
     void add(const std::string & word) {
         m_Words.push_back(word);
     }
-    bool has(const i_lttr_vector & id_letters) const {
+    bool has(const Comb & comb) const {
         for (const std::string & word : m_Words) {
             uint32_t cnt_ltr_matches = 0;
-            for (auto id_lttr : id_letters) {
+            auto cvals = comb.vals();
+            for (auto id_lttr : cvals) {
                 uint32_t id = id_lttr.first;
                 char letter = id_lttr.second;
                 if (word.size() <= id || 
@@ -28,16 +29,17 @@ class WordTable {
                     break;
                 cnt_ltr_matches++;
             }
-            if (cnt_ltr_matches == id_letters.size())
+            if (cnt_ltr_matches == cvals.size())
                 return true;
         }
         return false;
     }
-    std::list<std::string> findAll(const i_lttr_vector & id_letters) const {
+    std::list<std::string> findAll(const Comb & comb) const {
         std::list<std::string> s_words;
         for (const std::string & word : m_Words) {
             uint32_t cnt_ltr_matches = 0;
-            for (auto id_lttr : id_letters) {
+            auto cvals = comb.vals();
+            for (auto id_lttr : cvals) {
                 uint32_t id = id_lttr.first;
                 char letter = id_lttr.second;
                 if (word.size() <= id || 
@@ -45,7 +47,7 @@ class WordTable {
                     break;
                 cnt_ltr_matches++;
             }
-            if (cnt_ltr_matches == id_letters.size())
+            if (cnt_ltr_matches == cvals.size())
                 s_words.push_back(word);
         }
         return s_words;

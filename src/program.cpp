@@ -29,6 +29,10 @@ int main (int argc, char * argv[]) {
     }
     const char * filename = argv[FILENAME_I];
     const int wordlen = atoi(argv[WORDLEN_I]);
+    if (wordlen > 63 || wordlen <= 0) {
+        print_usage(argv[0]);
+        return 1;
+    }
     const int mode_code = atoi(argv[MODE_CODE]);
     GReader gr;
     gr.setFilename(filename);
@@ -53,8 +57,8 @@ int main (int argc, char * argv[]) {
     
     uint32_t max = 0;
     std::cout << "good strategies are: " << std::endl;
-    uint32_t max_s = (uint32_t)1 << wordlen;
-    for (uint32_t i = 0; i < max_s; i++) {
+    uint64_t max_s = (uint64_t)1 << wordlen;
+    for (uint64_t i = 0; i < max_s; i++) {
         Strategy s(i, wordlen);
         uint32_t bcnt = s.countB();
         if (bcnt > max && 

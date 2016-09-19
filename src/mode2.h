@@ -8,7 +8,7 @@
 #include <list>
 
 #include "mode.h"
-#include "i_lttr_vector.h"
+#include "comb.h"
 
 class Mode2 : public Mode {
   private:
@@ -34,17 +34,16 @@ class Mode2 : public Mode {
   public:
     ~Mode2() override {}
     bool good_strat(const Strategy & s, const WordTable & wt) const override {
-        uint32_t max = (uint32_t)1 << s.bids().size();
+        uint64_t max_comb_val = (uint64_t)1 << s.bids().size();
         Cmp c(s.bids());
-        std::map<std::string, uint32_t, Cmp> g_words(c);
-        uint32_t last_i = max - 1;
-        for (uint32_t i = 0; i < max; i++) {
-            i_lttr_vector id_letters;
-            make_id_letters(id_letters, i, s);
-            std::list<std::string> s_words = wt.findAll(id_letters);
+        std::map<std::string, uint64_t, Cmp> g_words(c);
+        std::list<std::string> s_words;
+        for (uint64_t comb_val = 0; comb_val < max_comb_val; comb_val++) {
+            Comb comb(comb_val, s);
+            s_words = wt.findAll(comb);
             if (s_words.empty())
                 return false;
-            if (i == 0)
+            if (comb_val == 0)
                 for (auto word : s_words)
                     g_words.insert(std::make_pair(word, 1));
             else {
@@ -54,13 +53,11 @@ class Mode2 : public Mode {
                         (*search).second += 1;
                 }
             }
-            if (i == last_i) {
-                for (auto word : s_words) {
-                    auto search = g_words.find(word);
-                    if (search != g_words.end() && (*search).second == max)
-                        return true;
-                }
-            }
+        }
+        for (auto word : s_words) {
+            auto search = g_words.find(word);
+            if (search != g_words.end() && (*search).second == max_comb_val)
+                return true;
         }
         return false;
     }
