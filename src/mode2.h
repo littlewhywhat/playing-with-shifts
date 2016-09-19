@@ -8,6 +8,7 @@
 #include <list>
 
 #include "mode.h"
+#include "i_lttr_vector.h"
 
 class Mode2 : public Mode {
   private:
@@ -38,7 +39,7 @@ class Mode2 : public Mode {
         std::map<std::string, uint32_t, Cmp> g_words(c);
         uint32_t last_i = max - 1;
         for (uint32_t i = 0; i < max; i++) {
-            std::vector<std::pair<uint32_t, char>> id_letters;
+            i_lttr_vector id_letters;
             make_id_letters(id_letters, i, s);
             std::list<std::string> s_words = wt.findAll(id_letters);
             if (s_words.empty())

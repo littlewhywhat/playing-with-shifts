@@ -20,3 +20,5 @@ valg: compile
 	valgrind ./$(MAIN) $(ARGS) 
 gdb: compile
 	gdb --args ./$(MAIN) $(ARGS)
+test:
+	./testg2wt.sh; ./testwt2ss.sh

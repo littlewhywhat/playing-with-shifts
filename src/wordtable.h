@@ -8,6 +8,8 @@
 #include <cstdint>
 #include <list>
 
+#include "i_lttr_vector.h"
+
 class WordTable {
   private:
       std::vector<std::string> m_Words;
@@ -15,7 +17,7 @@ class WordTable {
     void add(const std::string & word) {
         m_Words.push_back(word);
     }
-    bool has(const std::vector<std::pair<uint32_t, char>> & id_letters) const {
+    bool has(const i_lttr_vector & id_letters) const {
         for (const std::string & word : m_Words) {
             uint32_t cnt_ltr_matches = 0;
             for (auto id_lttr : id_letters) {
@@ -31,7 +33,7 @@ class WordTable {
         }
         return false;
     }
-    std::list<std::string> findAll(const std::vector<std::pair<uint32_t, char>> & id_letters) const {
+    std::list<std::string> findAll(const i_lttr_vector & id_letters) const {
         std::list<std::string> s_words;
         for (const std::string & word : m_Words) {
             uint32_t cnt_ltr_matches = 0;
