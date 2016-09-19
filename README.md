@@ -48,6 +48,7 @@ run the following command in shell from root folder:
 `./program path_to_graph length_of_language game_mode`
 
 where length_of_language is some positive integer 
+
 WARNING: implementation supports length up to 63
 (even after 20 in current version answer could take time :)) 
 
