@@ -34,11 +34,11 @@ class Mode2 : public Mode {
   public:
     ~Mode2() override {}
     bool good_strat(const Strategy & s, const WordTable & wt) const override {
-        uint32_t max_comb_val = (uint32_t)1 << s.bids().size();
+        uint64_t max_comb_val = (uint64_t)1 << s.bids().size();
         Cmp c(s.bids());
-        std::map<std::string, uint32_t, Cmp> g_words(c);
+        std::map<std::string, uint64_t, Cmp> g_words(c);
         std::list<std::string> s_words;
-        for (uint32_t comb_val = 0; comb_val < max_comb_val; comb_val++) {
+        for (uint64_t comb_val = 0; comb_val < max_comb_val; comb_val++) {
             Comb comb(comb_val, s);
             s_words = wt.findAll(comb);
             if (s_words.empty())
