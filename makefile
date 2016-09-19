@@ -6,7 +6,7 @@ MAIN = program
 TESTWT2SS = testwt2ss
 TESTG2WT = testg2wt
 RM = rm -r -f
-ARGS = data/graph 3 1
+ARGS = data/g2wt/in/graph1 3 1
 
 all: compile run
 
