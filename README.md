@@ -98,3 +98,7 @@ computation algorithm for mode1 and mode2.
 WARNING: this option requires `colordiff` installed on your machine. 
 You can change DIFF variable in both shell scripts to usual `diff` that 
 is usually installed by default
+
+To run both tests you can use the following command:
+
+`make test`
