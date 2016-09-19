@@ -33,19 +33,13 @@ class Mode2 : public Mode {
   public:
     ~Mode2() override {}
     bool good_strat(const Strategy & s, const WordTable & wt) const override {
-        uint32_t mask = 1;
         uint32_t max = (uint32_t)1 << s.bids().size();
         Cmp c(s.bids());
         std::map<std::string, uint32_t, Cmp> g_words(c);
         uint32_t last_i = max - 1;
         for (uint32_t i = 0; i < max; i++) {
             std::vector<std::pair<uint32_t, char>> id_letters;
-            uint32_t data = i;
-            for (uint32_t bid : s.bids()) {
-                char letter = (data & mask) + '0';
-                id_letters.push_back(std::make_pair(bid, letter));
-                data >>= 1;
-            }
+            make_id_letters(id_letters, i, s);
             std::list<std::string> s_words = wt.findAll(id_letters);
             if (s_words.empty())
                 return false;
