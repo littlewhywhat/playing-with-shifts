@@ -37,11 +37,11 @@ class Mode2 : public Mode {
         uint32_t max = (uint32_t)1 << s.bids().size();
         Cmp c(s.bids());
         std::map<std::string, uint32_t, Cmp> g_words(c);
-        uint32_t last_i = max - 1;
+        std::list<std::string> s_words;
         for (uint32_t i = 0; i < max; i++) {
             i_lttr_vector id_letters;
             make_id_letters(id_letters, i, s);
-            std::list<std::string> s_words = wt.findAll(id_letters);
+            s_words = wt.findAll(id_letters);
             if (s_words.empty())
                 return false;
             if (i == 0)
@@ -54,13 +54,11 @@ class Mode2 : public Mode {
                         (*search).second += 1;
                 }
             }
-            if (i == last_i) {
-                for (auto word : s_words) {
-                    auto search = g_words.find(word);
-                    if (search != g_words.end() && (*search).second == max)
-                        return true;
-                }
-            }
+        }
+        for (auto word : s_words) {
+            auto search = g_words.find(word);
+            if (search != g_words.end() && (*search).second == max)
+                return true;
         }
         return false;
     }
