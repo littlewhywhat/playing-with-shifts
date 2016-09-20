@@ -33,7 +33,7 @@ class Mode2 : public Mode {
     };
   public:
     ~Mode2() override {}
-    bool good_strat(const Strategy & s, const WordTable & wt) const override {
+    bool good_strat(const Strategy & s, WordTable & wt) const override {
         uint64_t max_comb_val = (uint64_t)1 << s.bids().size();
         Cmp c(s.bids());
         std::map<std::string, uint64_t, Cmp> g_words(c);

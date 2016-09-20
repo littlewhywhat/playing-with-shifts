@@ -7,7 +7,7 @@
 class Mode {
   public:
     virtual ~Mode() {};
-    virtual bool good_strat(const Strategy & s, const WordTable & wt) const = 0;     
+    virtual bool good_strat(const Strategy & s, WordTable & wt) const = 0;     
 };
 
 #endif

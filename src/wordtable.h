@@ -7,15 +7,43 @@
 #include <utility>
 #include <cstdint>
 #include <list>
+#include <algorithm>
 
 #include "comb.h"
 
 class WordTable {
   private:
-      std::vector<std::string> m_Words;
+    class Cmp {
+      private:
+        uint64_t m_Mask;
+      public:
+        Cmp(const std::vector<uint32_t> & bids) : m_Mask(0) {
+            for (auto bid : bids)
+                m_Mask += 1 << bid;    
+        }
+        bool operator() (uint64_t a, uint64_t b) const {
+            return (a & m_Mask) < (b & m_Mask);
+        }
+    };
+    std::vector<std::string> m_Words;
+    std::vector<uint64_t> m_WordsI;
+    uint64_t s2i(const std::string & s) const {
+        uint64_t i = 0;
+        for (uint32_t pos = 0; pos < s.length(); pos++)
+            if (s.at(pos) - '0')
+                i += 1 << pos;
+        return i;
+    }
   public:
     void add(const std::string & word) {
         m_Words.push_back(word);
+        m_WordsI.push_back(s2i(word));
+    }
+    void sort(const std::vector<uint32_t> & bids) {
+        std::sort(m_WordsI.begin(), m_WordsI.end(), Cmp(bids));
+    }
+    const std::vector<uint64_t> & words() const {
+        return m_WordsI;
     }
     bool has(const Comb & comb) const {
         for (const std::string & word : m_Words) {
