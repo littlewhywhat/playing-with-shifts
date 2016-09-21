@@ -17,7 +17,7 @@ class Mode1 : public Mode {
                 m_Mask += 1 << bid;
         }
         bool operator() (const uint64_t a, const uint64_t b) const {
-            return (a & m_Mask) == (b & m_Mask);
+            return (a & m_Mask) < (b & m_Mask);
         }
     };
     uint64_t create_comb(uint64_t val, const std::vector<uint32_t> & bids) const {
@@ -35,26 +35,19 @@ class Mode1 : public Mode {
     bool good_strat(const Strategy & s, WordTable & wt) const override{
         if (s.bids().empty())
             return true;
-        wt.sort(s.bids());        
-        //std::cout << wt << std::endl; 
         Cmp equal(s.bids());
-        const std::vector<uint64_t> words = wt.words();          
+        std::set<uint64_t, Cmp> combset(equal);
         uint64_t max_comb_val = (uint64_t)1 << s.bids().size();
-        uint64_t last_comb_val = max_comb_val - 1;
-        auto word_it = words.begin();
-        uint64_t word = *word_it;
-        uint64_t comb_val = 0;
-        uint64_t comb_val_p = create_comb(comb_val, s.bids());
-        while ((word_it != words.end() && equal(word, comb_val_p)) && (comb_val < last_comb_val)) {
-            word_it++;
-            while ((word_it != words.end()) 
-                    && equal(*word_it, word))
-                word_it++;
-            word = *word_it;
-            comb_val_p = create_comb(++comb_val, s.bids());
-        }
-        return comb_val == last_comb_val && word_it != words.end() && equal(word, comb_val_p);
-
+        const std::vector<uint64_t> words = wt.words();          
+        if (wt.words().size() < max_comb_val)
+            return false;
+        for (uint64_t comb_val = 0; comb_val < max_comb_val; comb_val++)
+            combset.insert(create_comb(comb_val, s.bids()));
+        
+        for (uint64_t word : words) 
+            if (combset.find(word) != combset.end())
+                combset.erase(word);
+        return combset.empty();
     }
 };
 
