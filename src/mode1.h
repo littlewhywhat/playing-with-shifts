@@ -41,13 +41,10 @@ class Mode1 : public Mode {
         const std::vector<uint64_t> words = wt.words();          
         if (wt.words().size() < max_comb_val)
             return false;
-        for (uint64_t comb_val = 0; comb_val < max_comb_val; comb_val++)
-            combset.insert(create_comb(comb_val, s.bids()));
-        
         for (uint64_t word : words) 
-            if (combset.find(word) != combset.end())
-                combset.erase(word);
-        return combset.empty();
+            if (combset.find(word) == combset.end())
+                combset.insert(word);
+        return combset.size() == max_comb_val;
     }
 };
 
