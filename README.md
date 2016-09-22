@@ -59,11 +59,13 @@ C++11
 
 run the following command in shell from root folder:
 
-`make`
+`make` (build and run)
 
 or 
 
-`make compile`
+`make compile` (build)
+
+Please use Q button to exit bash "less" (to remove "(END)" that appears after compilation)
 
 Both will build an execution file 'program' in root folder.
 
