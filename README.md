@@ -5,14 +5,53 @@ Imagine a game with two opponents (A and B), a string of some length with open p
 and a predefined language or set of words with the same length as a string.
 Each player has its own unique positions to fill that are prescribed by strategy.
 They play in turns (concretely specified by game mode).
-Aim of A - fill its positions in a such manner that resulting word will be in a language.
-Aim of B - opposite - fill its positions to make some word out of a language.
+
+`Aim of A` - fill its positions in a such manner that resulting word will be in a language.
+
+`Aim of B` - opposite - fill its positions to make some word out of a language.
 
 According to game mode strategy can be called successfull.
 
-This application takes in a graph with labeled edges (`so far only '1' or '0' labels are supported`),
+This application takes in a graph with labeled edges (`only '1' or '0' labels are supported`),
 based on it produces a language of defined length
 and find max number of positions in successful strategy that could be given to B.
+
+## Modes
+
+- Mode1 `(src/mode1.h)`:
+B plays its positions first. Applications tries to find for every possible value in set of B positions 
+at least one word in the wordtable.
+
+Example:
+```
+Wordtable:
+000
+100
+010
+Successful strategies:
+100
+010
+Bad strategy:
+001
+
+```
+
+- Mode2 `(src/mode2.h)`:
+B plays its positions second. Applications tries to find for every possible value in set of B positions 
+a set of words in the wordtable that differ only in B positions.
+
+Example:
+```
+Wordtable:
+000
+100
+010
+Successful strategies:
+100
+Bad strategy:
+010
+001
+```
 
 ## Build
 
