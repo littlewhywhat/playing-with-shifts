@@ -43,7 +43,7 @@ int main (int argc, char * argv[]) {
         std::cout << e << std::endl;
         return 1;
     }
-    WordTable wt;
+    WordTable wt(wordlen);
     Graph2Wt g2wt(wordlen);
     std::cout << "Building wordtable..." << std::endl;
     g2wt.translate(graph, wt);

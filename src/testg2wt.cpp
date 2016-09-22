@@ -20,7 +20,7 @@ int main(int argc, char * argsv[]) {
         return 1;
     }
 
-    WordTable wt;
+    WordTable wt(std::stoi(argsv[LEN_ID]));
     Graph2Wt g2wt(std::stoi(argsv[LEN_ID]));
     g2wt.translate(graph, wt);
     std::cout << wt;
