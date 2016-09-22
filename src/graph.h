@@ -11,11 +11,11 @@ class Graph {
         for (GNode * node : m_Nodes)
             delete node;
     }
-    void setSize(uint32_t size) {
+    void setSize(const uint32_t & size) {
         for (uint32_t i = 0; i < size; i++)
             m_Nodes.push_back(new GNode(i));
     }
-    void addEdge(uint32_t from, uint32_t to, char label) {
+    void addEdge(const uint32_t & from, const uint32_t & to, const char & label) {
         m_Nodes.at(from) -> add_out(m_Nodes.at(to), label);
     }
     const std::vector<GNode*> & nodes() const {

@@ -4,8 +4,6 @@
 #include <cstdint>
 #include <map>
 #include <utility>
-#include <set>
-#include <list>
 
 #include "mode.h"
 
@@ -20,32 +18,23 @@ class Mode2 : public Mode {
             return (a & m_Mask) < (b & m_Mask);
         }
     };
-
-  public:
-    ~Mode2() override {}
-    bool good_strat(const Strategy & s, const WordTable & wt) const override {
-        uint64_t max_comb_val = (uint64_t)1 << s.countB(); 
-        const std::vector<uint64_t> & words = wt.words();
-        if (words.size() < max_comb_val)
-            return false;
-        InverseLess c(s.val());
-        std::map<uint64_t, uint64_t, InverseLess> g_words(c);
+    bool gs_mode(const std::vector<uint64_t> & words, const uint64_t & max_comb_val, const uint64_t & s_val) const override {
+        InverseLess c(s_val);
+        std::map<uint64_t, uint64_t, InverseLess> words_map(c);
         for (auto word : words) {
-            auto search = g_words.find(word);
-            uint64_t cnt;
-            if (search == g_words.end()) {
-                cnt = 1;
-                g_words.insert(std::make_pair(word, cnt));
-            }
+            auto search = words_map.find(word);
+            if (search == words_map.end()) 
+                words_map.insert(std::make_pair(word, 1)); 
             else {
                 search -> second += 1;
-                cnt = search -> second;
+                if (search -> second  == max_comb_val)
+                    return true;
             }
-            if (cnt == max_comb_val)
-                return true;
         }
         return false;
     }
+  public:
+    ~Mode2() override {}
 };
 
 #endif

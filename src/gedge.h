@@ -5,9 +5,9 @@ class GNode;
 
 class GEdge {
   public:
-    GEdge(GNode * node, char label) : m_Label(label), m_Node(node) {}
-    char m_Label;
-    GNode * m_Node;
+    GEdge(const GNode * node, const char & label) : m_Label(label), m_Node(node) {}
+    const char m_Label;
+    const GNode * m_Node;
 };
 
 #endif

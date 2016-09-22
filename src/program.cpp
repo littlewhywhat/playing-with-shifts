@@ -1,8 +1,5 @@
 #include <iostream>
-#include <vector>
-#include <string>
 #include <cstdint>
-#include <set>
 
 #include "wordtable.h"
 #include "graph.h"

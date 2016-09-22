@@ -2,7 +2,8 @@
 #define MODE1_H
 
 #include <cstdint>
-#include <list>
+#include <vector>
+#include <set>
 
 #include "mode.h"
 
@@ -17,17 +18,9 @@ class Mode1 : public Mode {
             return (a & m_Mask) < (b & m_Mask);
         }
     };
-  public:
-    ~Mode1() override {}  
-    bool good_strat(const Strategy & s, const WordTable & wt) const override{
-        if (!s.val())
-            return true;
-        Less less(s.val());
+    bool gs_mode(const std::vector<uint64_t> & words, const uint64_t & max_comb_val, const uint64_t & s_val) const override{
+        Less less(s_val);
         std::set<uint64_t, Less> combset(less);
-        uint64_t max_comb_val = (uint64_t)1 << s.countB();
-        const std::vector<uint64_t> & words = wt.words();          
-        if (wt.words().size() < max_comb_val)
-            return false;
         for (auto word : words) 
             if (combset.find(word) == combset.end()) {
                 combset.insert(word);
@@ -36,6 +29,8 @@ class Mode1 : public Mode {
             }
         return false;
     }
+  public:
+    ~Mode1() override {}  
 };
 
 #endif
