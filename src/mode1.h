@@ -8,7 +8,15 @@
 
 class Mode1 : public Mode {
   private:
-    
+    class Less {
+      private:
+        uint64_t m_Mask;
+      public:
+        Less(const uint64_t & mask) : m_Mask(mask) {}
+        bool operator() (const uint64_t & a, const uint64_t & b) const {
+            return (a & m_Mask) < (b & m_Mask);
+        }
+    };
   public:
     ~Mode1() override {}  
     bool good_strat(const Strategy & s, const WordTable & wt) const override{
@@ -21,9 +29,12 @@ class Mode1 : public Mode {
         if (wt.words().size() < max_comb_val)
             return false;
         for (auto word : words) 
-            if (combset.find(word) == combset.end())
+            if (combset.find(word) == combset.end()) {
                 combset.insert(word);
-        return combset.size() == max_comb_val;
+                if (combset.size() == max_comb_val)
+                    return true;
+            }
+        return false;
     }
 };
 
