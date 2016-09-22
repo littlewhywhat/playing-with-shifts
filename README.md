@@ -28,9 +28,11 @@ Wordtable:
 000
 100
 010
+
 Successful strategies:
 100
 010
+
 Bad strategy:
 001
 
@@ -46,8 +48,10 @@ Wordtable:
 000
 100
 010
+
 Successful strategies:
 100
+
 Bad strategy:
 010
 001
