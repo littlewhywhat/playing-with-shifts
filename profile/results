@@ -1,0 +1,25 @@
+./program data/g2wt/in/graph1 20 1
+master 51s
+optimize3 17s
+optimize5 5s
+optimize6 11s
+
+./program data/g2wt/in/graph1 20 2
+master 55s
+optimize5 5s
+
+./program data/g2wt/in/graph1 21 1
+optimize3 53s
+optimize4 53s
+optimize5 26s 
+optimize6 1min
+
+./program data/g2wt/in/graph1 22 1
+optimize4 2m24s
+optimize5 25s
+
+./program data/g2wt/in/graph1 23 1
+optimize5 3m8s
+
+./program data/g2wt/in/graph1 25 1
+optimize3 9min ++ (get preprelast)
