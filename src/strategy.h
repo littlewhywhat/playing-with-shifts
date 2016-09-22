@@ -8,28 +8,20 @@ class Strategy {
   private:
     uint32_t m_Len;
     uint64_t m_Val;
-    std::vector<uint32_t> m_BIds;
+    uint32_t m_CntB;
   public:
-    Strategy(uint64_t val, uint32_t len) : m_Len(len), m_Val(val) {
-        uint64_t mask = 1;
-        for (uint32_t i = 0; i < len; i++) {
-            if (val & mask)
-                m_BIds.push_back(i);
-            val >>= 1;
-        }
-    }
-    const std::vector<uint32_t> bids() const {
-        return m_BIds;
-    }
-    uint32_t countB() const {
-        uint32_t cnt = 0;
-        uint64_t val = m_Val;
-        for (uint32_t i = 0; i < m_Len; i++) {
+    Strategy(uint64_t val, const uint32_t & len) : m_Len(len), m_Val(val), m_CntB(0) {
+        while (val) {
             if (val & 1)
-                cnt++;
+                m_CntB++;
             val >>= 1;
         }
-        return cnt;
+    }
+    const uint64_t & val() const {
+        return m_Val;
+    }
+    const uint32_t & countB() const {
+        return m_CntB;
     }
     friend std::ostream & operator << (std::ostream & out, const Strategy & s) {
         uint64_t mask = 1;

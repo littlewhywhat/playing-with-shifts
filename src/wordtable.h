@@ -9,8 +9,6 @@
 #include <list>
 #include <algorithm>
 
-#include "comb.h"
-
 class WordTable {
   private:
     std::vector<std::string> m_Words;
