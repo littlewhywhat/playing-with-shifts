@@ -28,9 +28,11 @@ Wordtable:
 000
 100
 010
+
 Successful strategies:
 100
 010
+
 Bad strategy:
 001
 
@@ -46,8 +48,10 @@ Wordtable:
 000
 100
 010
+
 Successful strategies:
 100
+
 Bad strategy:
 010
 001
@@ -59,11 +63,13 @@ C++11
 
 run the following command in shell from root folder:
 
-`make`
+`make` (build and run)
 
 or 
 
-`make compile`
+`make compile` (build)
+
+Please use Q button to exit bash "less" (to remove "(END)" that appears after compilation)
 
 Both will build an execution file 'program' in root folder.
 
