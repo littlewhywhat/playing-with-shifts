@@ -16,7 +16,7 @@ class Mode {
         if (!s.val())
             return true;
         const std::vector<uint64_t> & words = wt.words();
-        const uint64_t max_comb_val = ((uint64_t) 1) << s.countB();
+        const uint64_t max_comb_val = ((uint64_t) 1) << s.Bcnt();
         if (max_comb_val > words.size())
             return false;
         return gs_mode(wt.words(), max_comb_val, s.val());
