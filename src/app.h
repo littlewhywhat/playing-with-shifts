@@ -49,8 +49,7 @@ class App {
         //for (uint64_t strat_val = strat_bound - 1; strat_val > 0; strat_val--) {
             Strategy strat(strat_val, m_Wordlen);
             uint32_t bcnt = strat.Bcnt();
-            if (bcnt > maxBcnt && 
-                    mode -> good_strat(strat, wt)) {
+            if (bcnt > maxBcnt && mode -> good_strat(strat, wt)) {
                 m_Out << strat << std::endl;
                 maxBcnt = bcnt;
             }
