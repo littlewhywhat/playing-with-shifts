@@ -21,4 +21,4 @@ valg: compile
 gdb: compile
 	gdb --args ./$(MAIN) $(ARGS)
 test:
-	./testg2wt.sh; ./testwt2ss.sh
+	./test.sh; ./testg2wt.sh; ./testwt2ss.sh

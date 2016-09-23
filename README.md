@@ -138,6 +138,11 @@ The program consists of two parts:
     ./testwt2ss
 ```
 
+There is also script for testing the whole application:
+```
+    ./test.sh
+```
+
 The commands will compile special execution files for each case,
 read some data in data folder and test outputs of graph translation or
 computation algorithm for mode1 and mode2.
@@ -146,6 +151,6 @@ WARNING: this option requires `colordiff` installed on your machine.
 You can change DIFF variable in both shell scripts to usual `diff` that 
 is usually installed by default
 
-To run both tests you can use the following command:
+To run all tests you can use the following command:
 
 `make test`
