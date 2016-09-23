@@ -2,6 +2,7 @@
 #define GNODE_H
 
 #include <vector>
+#include <cstdint>
 
 #include "gedge.h"
 

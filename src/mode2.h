@@ -2,6 +2,7 @@
 #define MODE2_H
 
 #include <cstdint>
+#include <vector>
 #include <map>
 #include <utility>
 

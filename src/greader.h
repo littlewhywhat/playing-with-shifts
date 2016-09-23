@@ -9,9 +9,9 @@
 class GReader {
   private:
     const char DELIM = ',';
-    std::string m_Filename;
+    const char * m_Filename;
   public: 
-    void setFilename(const std::string & filename) { 
+    void setFilename(const char * filename) { 
         m_Filename = filename;
     }
     void read(Graph & g) const {

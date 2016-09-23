@@ -51,7 +51,7 @@ class GsReader {
     }
 };
 
-const int PATH_LEN_ID = 1;
+const int PATH_ID = 1;
 const int STRAT_LEN_ID = 2;
 const int MODE_CODE_ID = 3;
 
@@ -59,7 +59,7 @@ int main(int argc, char * argv[]) {
     uint32_t strat_len = std::stoi(argv[STRAT_LEN_ID]);
     WordTable wt(strat_len);
     GsReader gsr;
-    gsr.read(wt, argv[PATH_LEN_ID]);
+    gsr.read(wt, argv[PATH_ID]);
     std::list<std::string> res = goodstrat(wt, strat_len, std::stoi(argv[MODE_CODE_ID]));
     for (const std::string & s : res) 
         std::cout << s << std::endl;

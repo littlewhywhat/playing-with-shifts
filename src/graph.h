@@ -1,6 +1,9 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include <vector>
+#include <cstdint>
+
 #include "gnode.h"
 
 class Graph {

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <set>
+#include <cstdint>
 
 #include "graph.h"
 #include "wordtable.h"
@@ -33,7 +34,7 @@ class Graph2Wt {
         std::set<std::string> wordset;
         uint32_t lettercnt = 0;
         std::string buffer;
-        for (GNode * node : graph.nodes())
+        for (auto node : graph.nodes())
             produceNext(wordset, wt, node, lettercnt, buffer);
     }
 };

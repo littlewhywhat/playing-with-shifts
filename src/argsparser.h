@@ -12,7 +12,6 @@ class ArgsParser {
     const int32_t MODE_CODE = 3;
     const int MAX_WL = 63;
     const int MIN_WL = 1;
-    std::ostream & m_Out;
     const char * m_Filename;
     int32_t m_WordLen;
     int32_t m_Mode_code;
@@ -28,13 +27,14 @@ class ArgsParser {
     void setModeCode(const char * mode_code_s) {
         m_Mode_code = atoi(mode_code_s);
     }   
-    void print_usage(const char * program) {
-        m_Out << "usage: " << program 
-                  << "filename wordlength mode{1,2}" 
-                  << std::endl;
+    void print_usage(std::ostream & out, const char * program) {
+        out << "usage: " 
+            << program 
+            << "filename wordlength mode{1,2}" 
+            << std::endl;
     }
   public:
-    ArgsParser(std::ostream & out, int argc, char * argv[]) : m_Out(out) {
+    ArgsParser(std::ostream & out, int argc, char * argv[]) {
         try {
             if (argc != ARG_C) {
                 throw "Not correct number of arguments!";   
@@ -43,7 +43,7 @@ class ArgsParser {
             setWordLen(argv[WORDLEN_I]);
             setModeCode(argv[MODE_CODE]);
         } catch (const char * e) {
-            print_usage(argv[0]);
+            print_usage(out, argv[0]);
             throw e;
         }
     }
