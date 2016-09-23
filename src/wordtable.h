@@ -1,13 +1,10 @@
 #ifndef WORDTABLE_H
 #define WORDTABLE_H
 
-#include <iostream>
+#include <ostream>
 #include <string>
 #include <vector>
-#include <utility>
 #include <cstdint>
-#include <list>
-#include <algorithm>
 
 class WordTable {
   private:
