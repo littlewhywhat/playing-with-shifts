@@ -16,6 +16,9 @@ class Strategy {
             val >>= 1;
         }
     }
+    uint32_t length() const {
+        return m_Len;
+    }
     const uint64_t & val() const {
         return m_Val;
     }

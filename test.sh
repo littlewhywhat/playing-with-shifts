@@ -1,11 +1,12 @@
 DATA=data
-EXEC=program
+EXEC=test
 RES=$DATA/app/res
 DIFF=colordiff
 IN=$DATA/g2wt/in
 OUT=$DATA/app/out
+MAIN=program
 
-g++ -std=c++11 src/$EXEC.cpp -o $EXEC
+g++ -std=c++11 src/$MAIN.cpp -o $EXEC
 
 echo "graph1_1_1"
 ./$EXEC $IN/graph1 1 1 > ./$RES
