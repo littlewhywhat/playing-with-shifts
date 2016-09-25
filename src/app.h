@@ -18,9 +18,9 @@
 
 class App {
   private:
-    const char * m_Filename;
-    const uint32_t m_WordLen;
-    const uint32_t m_ModeCode;
+    std::string m_Filename;
+    uint32_t m_WordLen;
+    uint32_t m_ModeCode;
     const Mode * create_mode() const {
         switch (m_ModeCode) {
             case 2:
@@ -68,9 +68,19 @@ class App {
         return maxBcnt;
     }
   public:
-    App(const char * filename, uint32_t wordlen, uint32_t mode_code) : 
+    App() : App("", 0, 0) {}
+    App(const std::string & filename, uint32_t wordlen, uint32_t mode_code) : 
             m_Filename(filename), m_WordLen(wordlen), m_ModeCode(mode_code) {}
     ~App() {}
+    void setFilename(const std::string & filename) {
+        m_Filename = filename;
+    }
+    void setModeCode(const uint32_t & mode_code) {
+        m_ModeCode = mode_code;
+    }
+    void setWordLen(const uint32_t & wordlen) {
+        m_WordLen = wordlen;
+    }
     uint32_t run(std::ostream * out) {
         WordData * wd = create_data();
         const Mode * mode = create_mode();

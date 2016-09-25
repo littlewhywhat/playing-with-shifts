@@ -27,12 +27,12 @@ class GraphGen {
     void write_cnt_nodes(std::fstream & fs, const uint32_t & cnt_nodes) const {
         fs << cnt_nodes << std::endl;
     }
+  public:
     std::string getname(const std::string & pathname, const uint32_t & i) const {
         std::string s(pathname);
         s.push_back(i + '0');
         return s;
     }
-  public:
     void gen(const std::string & pathname, 
              const uint32_t & cnt_nodes, 
              const uint32_t & cnt_graphs) const {
