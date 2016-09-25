@@ -33,15 +33,18 @@ class WordTable : public WordData {
     }
   public:
     WordTable(const uint32_t & wordlen) : m_WordLen(wordlen) {}
+    bool good_strat(const Strategy & strat, const Mode & mode) const {
+        return mode.good_strat(strat, *this);
+    } 
     void add(const std::string & word) override {
         m_Words.push_back(s2i(word));
     }
     const std::vector<uint64_t> & words() const {
         return m_Words;
     }
-    friend std::ostream & operator << (std::ostream & out, const WordTable & src) {
-        for (auto word : src.m_Words)
-            out << src.i2s(word) << std::endl;
+    std::ostream & print(std::ostream & out) const override {
+        for (auto word : m_Words)
+            out << i2s(word) << std::endl;
         return out;
     }
 };

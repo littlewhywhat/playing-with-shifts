@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include "wordtable.h"
-#include "graph2wt.h"
+#include "graph2wd.h"
 #include "graph.h"
 #include "greader.h"
 
@@ -21,8 +21,8 @@ int main(int argc, char * argsv[]) {
     }
 
     WordTable wt(std::stoi(argsv[LEN_ID]));
-    Graph2Wt g2wt(std::stoi(argsv[LEN_ID]));
-    g2wt.translate(graph, wt);
+    Graph2Wd g2wd(std::stoi(argsv[LEN_ID]));
+    g2wd.translate(graph, wt);
     std::cout << wt;
     return 0;
 }

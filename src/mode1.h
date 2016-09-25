@@ -5,9 +5,9 @@
 #include <vector>
 #include <set>
 
-#include "mode.h"
+#include "tablemode.h"
 
-class Mode1 : public Mode {
+class Mode1 : public TableMode {
   private:
     class Less {
       private:

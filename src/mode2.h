@@ -6,9 +6,9 @@
 #include <map>
 #include <utility>
 
-#include "mode.h"
+#include "tablemode.h"
 
-class Mode2 : public Mode {
+class Mode2 : public TableMode {
   private:
     class InverseLess {
       private:

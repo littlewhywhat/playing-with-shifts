@@ -50,7 +50,7 @@ class App {
         //for (uint64_t strat_val = strat_bound - 1; strat_val > 0; strat_val--) {
             Strategy strat(strat_val, m_WordLen);
             uint32_t bcnt = strat.Bcnt();
-            if (bcnt > maxBcnt && mode.good_strat(strat, wd)) {
+            if (bcnt > maxBcnt && wd.good_strat(strat, mode)) {
                 out << strat << std::endl;
                 maxBcnt = bcnt;
             }
@@ -64,9 +64,9 @@ class App {
     void run(std::ostream & out) {
         WordData * wd = create_data();
         const Mode * mode = create_mode();
-        out << "Building worddata..." << std::endl;
+        out << "Building wordtable..." << std::endl;
         readWD(*wd);
-        out << wd << std::endl;
+        out << *wd << std::endl;
         out << "max = " 
               << compute_maxBcnt(*mode, *wd, out)
               << std::endl;  
