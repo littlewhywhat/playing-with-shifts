@@ -50,19 +50,22 @@ int main(int argc, char * argv[]) {
         const Mode * mode2 = get_mode(mode_code2);
         ModeDiff max_diff;
         for (uint32_t i = 0; i < cnt_graphs; i++) {
+           std::cout << "graph " << i << std::endl;
            app.setFilename(gg.getname(pathname, i));
            app.setWordLen(wordlen);
            app.setModeCode(mode_code1);
            uint32_t max1 = app.run(NULL);
+           std::cout << "max for mode " << mode_code1 << ": " << max1 << std::endl;
            app.setModeCode(mode_code2);
            uint32_t max2 = app.run(NULL);
+           std::cout << "max for mode " << mode_code2 << ": " << max2 << std::endl;
            uint32_t diff = max1 > max2 ? max1 - max2 : max2 - max1;
            if (diff > max_diff.m_Diff) {
               max_diff.m_Diff = diff;
               max_diff.m_Filename = gg.getname(pathname, i);
+              std::cout << max_diff << std::endl;
            }
         }
-        std::cout << max_diff << std::endl;
     } catch (const char * e) {
         std::cout << e << std::endl;
     }
