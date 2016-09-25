@@ -9,7 +9,7 @@ int main (int argc, char * argv[]) {
         App app(args.getFilename(),
                 args.getWordLen(),
                 args.getModeCode());
-        app.run(std::cout);
+        app.run(&std::cout);
     } catch (const char * e) {
         std::cout << e << std::endl;
         return 1;

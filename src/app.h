@@ -50,16 +50,18 @@ class App {
         Graph2Wd g2wd(m_WordLen);
         g2wd.translate(graph, wd);
     }
-    uint32_t compute_maxBcnt(const Mode & mode, const WordData & wd, std::ostream & out) {
+    uint32_t compute_maxBcnt(const Mode & mode, const WordData & wd, std::ostream * out) {
         uint32_t maxBcnt = 0;   
-        out << "good strategies are: " << std::endl;
+        if (out)
+            *out << "good strategies are: " << std::endl;
         uint64_t strat_bound = (uint64_t)1 << m_WordLen;
         for (uint64_t strat_val = 1; strat_val < strat_bound; strat_val++) {
         //for (uint64_t strat_val = strat_bound - 1; strat_val > 0; strat_val--) {
             Strategy strat(strat_val, m_WordLen);
             uint32_t bcnt = strat.Bcnt();
             if (bcnt > maxBcnt && wd.good_strat(strat, mode)) {
-                out << strat << std::endl;
+                if (out)
+                    *out << strat << std::endl;
                 maxBcnt = bcnt;
             }
         }
@@ -69,17 +71,23 @@ class App {
     App(const char * filename, uint32_t wordlen, uint32_t mode_code) : 
             m_Filename(filename), m_WordLen(wordlen), m_ModeCode(mode_code) {}
     ~App() {}
-    void run(std::ostream & out) {
+    uint32_t run(std::ostream * out) {
         WordData * wd = create_data();
         const Mode * mode = create_mode();
-        out << "Building worddata..." << std::endl;
+        if (out)
+            *out << "Building worddata..." << std::endl;
         readWD(*wd);
-        out << *wd << std::endl;
-        out << "max = " 
-              << compute_maxBcnt(*mode, *wd, out)
-              << std::endl;  
+        if (out) 
+            *out << *wd << std::endl;
+        uint32_t maxBcnt = compute_maxBcnt(*mode, *wd, out);
+        if (out) {
+            *out << "max = " 
+                  << maxBcnt
+                  << std::endl;  
+        }
         delete wd;
         delete mode;
+        return maxBcnt;
     }
 };
 
