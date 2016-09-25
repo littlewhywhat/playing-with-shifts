@@ -17,6 +17,7 @@ based on it produces a language of defined length
 and find max number of positions in successful strategy that could be given to B.
 
 ## Modes
+Application accepts three kinds of modes:
 
 - Mode1 `(src/mode1.h)`:
 B plays its positions first. Applications tries to find for every possible value in set of B positions 
@@ -57,6 +58,27 @@ Bad strategy:
 001
 ```
 
+- Mode3 `(src/mode3.h)`:
+A and B play one after another and sequence of turns is determined by strategy from left to right.
+Applications builds a wordtree from graph and tries to check in each node 
+(in another words, for every possible situation in the game) if there are successful ways of playing for A or if
+any play of B is successful for A.
+
+Example:
+```
+Wordtree:
+000
+100
+010
+
+Successful strategies:
+100
+010
+
+Bad strategy:
+001
+```
+
 ## Build
 
 C++11
@@ -92,12 +114,8 @@ run the following command in shell from root folder:
 
 `./program path_to_graph length_of_language game_mode`
 
-where length_of_language is some positive integer 
-
-WARNING: implementation supports length up to 63
-(even after 20 in current version answer could take time :)) 
-
-and game_mode is either 1 or 2.
+where length_of_language is a positive integer from 1 to 63 
+and game_mode is one of 1,2,3.
 
 ## Example
 
@@ -111,7 +129,7 @@ or
 
 will produce the following output:
 ```
-Building wordtable...
+Building worddata...
 001
 010
 101
@@ -131,11 +149,12 @@ max = 2
 The program consists of two parts: 
  * translating of graph to wordtable(language) 
 ```
-    ./testg2wt
+    ./testg2wt.sh
 ```
+
  * computation of strategies using wordtable
 ```
-    ./testwt2ss
+    ./testwt2ss.sh
 ```
 
 There is also script for testing the whole application:
