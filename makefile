@@ -6,19 +6,19 @@ MAIN = program
 TESTWT2SS = testwt2ss
 TESTG2WT = testg2wt
 RM = rm -r -f
-ARGS = data/g2wt/in/graph1 3 1
+ARGS = data/g2wt/in/graph1 3
 
 all: compile run
 
 compile: $(SRC)/$(MAIN).cpp 
 	$(CC) $(CFLAGS) $(SRC)/$(MAIN).cpp -o $(MAIN) 2>&1 | less
 run: compile
-	./$(MAIN) $(ARGS)	
+	./$(MAIN) $(ARGS) 1	
 clean:
 	rm -f $(MAIN); rm -f $(TESTWT2SS); rm -f $(TESTG2WT)
 valg: compile
-	valgrind ./$(MAIN) $(ARGS) 
+	valgrind ./$(MAIN) $(ARGS) 1; valgrind ./$(MAIN) $(ARGS) 2; valgrind ./$(MAIN) $(ARGS) 3
 gdb: compile
-	gdb --args ./$(MAIN) $(ARGS)
+	gdb --args ./$(MAIN) $(ARGS) 1
 test:
 	./test.sh; ./testg2wt.sh; ./testwt2ss.sh
