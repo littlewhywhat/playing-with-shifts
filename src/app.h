@@ -7,7 +7,8 @@
 #include "mode.h"
 #include "mode1.h"
 #include "mode2.h"
-#include "graph2wt.h"
+#include "graph2wd.h"
+#include "worddata.h"
 #include "wordtable.h"
 #include "graph.h"
 #include "greader.h"
@@ -15,38 +16,41 @@
 
 class App {
   private:
-    const Mode * mode;
     const char * m_Filename;
-    const uint32_t m_Wordlen;
-    void setMode(uint32_t mode_code) {
-        if (mode_code == 1)
-            mode = new Mode1();
+    const uint32_t m_WordLen;
+    const uint32_t m_ModeCode;
+    const Mode * create_mode() const {
+        if (m_ModeCode == 1)
+            return new Mode1();
         else
-            mode = new Mode2();
+            return new Mode2();
+    }
+    WordData * create_data() const {
+        return new WordTable(m_WordLen);
     }
     void readG(Graph & graph) const {
         GReader gr;
         gr.setFilename(m_Filename);
         gr.read(graph);
     }
-    void readWT(WordTable & wt) const {
+    void readWD(WordData & wd) const {
         Graph graph;
         readG(graph);
-        translate(graph, wt);
+        translate(graph, wd);
     }
-    void translate(const Graph & graph, WordTable & wt) const {
-        Graph2Wt g2wt(m_Wordlen);
-        g2wt.translate(graph, wt);
+    void translate(const Graph & graph, WordData & wd) const {
+        Graph2Wd g2wd(m_WordLen);
+        g2wd.translate(graph, wd);
     }
-    uint32_t compute_maxBcnt(const WordTable & wt, std::ostream & out) {
+    uint32_t compute_maxBcnt(const Mode & mode, const WordData & wd, std::ostream & out) {
         uint32_t maxBcnt = 0;   
         out << "good strategies are: " << std::endl;
-        uint64_t strat_bound = (uint64_t)1 << m_Wordlen;
+        uint64_t strat_bound = (uint64_t)1 << m_WordLen;
         for (uint64_t strat_val = 1; strat_val < strat_bound; strat_val++) {
         //for (uint64_t strat_val = strat_bound - 1; strat_val > 0; strat_val--) {
-            Strategy strat(strat_val, m_Wordlen);
+            Strategy strat(strat_val, m_WordLen);
             uint32_t bcnt = strat.Bcnt();
-            if (bcnt > maxBcnt && mode -> good_strat(strat, wt)) {
+            if (bcnt > maxBcnt && mode.good_strat(strat, wd)) {
                 out << strat << std::endl;
                 maxBcnt = bcnt;
             }
@@ -55,20 +59,19 @@ class App {
     }
   public:
     App(const char * filename, uint32_t wordlen, uint32_t mode_code) : 
-            m_Filename(filename), m_Wordlen(wordlen) {
-        setMode(mode_code);  
-    }
-    ~App() {
-        delete mode;
-    }
+            m_Filename(filename), m_WordLen(wordlen), m_ModeCode(mode_code) {}
+    ~App() {}
     void run(std::ostream & out) {
-        WordTable wt(m_Wordlen);
-        out << "Building wordtable..." << std::endl;
-        readWT(wt);
-        out << wt << std::endl;
+        WordData * wd = create_data();
+        const Mode * mode = create_mode();
+        out << "Building worddata..." << std::endl;
+        readWD(*wd);
+        out << wd << std::endl;
         out << "max = " 
-              << compute_maxBcnt(wt, out)
+              << compute_maxBcnt(*mode, *wd, out)
               << std::endl;  
+        delete wd;
+        delete mode;
     }
 };
 

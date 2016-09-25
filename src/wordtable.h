@@ -6,7 +6,9 @@
 #include <vector>
 #include <cstdint>
 
-class WordTable {
+#include "worddata.h"
+
+class WordTable : public WordData {
   private:
     uint32_t m_WordLen;
     std::vector<uint64_t> m_Words;
@@ -31,7 +33,7 @@ class WordTable {
     }
   public:
     WordTable(const uint32_t & wordlen) : m_WordLen(wordlen) {}
-    void add(const std::string & word) {
+    void add(const std::string & word) override {
         m_Words.push_back(s2i(word));
     }
     const std::vector<uint64_t> & words() const {
