@@ -72,7 +72,7 @@ class App {
     void run(std::ostream & out) {
         WordData * wd = create_data();
         const Mode * mode = create_mode();
-        out << "Building wordtable..." << std::endl;
+        out << "Building worddata..." << std::endl;
         readWD(*wd);
         out << *wd << std::endl;
         out << "max = " 

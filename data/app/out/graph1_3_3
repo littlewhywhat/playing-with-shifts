@@ -1,8 +1,11 @@
 Building worddata...
-11
-10
-01
+010
+011
+101
+110
+111
 
 good strategies are: 
-10
-max = 1
+100
+101
+max = 2
