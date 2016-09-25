@@ -5,6 +5,7 @@
 
 class WordData;
 class WordTable;
+class WordTree;
 
 class Mode {
   public:
@@ -13,6 +14,9 @@ class Mode {
         throw "Non-compatible mode and worddata";
     }
     virtual bool good_strat(const Strategy & s, const WordTable & wt) const {
+        throw "Non-compatible mode and worddata";
+    }
+    virtual bool good_strat(const Strategy & s, const WordTree & wt) const {
         throw "Non-compatible mode and worddata";
     }
 };

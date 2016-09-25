@@ -7,7 +7,7 @@
 #include "strategy.h"
 #include "wordtable.h"
 
-class TableMode : public Mode{
+class TableMode : public Mode {
   protected:
     virtual bool gs_mode(const std::vector<uint64_t> & words, const uint64_t & max_comb_val, const uint64_t & s_val) const = 0;
   public:

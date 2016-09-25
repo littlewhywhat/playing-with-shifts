@@ -7,9 +7,11 @@
 #include "mode.h"
 #include "mode1.h"
 #include "mode2.h"
+#include "mode3.h"
 #include "graph2wd.h"
 #include "worddata.h"
 #include "wordtable.h"
+#include "wordtree.h"
 #include "graph.h"
 #include "greader.h"
 #include "strategy.h"
@@ -20,12 +22,18 @@ class App {
     const uint32_t m_WordLen;
     const uint32_t m_ModeCode;
     const Mode * create_mode() const {
-        if (m_ModeCode == 1)
-            return new Mode1();
-        else
-            return new Mode2();
+        switch (m_ModeCode) {
+            case 2:
+               return new Mode2(); 
+            case 3:
+               return new Mode3();
+            default:
+               return new Mode1();
+        }
     }
     WordData * create_data() const {
+        if (m_ModeCode == 3)
+            return new WordTree();
         return new WordTable(m_WordLen);
     }
     void readG(Graph & graph) const {
