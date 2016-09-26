@@ -12,15 +12,6 @@ const int32_t MODE_CODE2_ID = 5;
 const int32_t WORDLEN_ID = 6;
 const int32_t CNT_ARGS = 7;
 
-const Mode * get_mode(uint32_t mode_code) {
-    switch (mode_code) {
-        case 1: return new Mode1();
-        case 2: return new Mode2();
-        case 3: return new Mode3();
-        default: throw "Invalid mode code!";
-    }
-}
-
 struct ModeDiff {
     uint32_t m_Diff;
     std::string m_Filename;
@@ -58,19 +49,14 @@ int main(int argc, char * argv[]) {
         GraphGen gg;
         gg.gen(pathname, cnt_nodes, cnt_graphs);
        
-        App app;
-        const Mode * mode1 = get_mode(mode_code1);
-        const Mode * mode2 = get_mode(mode_code2);
         ModeDiff max_diff;
         for (uint32_t i = 0; i < cnt_graphs; i++) {
            std::cout << "graph " << i << std::endl;
-           app.setFilename(gg.getname(pathname, i));
-           app.setWordLen(wordlen);
-           app.setModeCode(mode_code1);
+           App app(gg.getname(pathname, i), wordlen, mode_code1);
            uint32_t max1 = app.run(NULL);
            std::cout << "max for mode " << mode_code1 << ": " << max1 << std::endl;
-           app.setModeCode(mode_code2);
-           uint32_t max2 = app.run(NULL);
+           App app2(gg.getname(pathname, i), wordlen, mode_code2);
+           uint32_t max2 = app2.run(NULL);
            std::cout << "max for mode " << mode_code2 << ": " << max2 << std::endl;
            uint32_t diff = max1 > max2 ? max1 - max2 : max2 - max1;
            if (diff > max_diff.m_Diff) {
