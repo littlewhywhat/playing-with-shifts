@@ -35,13 +35,27 @@ class SubshRun {
 const uint32_t WORDLEN_ID = 1;
 const uint32_t MODE_CODE_ID = 2;
 const uint32_t SUB_CODE_ID = 3;
+const uint32_t CNT_ARGS = 4;
+
+void print_usage(std::ostream & out, char * argv[], const uint32_t & num_args) {
+    out << "You just called: " << std::endl;
+    for (uint32_t i = 0; i < num_args; i++)
+        out << argv[i] << ' ';
+    out << std::endl;   
+    out << "Wrong number of arguments: " << num_args - 1 << std::endl
+        << "instead of " << CNT_ARGS - 1<< std::endl;
+    out << "Usage: " << std::endl
+        << argv[0] << " wordlen mcode subsh_id" << std::endl;
+}
 
 int main(int argc, char * argv[]) {
-
+    if (argc != CNT_ARGS) {
+        print_usage(std::cout, argv, argc);
+        return 1;
+    }
     uint32_t sub_code = std::stoi(argv[SUB_CODE_ID]);
     uint32_t mode_code = std::stoi(argv[MODE_CODE_ID]);
     uint32_t wordlen = std::stoi(argv[WORDLEN_ID]); 
-
     SubshRun sr(mode_code, wordlen);
     sr.set_sub(sub_code);
     sr.run(std::cout);
