@@ -32,9 +32,22 @@ struct ModeDiff {
     }
 };
 
+void print_usage(std::ostream & out, char * argv[], const uint32_t & num_args) {
+    out << "You just called: " << std::endl;
+    for (uint32_t i = 0; i < num_args; i++)
+        out << argv[i] << ' ';
+    out << std::endl;   
+    out << "Wrong number of arguments: " << num_args - 1 << std::endl
+        << "instead of " << CNT_ARGS - 1<< std::endl;
+    out << "Usage: " << std::endl
+        << argv[0] << " path rcnt_nodes cnt_graph mcode1 mcode2 wordlen" << std::endl;
+}
+
 int main(int argc, char * argv[]) {
-    if (argc != CNT_ARGS)
+    if (argc != CNT_ARGS) {
+        print_usage(std::cout, argv, argc);
         return 1;
+    }
     std::string pathname = argv[PATH_N_NAME_ID];
     const int32_t cnt_nodes = atoi(argv[CNT_NODES_ID]);
     const int32_t cnt_graphs = atoi(argv[CNT_GRAPHS_ID]);
