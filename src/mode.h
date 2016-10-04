@@ -8,16 +8,24 @@ class WordTable;
 class WordTree;
 
 class Mode {
+  protected:
+    virtual bool has_wd() const = 0;
+    virtual bool good_strat_ch(const Strategy & s) const = 0;
   public:
     virtual ~Mode() {};
-    bool good_strat(const Strategy & s, const WordData & wd) const {
+    void set_wd(const WordData & wd) {
         throw "Non-compatible mode and worddata";
     }
-    virtual bool good_strat(const Strategy & s, const WordTable & wt) const {
+    virtual void set_wd(const WordTable & wt) {
         throw "Non-compatible mode and worddata";
     }
-    virtual bool good_strat(const Strategy & s, const WordTree & wt) const {
+    virtual void set_wd(const WordTree & wt) {
         throw "Non-compatible mode and worddata";
+    }
+    bool good_strat(const Strategy & s) const {
+        if (!has_wd())
+            throw "WordData wasn't set!";
+        return good_strat_ch(s); 
     }
 };
 

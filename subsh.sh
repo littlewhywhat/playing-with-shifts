@@ -3,6 +3,7 @@ WORDLEN=3
 MODE=1
 SUBSH=0
 
-g++ -std=c++11 src/$EXEC.cpp -o $EXEC 
-
-./$EXEC $WORDLEN $MODE $SUBSH
+if g++ -std=c++11 src/$EXEC.cpp -o $EXEC;
+then
+    ./$EXEC $WORDLEN $MODE $SUBSH
+fi

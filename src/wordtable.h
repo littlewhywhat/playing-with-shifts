@@ -33,9 +33,12 @@ class WordTable : public WordData {
     }
   public:
     WordTable(const uint32_t & wordlen) : m_WordLen(wordlen) {}
-    bool good_strat(const Strategy & strat, const Mode & mode) const {
-        return mode.good_strat(strat, *this);
-    } 
+    void set_wd(Mode & mode) const {
+        mode.set_wd(*this);
+    }
+    uint32_t size() const {
+        return m_Words.size();
+    }
     void add(const std::string & word) override {
         m_Words.push_back(s2i(word));
     }

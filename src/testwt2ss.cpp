@@ -30,12 +30,13 @@ std::list<std::string> goodstrat(const WordData & wd, uint32_t strat_len, uint32
         default:
            throw "Wrong mode code!"; 
     }
+    wd.set_wd(*mode);
     std::list<std::string> l;
     std::stringstream ss;
     uint32_t max = (uint32_t)1 << strat_len;
     for (uint32_t i = 0; i < max; i++) {
         Strategy s(i, strat_len);
-        if (wd.good_strat(s, *mode)) {
+        if (mode -> good_strat(s)) {
             ss << s;
             l.push_back(ss.str());
             ss.str(std::string());

@@ -50,11 +50,12 @@ class MaxBCnt {
         if (out)
             *out << "good strategies are: " << std::endl;
         uint64_t strat_bound = (uint64_t)1 << m_WordLen;
+        m_WordData -> set_wd(*m_Mode);
         for (uint64_t strat_val = 1; strat_val < strat_bound; strat_val++) {
         //for (uint64_t strat_val = strat_bound - 1; strat_val > 0; strat_val--) {
             Strategy strat(strat_val, m_WordLen);
             uint32_t bcnt = strat.Bcnt();
-            if (bcnt > maxBcnt && m_WordData -> good_strat(strat, *m_Mode)) {
+            if (bcnt > maxBcnt && m_Mode -> good_strat(strat)) {
                 if (out)
                     *out << strat << std::endl;
                 maxBcnt = bcnt;

@@ -18,10 +18,10 @@ class Mode1 : public TableMode {
             return (a & m_Mask) < (b & m_Mask);
         }
     };
-    bool gs_mode(const std::vector<uint64_t> & words, const uint64_t & max_comb_val, const uint64_t & s_val) const override{
+    bool gs_mode(const uint64_t & max_comb_val, const uint64_t & s_val) const override{
         Less less(s_val);
         std::set<uint64_t, Less> combset(less);
-        for (auto word : words) 
+        for (auto word : get_wt().words()) 
             if (combset.find(word) == combset.end()) {
                 combset.insert(word);
                 if (combset.size() == max_comb_val)
