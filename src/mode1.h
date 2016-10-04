@@ -18,7 +18,7 @@ class Mode1 : public TableMode {
             return (a & m_Mask) < (b & m_Mask);
         }
     };
-    bool gs_mode(const uint64_t & max_comb_val, const uint64_t & s_val) const override{
+    bool good_strat_tm(const uint64_t & max_comb_val, const uint64_t & s_val) const override{
         Less less(s_val);
         std::set<uint64_t, Less> combset(less);
         for (auto word : get_wt().words()) 

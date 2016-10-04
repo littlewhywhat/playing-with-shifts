@@ -19,7 +19,7 @@ class Mode2 : public TableMode {
             return (a & m_Mask) < (b & m_Mask);
         }
     };
-    bool gs_mode(const uint64_t & max_comb_val, const uint64_t & s_val) const override {
+    bool good_strat_tm(const uint64_t & max_comb_val, const uint64_t & s_val) const override {
         InverseLess c(s_val);
         std::map<uint64_t, uint64_t, InverseLess> words_map(c);
         for (auto word : get_wt().words()) {
