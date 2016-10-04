@@ -23,7 +23,7 @@ class Mode3 : public Mode {
             return (node.has_zero() && recurse_gs(node.zero(), rem_strat >> 1, wordlen - 1)) || 
                    (node.has_one() && recurse_gs(node.one(), rem_strat >> 1, wordlen - 1));
     }
-    const WordTree & wt() const {
+    const WordTree & get_wt() const {
         return *m_WT;
     }
   protected:
@@ -31,7 +31,7 @@ class Mode3 : public Mode {
         return m_WT;
     }
     bool good_strat_ch(const Strategy & s) const override {
-        return recurse_gs(wt().root(), s.val(), s.length());    
+        return recurse_gs(get_wt().root(), s.val(), s.length());    
     }
   public:
     void set_wd(const WordTree & wt) override {
