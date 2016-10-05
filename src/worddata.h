@@ -3,8 +3,6 @@
 
 #include <string>
 
-#include "mode.h"
-
 class WordData {
   public:
     virtual ~WordData() {}

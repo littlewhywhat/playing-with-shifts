@@ -10,7 +10,7 @@
 
 class WordTable : public WordData {
   private:
-    uint32_t m_WordLen;
+    const uint32_t & m_WordLen;
     std::vector<uint64_t> m_Words;
     uint64_t s2i(const std::string & s) const {
         uint64_t i = 0;
@@ -33,6 +33,9 @@ class WordTable : public WordData {
     }
   public:
     WordTable(const uint32_t & wordlen) : m_WordLen(wordlen) {}
+    const uint32_t & wordlen() const {
+        return m_WordLen;
+    }
     uint32_t size() const {
         return m_Words.size();
     }

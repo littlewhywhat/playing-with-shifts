@@ -4,10 +4,7 @@
 #include <string>
 #include <ostream>
 
-#include "mode.h"
 #include "tnode.h"
-#include "strategy.h"
-
 
 class WordTree : public WordData {
   private:

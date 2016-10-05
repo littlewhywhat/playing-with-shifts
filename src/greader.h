@@ -9,13 +9,11 @@
 class GReader {
   private:
     const char DELIM = ',';
-    std::string m_Filename;
+    const std::string m_GraphFile;
   public: 
-    void setFilename(const std::string & filename) { 
-        m_Filename = filename;
-    }
+    GReader(const std::string & graphfile) : m_GraphFile(graphfile) {}
     void read(Graph & g) const {
-        std::fstream fs(m_Filename, std::ios::in);
+        std::fstream fs(m_GraphFile, std::ios::in);
         try {
             if (!fs) 
                 throw "Error while openning file";

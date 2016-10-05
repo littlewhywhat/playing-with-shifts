@@ -16,8 +16,8 @@ const uint32_t WORDTABLE_ID = 1;
 const uint32_t WORDTREE_ID = 2;
 
 int main(int argc, char * argsv[]) {
-    GReader greader;
-    greader.setFilename(argsv[PATH_ID]);
+    const char * filename = argsv[PATH_ID];
+    GReader greader(filename);
     Graph graph;
     try {
         greader.read(graph);

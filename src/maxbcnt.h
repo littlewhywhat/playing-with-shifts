@@ -4,29 +4,29 @@
 #include <cstdint>
 #include <ostream>
 
-#include "mode.h"
+#include "game.h"
 #include "strategy.h"
 
 class MaxBCnt {
   private:
-    const Mode & m_Mode;
+    const Game & m_Game;
   public:
-    MaxBCnt(const Mode & mode) : m_Mode(mode) {} 
+    MaxBCnt(const Game & game) : m_Game(game) {} 
     uint32_t compute(std::ostream * out) const {
-        uint32_t maxBcnt = 0;   
+        uint32_t max_bcnt = 0;   
         if (out)
             *out << "good strategies are: " << std::endl;
-        uint64_t strat_bound = (uint64_t)1 << m_Mode.get_wordlen();
+        uint64_t strat_bound = (uint64_t)1 << m_Game.wordlen();
         for (uint64_t strat_val = 1; strat_val < strat_bound; strat_val++) {
-            Strategy strat(strat_val, m_Mode.get_wordlen());
-            uint32_t bcnt = strat.Bcnt();
-            if (bcnt > maxBcnt && m_Mode.good_strat(strat)) {
+            Strategy strat(strat_val, m_Game.wordlen());
+            uint32_t bcnt = strat.bcnt();
+            if (bcnt > max_bcnt && m_Game.play(strat)) {
                 if (out)
                     *out << strat << std::endl;
-                maxBcnt = bcnt;
+                max_bcnt = bcnt;
             }
         }
-        return maxBcnt;
+        return max_bcnt;
     }
 };
 

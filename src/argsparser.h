@@ -13,8 +13,8 @@ class ArgsParser {
     const int MAX_WL = 63;
     const int MIN_WL = 1;
     const char * m_Filename;
-    int32_t m_WordLen;
-    int32_t m_Mode_code;
+    uint32_t m_WordLen;
+    uint32_t m_Mode_code;
     void setFilename(const char * filename) {
         m_Filename = filename;
     }
@@ -50,10 +50,10 @@ class ArgsParser {
     const char * getFilename() const {
         return m_Filename;
     }
-    const uint32_t getWordLen() const {
+    const uint32_t & getWordLen() const {
         return m_WordLen; 
     }
-    const uint32_t getModeCode() const {
+    const uint32_t & getModeCode() const {
         return m_Mode_code;
     }   
 };
