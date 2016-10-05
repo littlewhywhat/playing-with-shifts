@@ -35,7 +35,11 @@ class Mode2 : public TableMode {
         return false;
     }
   public:
+    Mode2(const uint32_t & wordlen) : TableMode(wordlen) {}
     ~Mode2() override {}
+    static Mode * create(const uint32_t & wordlen) {
+        return new Mode2(wordlen);
+    }
 };
 
 #endif

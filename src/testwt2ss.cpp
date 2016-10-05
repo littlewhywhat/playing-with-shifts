@@ -14,36 +14,21 @@
 #include "wordtree.h"
 #include "strategy.h"
 #include "mode.h"
-#include "mode1.h"
-#include "mode2.h"
-#include "mode3.h"
+#include "modefactory.h"
 
-std::list<std::string> goodstrat(const WordData & wd, uint32_t strat_len, uint32_t mode_code) {
-    Mode * mode = NULL;
-    switch (mode_code) {
-        case 1: mode = new Mode1();
-                break;
-        case 2: mode = new Mode2();
-                break;
-        case 3: mode = new Mode3();
-                break;
-        default:
-           throw "Wrong mode code!"; 
-    }
-    wd.set_wd(*mode);
+std::list<std::string> goodstrat(const Mode & mode) {
     std::list<std::string> l;
     std::stringstream ss;
-    uint32_t max = (uint32_t)1 << strat_len;
+    uint32_t max = (uint32_t)1 << mode.get_wordlen();
     for (uint32_t i = 0; i < max; i++) {
-        Strategy s(i, strat_len);
-        if (mode -> good_strat(s)) {
+        Strategy s(i, mode.get_wordlen());
+        if (mode.good_strat(s)) {
             ss << s;
             l.push_back(ss.str());
             ss.str(std::string());
             ss.clear();
         }
     }
-    delete mode;
     return l;
 }
 
@@ -68,15 +53,11 @@ const int MODE_CODE_ID = 3;
 int main(int argc, char * argv[]) {
     uint32_t strat_len = std::stoi(argv[STRAT_LEN_ID]);
     uint32_t mode_code = std::stoi(argv[MODE_CODE_ID]);
-    WordData * wd;
-    if (mode_code == 3)
-       wd = new WordTree();
-    else
-       wd = new WordTable(strat_len); 
+    Mode * mode = ModeFactory::get() -> create_instance(mode_code, strat_len);
     GsReader gsr;
-    gsr.read(*wd, argv[PATH_ID]);
-    std::list<std::string> res = goodstrat(*wd, strat_len, mode_code);
-    delete wd;
+    gsr.read(mode -> get_wd(), argv[PATH_ID]);
+    std::list<std::string> res = goodstrat(*mode);
+    delete mode;
     for (const std::string & s : res) 
         std::cout << s << std::endl;
     return 0;

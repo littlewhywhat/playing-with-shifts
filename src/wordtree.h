@@ -27,9 +27,6 @@ class WordTree : public WordData {
         }
     }
   public:
-    void set_wd(Mode & mode) const override {
-        mode.set_wd(*this);
-    }
     const TNode & root() const {
         return m_Tree;
     }

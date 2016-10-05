@@ -33,9 +33,6 @@ class WordTable : public WordData {
     }
   public:
     WordTable(const uint32_t & wordlen) : m_WordLen(wordlen) {}
-    void set_wd(Mode & mode) const {
-        mode.set_wd(*this);
-    }
     uint32_t size() const {
         return m_Words.size();
     }

@@ -5,11 +5,12 @@
 #include <vector>
 
 #include "strategy.h"
+#include "mode.h"
 #include "wordtable.h"
 
 class TableMode : public Mode {
   private:
-    const WordTable * m_WT;
+    WordTable * m_WT;
     bool has_wd() const override {
         return m_WT;
     }
@@ -27,9 +28,12 @@ class TableMode : public Mode {
         return *m_WT;
     }
   public:
+    TableMode(const uint32_t & wordlen) : Mode(wordlen) {
+        m_WT = new WordTable(wordlen);
+    }
     virtual ~TableMode() {};
-    void set_wd(const WordTable & wt) override {
-        m_WT = &wt;
+    WordData & get_wd() const override {
+        return *m_WT;
     }
 };
 

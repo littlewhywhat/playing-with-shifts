@@ -7,6 +7,7 @@ TESTWT2SS = testwt2ss
 TESTG2WT = testg2wt
 RM = rm -r -f
 ARGS = data/g2wt/in/graph1 3
+DOX = config
 
 all: compile run
 
@@ -22,3 +23,5 @@ gdb: compile
 	gdb --args ./$(MAIN) $(ARGS) 1
 test:
 	./test.sh; ./testg2wt.sh; ./testwt2ss.sh
+doxygen:
+	doxygen $(DOX)
