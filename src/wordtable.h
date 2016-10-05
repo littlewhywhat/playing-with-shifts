@@ -39,8 +39,11 @@ class WordTable : public WordData {
     void add(const std::string & word) override {
         m_Words.push_back(s2i(word));
     }
-    const std::vector<uint64_t> & words() const {
-        return m_Words;
+    friend std::vector<uint64_t>::const_iterator begin(const WordTable & src) {
+        return src.m_Words.cbegin();
+    }
+    friend std::vector<uint64_t>::const_iterator end(const WordTable & src) {
+        return src.m_Words.cend();
     }
     std::ostream & print(std::ostream & out) const override {
         for (auto word : m_Words)
