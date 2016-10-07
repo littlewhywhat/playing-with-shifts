@@ -24,6 +24,7 @@ class WordTree : public WordData {
         }
     }
   public:
+    WordTree(const uint32_t & wordlen) : WordData(wordlen) {}
     const TNode & root() const {
         return m_Tree;
     }

@@ -4,7 +4,7 @@ RES=$DATA/app/res
 DIFF=colordiff
 IN=$DATA/g2wt/in
 OUT=$DATA/app/out
-MAIN=program
+MAIN=playgraph
 
 if g++ -std=c++11 src/$MAIN.cpp -o $EXEC;
 then

@@ -7,7 +7,6 @@
 
 class TrGame : public Game {
   private:
-    const uint32_t & m_WordLen;
     WordTree * m_WT;
     bool play_rem(const TNode & node, uint64_t rem_strat, uint32_t wordlen) const {
         if (node.is_leaf()) {
@@ -35,9 +34,9 @@ class TrGame : public Game {
         return play_rem(wt().root(), s.val(), s.length());    
     }
   public:
-    TrGame(const uint32_t & wordlen) : m_WordLen(wordlen), m_WT(new WordTree()) {}
+    TrGame(const uint32_t & wordlen) : m_WT(new WordTree(wordlen)) {}
     const uint32_t & wordlen() const override {
-        return m_WordLen;
+        return wt().wordlen();
     }
     WordData & wd() const override {
         return *m_WT;

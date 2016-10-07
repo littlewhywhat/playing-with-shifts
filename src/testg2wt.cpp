@@ -31,8 +31,8 @@ int main(int argc, char * argsv[]) {
     if (worddata_code == WORDTABLE_ID)     
         wd = new WordTable(wordlen);
     else
-        wd = new WordTree();
-    Graph2Wd g2wd(wordlen);
+        wd = new WordTree(wordlen);
+    Graph2Wd g2wd;
     g2wd.translate(graph, *wd);
     std::cout << *wd;
     delete wd;

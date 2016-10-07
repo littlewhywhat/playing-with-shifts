@@ -2,7 +2,7 @@ CC = g++
 CFLAGS = -g -Wall -pedantic -std=c++11 -Wno-long-long -O0 -O2 -ggdb
 BIN = bin
 SRC = src
-MAIN = program
+MAIN = playgraph
 TESTWT2SS = testwt2ss
 TESTG2WT = testg2wt
 RM = rm -r -f

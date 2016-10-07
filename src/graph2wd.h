@@ -10,9 +10,8 @@
 
 class Graph2Wd {
   private:
-    const uint32_t m_WordLen;
     void produceNext(std::set<std::string> & wordset, WordData & wd, const GNode * node, uint32_t lettercnt, std::string & buffer) const {
-        if (lettercnt == m_WordLen) {
+        if (lettercnt == wd.wordlen()) {
             if (wordset.find(buffer) == wordset.end()) {
                 wd.add(buffer);
                 wordset.insert(buffer);
@@ -29,7 +28,6 @@ class Graph2Wd {
 
     }
   public:
-    Graph2Wd(const uint32_t & wordlen) : m_WordLen(wordlen) {}
     void translate(const Graph & graph, WordData & wd) const {
         std::set<std::string> wordset;
         uint32_t lettercnt = 0;

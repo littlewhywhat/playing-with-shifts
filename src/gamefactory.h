@@ -1,5 +1,5 @@
-#ifndef MODEFACTORY_H
-#define MODEFACTORY_H
+#ifndef GAMEFACTORY_H
+#define GAMEFACTORY_H
 
 #include <cstdint>
 
