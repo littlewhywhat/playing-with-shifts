@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "langconsole.h"
+#include "buildconsole.h"
 #include "maxbcntplayer.h"
 
 const uint32_t WORDLEN_ID = 1;
@@ -27,10 +27,10 @@ int main(int argc, char * argsv[]) {
     std::string lang_tag = argsv[LANG_TAG_ID];
     uint32_t game_mode = std::stoi(argsv[GAME_MODE_ID]);
     uint32_t wordlen = std::stoi(argsv[WORDLEN_ID]); 
-    LangConsole lc(std::cout);
-    lc.set_langbuilder(lang_tag);
-    lc.load(game_mode, wordlen);
+    BuildConsole bc(std::cout);
+    bc.set_langbuilder(lang_tag);
+    bc.load(game_mode, wordlen);
     MaxBCntPlayer mbc_player;
-    mbc_player.play(lc);
+    mbc_player.play(bc);
     return 0;
 }

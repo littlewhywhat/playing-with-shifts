@@ -1,5 +1,5 @@
-#ifndef LANGCONSOLE_H
-#define LANGCONSOLE_H
+#ifndef BUILDCONSOLE_H
+#define BUILDCONSOLE_H
 
 #include <iostream>
 
@@ -9,7 +9,7 @@
 #include "langbuilderfactory.h"
 #include "utils.h"
 
-class LangConsole : public Console {
+class BuildConsole : public Console {
   private:
     LangBuilder * m_LangBuilder;
     LangBuilder & langbuilder() {
@@ -19,8 +19,8 @@ class LangConsole : public Console {
         langbuilder().build(lang);
     }
   public:
-    LangConsole(std::ostream & out) : Console(out), m_LangBuilder(NULL) {}
-    ~LangConsole() {
+    BuildConsole(std::ostream & out) : Console(out), m_LangBuilder(NULL) {}
+    ~BuildConsole() {
         delete m_LangBuilder;
     }
     void set_langbuilder(const std::string & tag) {
