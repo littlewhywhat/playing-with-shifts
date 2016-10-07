@@ -1,4 +1,4 @@
-Building worddata...
+language:
 1111
 1110
 1011
@@ -7,7 +7,7 @@ Building worddata...
 0111
 0101
 
-good strategies are: 
+good strategies are:
 1000
 1010
 max = 2

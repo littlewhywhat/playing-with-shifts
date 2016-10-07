@@ -16,6 +16,7 @@ int main(int argc, char * argv[]) {
     LangConsole lc(std::cout, path);
     lc.load(game_mode, strat_len);
     Player player;
+    player.set_out_result(true);
     player.play(lc);
     return 0;
 }

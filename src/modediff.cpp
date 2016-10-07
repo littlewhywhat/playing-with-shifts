@@ -59,12 +59,14 @@ int main(int argc, char * argv[]) {
            gc.reset();
            gc.set_graphfile(gg.getname(pathname, i));
            gc.load(mode_code1, wordlen);
-           uint32_t max1 = mbc_player.play(gc);
+           mbc_player.play(gc);
+           uint32_t max1 = mbc_player.max_bcnt();
            std::cout << "max for mode " << mode_code1 << ": " << max1 << std::endl;
            gc.reset();
            gc.set_graphfile(gg.getname(pathname, i));
            gc.load(mode_code2, wordlen);
-           uint32_t max2 = mbc_player.play(gc);
+           mbc_player.play(gc);
+           uint32_t max2 = mbc_player.max_bcnt();;
            std::cout << "max for mode " << mode_code2 << ": " << max2 << std::endl;
            uint32_t diff = max1 > max2 ? max1 - max2 : max2 - max1;
            if (diff > max_diff.m_Diff) {

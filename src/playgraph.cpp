@@ -9,9 +9,10 @@ int main (int argc, char * argv[]) {
         ArgsParser args(std::cout, argc, argv);
         GraphConsole gc(std::cout, args.getFilename());
         gc.load(args.getModeCode(), args.getWordLen());
-        MaxBCntPlayer * mbc_player = new MaxBCntPlayer();
-        mbc_player -> play(gc); 
-        delete mbc_player; 
+        MaxBCntPlayer mbc_player;
+        mbc_player.set_out_result(true);
+        mbc_player.set_out_lang(true);
+        mbc_player.play(gc); 
     } catch (const char * e) {
         std::cout << e << std::endl;
         return 1;

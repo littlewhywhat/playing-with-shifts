@@ -31,6 +31,7 @@ int main(int argc, char * argsv[]) {
     bc.set_langbuilder(lang_tag);
     bc.load(game_mode, wordlen);
     MaxBCntPlayer mbc_player;
+    mbc_player.set_out_result(true);
     mbc_player.play(bc);
     return 0;
 }
