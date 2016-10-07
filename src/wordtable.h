@@ -6,30 +6,12 @@
 #include <vector>
 #include <cstdint>
 
+#include "utils.h"
 #include "worddata.h"
 
 class WordTable : public WordData {
   private:
     std::vector<uint64_t> m_Words;
-    uint64_t s2i(const std::string & s) const {
-        uint64_t i = 0;
-        for (uint32_t pos = 0; pos < s.length(); pos++)
-            if (s.at(pos) - '0')
-                i += 1 << pos;
-        return i;
-    }
-    std::string i2s(uint64_t word_val) const {
-        std::string s;
-        for (uint32_t i = 0; i < wordlen(); i++) {
-            if (word_val & 1)
-                s.push_back('1');
-            else
-                s.push_back('0');
-            word_val >>= 1;
-        }
-
-        return s;
-    }
   public:
     WordTable(const uint32_t & wordlen) : WordData(wordlen) {}
     uint32_t size() const {
@@ -46,7 +28,7 @@ class WordTable : public WordData {
     }
     std::ostream & print(std::ostream & out) const override {
         for (auto word : m_Words)
-            out << i2s(word) << std::endl;
+            out << i2s(word, wordlen()) << std::endl;
         return out;
     }
 };

@@ -1,9 +1,11 @@
 #ifndef NO3INROW_H
 #define NO3INROW_H
 
-class No3inRow : public Subshift {
+#include "langbuilder.h"
+
+class No3inRow : public LangBuilder {
   public:
-    bool in(uint64_t word, const uint32_t & wordlen) const override {
+    bool is_relevant(uint64_t word, const uint32_t & wordlen) const override {
         uint32_t cnt_ones = 0;
         for (uint32_t i = 0; i < wordlen; i++) {
            uint32_t last_digit = word & 1;
@@ -16,6 +18,9 @@ class No3inRow : public Subshift {
            word >>= 1;
         }
         return true;
+    }
+    static LangBuilder * create() {
+       return new No3inRow(); 
     }
 };
 
