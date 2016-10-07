@@ -1,12 +1,12 @@
-#ifndef WORDTREE_H
-#define WORDTREE_H
+#ifndef TRLANGUAGE_H
+#define TRLANGUAGE_H
 
 #include <string>
 #include <ostream>
 
 #include "tnode.h"
 
-class WordTree : public WordData {
+class TrLanguage : public Language {
   private:
     TNode m_Tree;
     void add_word(TNode & node, const std::string word, uint32_t pos) {
@@ -24,7 +24,7 @@ class WordTree : public WordData {
         }
     }
   public:
-    WordTree(const uint32_t & wordlen) : WordData(wordlen) {}
+    TrLanguage(const uint32_t & wordlen) : Language(wordlen) {}
     const TNode & root() const {
         return m_Tree;
     }

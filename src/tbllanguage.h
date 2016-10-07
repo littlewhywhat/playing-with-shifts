@@ -7,23 +7,23 @@
 #include <cstdint>
 
 #include "utils.h"
-#include "worddata.h"
+#include "language.h"
 
-class WordTable : public WordData {
+class TblLanguage : public Language {
   private:
     std::vector<uint64_t> m_Words;
   public:
-    WordTable(const uint32_t & wordlen) : WordData(wordlen) {}
+    TblLanguage(const uint32_t & wordlen) : Language(wordlen) {}
     uint32_t size() const {
         return m_Words.size();
     }
     void add(const std::string & word) override {
         m_Words.push_back(s2i(word));
     }
-    friend std::vector<uint64_t>::const_iterator begin(const WordTable & src) {
+    friend std::vector<uint64_t>::const_iterator begin(const TblLanguage & src) {
         return src.m_Words.cbegin();
     }
-    friend std::vector<uint64_t>::const_iterator end(const WordTable & src) {
+    friend std::vector<uint64_t>::const_iterator end(const TblLanguage & src) {
         return src.m_Words.cend();
     }
     std::ostream & print(std::ostream & out) const override {

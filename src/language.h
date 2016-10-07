@@ -1,20 +1,20 @@
-#ifndef WORDDATA_H
-#define WORDDATA_H
+#ifndef LANGUAGE_H
+#define LANGUAGE_H
 
 #include <string>
 
-class WordData {
+class Language {
   private:
     const uint32_t m_Wordlen;
   public:
-    WordData(const uint32_t & wordlen) : m_Wordlen(wordlen) {}
-    virtual ~WordData() {}
+    Language(const uint32_t & wordlen) : m_Wordlen(wordlen) {}
+    virtual ~Language() {}
     virtual void add(const std::string & word) = 0;
     virtual std::ostream & print(std::ostream & out) const = 0;
     virtual const uint32_t & wordlen() const {
         return m_Wordlen;
     };
-    friend std::ostream & operator << (std::ostream & out, const WordData & src) {
+    friend std::ostream & operator << (std::ostream & out, const Language & src) {
         return src.print(out);
     }
 };

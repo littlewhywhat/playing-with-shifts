@@ -5,39 +5,39 @@
 
 #include "strategy.h"
 #include "game.h"
-#include "wordtable.h"
+#include "tbllanguage.h"
 
 class TblGame : public Game {
   private:
-    WordTable * m_WT;
-    bool has_wd() const override {
-        return m_WT;
+    TblLanguage * m_Lang;
+    bool has_lang() const override {
+        return m_Lang;
     }
     bool play_ch(const Strategy & s) const override {
         if (!s.val())
             return true;
         const uint64_t max_comb_val = ((uint64_t) 1) << s.bcnt();
-        if (max_comb_val > wt().size())
+        if (max_comb_val > tbllang().size())
             return false;
         return play_tm(max_comb_val, s.val());
     }     
     virtual bool play_tm(const uint64_t & max_comb_val, const uint64_t & s_val) const = 0;
   protected:
-    const WordTable & wt() const {
-        return *m_WT;
+    const TblLanguage & tbllang() const {
+        return *m_Lang;
     }
   public:
     TblGame(const uint32_t & wordlen) {
-        m_WT = new WordTable(wordlen);
+        m_Lang = new TblLanguage(wordlen);
     }
     virtual ~TblGame() {
-        delete m_WT;
+        delete m_Lang;
     };
-    WordData & wd() const override {
-        return *m_WT;
+    Language & lang() const override {
+        return *m_Lang;
     }
     const uint32_t & wordlen() const override {
-        return wt().wordlen();
+        return lang().wordlen();
     }
 };
 

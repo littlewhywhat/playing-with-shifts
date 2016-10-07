@@ -3,7 +3,7 @@
 
 #include "game.h"
 #include "gamefactory.h"
-#include "worddata.h"
+#include "language.h"
 #include "strategy.h"
 
 class Console {
@@ -14,7 +14,7 @@ class Console {
         return *m_Game;
     }
   protected:
-    virtual void fill(WordData & wd) = 0;
+    virtual void fill(Language & lang) = 0;
   public:
     Console(std::ostream & out) : m_Out(out), m_Game(NULL) {}
     virtual ~Console() {
@@ -26,15 +26,15 @@ class Console {
     const uint32_t & wordlen() const {
         return game().wordlen();
     }
-    const WordData & wd() const {
-        return game().wd();
+    const Language & lang() const {
+        return game().lang();
     }
     void reset() {
         delete m_Game;
     }
     void load(const uint32_t & game_mode, const uint32_t & wordlen) {
         m_Game = GameFactory::get() -> create_instance(game_mode, wordlen);
-        fill(game().wd());
+        fill(game().lang());
     }
     bool play(const Strategy & strategy) const {
         return game().play(strategy);

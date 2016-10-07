@@ -6,14 +6,14 @@
 #include <cstdint>
 
 #include "graph.h"
-#include "worddata.h"
+#include "language.h"
 
-class Graph2Wd {
+class Graph2Lang {
   private:
-    void produceNext(std::set<std::string> & wordset, WordData & wd, const GNode * node, uint32_t lettercnt, std::string & buffer) const {
-        if (lettercnt == wd.wordlen()) {
+    void produceNext(std::set<std::string> & wordset, Language & lang, const GNode * node, uint32_t lettercnt, std::string & buffer) const {
+        if (lettercnt == lang.wordlen()) {
             if (wordset.find(buffer) == wordset.end()) {
-                wd.add(buffer);
+                lang.add(buffer);
                 wordset.insert(buffer);
             }
             return;
@@ -21,19 +21,19 @@ class Graph2Wd {
         for (GEdge * edge : node -> out()) {
             lettercnt += 1;
             buffer.push_back(edge -> m_Label);
-            produceNext(wordset, wd, edge -> m_Node, lettercnt, buffer);
+            produceNext(wordset, lang, edge -> m_Node, lettercnt, buffer);
             lettercnt -= 1;
             buffer.pop_back();
         }
 
     }
   public:
-    void translate(const Graph & graph, WordData & wd) const {
+    void translate(const Graph & graph, Language & lang) const {
         std::set<std::string> wordset;
         uint32_t lettercnt = 0;
         std::string buffer;
         for (auto node : graph.nodes())
-            produceNext(wordset, wd, node, lettercnt, buffer);
+            produceNext(wordset, lang, node, lettercnt, buffer);
     }
 };
 

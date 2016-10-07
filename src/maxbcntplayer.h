@@ -10,19 +10,19 @@
 class MaxBCntPlayer {
   private:
     bool m_OutResult;
-    bool m_OutWD;
+    bool m_OutLang;
   public:
-    MaxBCntPlayer() : m_OutResult(true), m_OutWD(true) {}
-    void set_out_wd(bool val) {
-        m_OutWD = val;
+    MaxBCntPlayer() : m_OutResult(true), m_OutLang(true) {}
+    void set_out_lang(bool val) {
+        m_OutLang = val;
     }
     void set_out_result(bool val) {
         m_OutResult = val;
     }
     uint32_t play(Console & console) const {
-        if (m_OutWD)
+        if (m_OutLang)
             console.out() << "Building worddata..." << std::endl 
-                          << console.wd() << std::endl;
+                          << console.lang() << std::endl;
         uint32_t max_bcnt = 0;   
         if (m_OutResult)
             console.out() << "good strategies are: " << std::endl;

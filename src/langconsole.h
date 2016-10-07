@@ -4,9 +4,9 @@
 #include <iostream>
 
 #include "console.h"
+#include "language.h"
 #include "langbuilder.h"
 #include "langbuilderfactory.h"
-#include "worddata.h"
 #include "utils.h"
 
 class LangConsole : public Console {
@@ -15,8 +15,8 @@ class LangConsole : public Console {
     LangBuilder & langbuilder() {
         return *m_LangBuilder;
     }
-    void fill(WordData & wd) override {
-        langbuilder().build(wd);
+    void fill(Language & lang) override {
+        langbuilder().build(lang);
     }
   public:
     LangConsole(std::ostream & out) : Console(out), m_LangBuilder(NULL) {}

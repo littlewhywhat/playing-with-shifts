@@ -20,7 +20,7 @@ class TblGame1 : public TblGame {
     bool play_tm(const uint64_t & max_comb_val, const uint64_t & s_val) const override{
         Less less(s_val);
         std::set<uint64_t, Less> combset(less);
-        for (auto word : wt()) 
+        for (auto word : tbllang()) 
             if (combset.find(word) == combset.end()) {
                 combset.insert(word);
                 if (combset.size() == max_comb_val)

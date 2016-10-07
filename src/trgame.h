@@ -1,13 +1,13 @@
 #ifndef TRGAME_H
 #define TRGAME_H
 
-#include "wordtree.h"
+#include "trlanguage.h"
 #include "game.h"
 #include "tnode.h"
 
 class TrGame : public Game {
   private:
-    WordTree * m_WT;
+    TrLanguage * m_Lang;
     bool play_rem(const TNode & node, uint64_t rem_strat, uint32_t wordlen) const {
         if (node.is_leaf()) {
             if (wordlen == 0)
@@ -23,26 +23,26 @@ class TrGame : public Game {
             return (node.has_zero() && play_rem(node.zero(), rem_strat >> 1, wordlen - 1)) || 
                    (node.has_one() && play_rem(node.one(), rem_strat >> 1, wordlen - 1));
     }
-    const WordTree & wt() const {
-        return *m_WT;
+    const TrLanguage & trlang() const {
+        return *m_Lang;
     }
   protected:
-    bool has_wd() const override {
-        return m_WT;
+    bool has_lang() const override {
+        return m_Lang;
     }
     bool play_ch(const Strategy & s) const override {
-        return play_rem(wt().root(), s.val(), s.length());    
+        return play_rem(trlang().root(), s.val(), s.length());    
     }
   public:
-    TrGame(const uint32_t & wordlen) : m_WT(new WordTree(wordlen)) {}
+    TrGame(const uint32_t & wordlen) : m_Lang(new TrLanguage(wordlen)) {}
     ~TrGame() {
-        delete m_WT;
+        delete m_Lang;
     }
     const uint32_t & wordlen() const override {
-        return wt().wordlen();
+        return lang().wordlen();
     }
-    WordData & wd() const override {
-        return *m_WT;
+    Language & lang() const override {
+        return *m_Lang;
     }
     static Game * create(const uint32_t & wordlen) {
         return new TrGame(wordlen);

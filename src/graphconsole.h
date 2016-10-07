@@ -5,9 +5,9 @@
 
 #include "console.h"
 #include "graph.h"
-#include "graph2wd.h"
+#include "graph2lang.h"
 #include "greader.h"
-#include "worddata.h"
+#include "language.h"
 
 class GraphConsole : public Console {
   private:
@@ -21,12 +21,12 @@ class GraphConsole : public Console {
     void set_graphfile(const std::string & graphfile) {
         m_GraphFile = graphfile;
     }
-    void fill(WordData & wd) override {
+    void fill(Language & lang) override {
         Graph graph;
         GReader greader(m_GraphFile);
         greader.read(graph);
-        Graph2Wd g2wd;
-        g2wd.translate(graph, wd);
+        Graph2Lang g2l;
+        g2l.translate(graph, lang);
     }
 };
 

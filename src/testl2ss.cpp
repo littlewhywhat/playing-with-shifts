@@ -9,9 +9,9 @@
 #include <map>
 #include <set>
 
-#include "worddata.h"
-#include "wordtable.h"
-#include "wordtree.h"
+#include "language.h"
+#include "tbllanguage.h"
+#include "tbllanguage.h"
 #include "strategy.h"
 #include "game.h"
 #include "gamefactory.h"
@@ -34,14 +34,14 @@ std::list<std::string> play(const Game & game) {
 
 class GsReader {
   public: 
-    void read(WordData & wd, const char * path) {
+    void read(Language & lang, const char * path) {
         std::fstream fs(path);
 
         if (!fs.is_open())
             throw "Error trying to open file";
         std::string buffer;
         while (std::getline(fs, buffer)) {
-            wd.add(buffer);
+            lang.add(buffer);
         }
     }
 };
@@ -55,7 +55,7 @@ int main(int argc, char * argv[]) {
     uint32_t game_mode = std::stoi(argv[MODE_CODE_ID]);
     Game * game = GameFactory::get() -> create_instance(game_mode, strat_len);
     GsReader gsr;
-    gsr.read(game -> wd(), argv[PATH_ID]);
+    gsr.read(game -> lang(), argv[PATH_ID]);
     std::list<std::string> res = play(*game);
     delete game;
     for (const std::string & s : res) 

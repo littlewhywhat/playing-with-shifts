@@ -21,7 +21,7 @@ class TblGame2 : public TblGame {
     bool play_tm(const uint64_t & max_comb_val, const uint64_t & s_val) const override {
         InverseLess c(s_val);
         std::map<uint64_t, uint64_t, InverseLess> words_map(c);
-        for (auto word : wt()) {
+        for (auto word : tbllang()) {
             auto search = words_map.find(word);
             if (search == words_map.end()) 
                 words_map.insert(std::make_pair(word, 1)); 

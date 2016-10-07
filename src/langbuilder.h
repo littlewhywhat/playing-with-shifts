@@ -15,11 +15,11 @@ class LangBuilder {
     virtual bool is_relevant(uint64_t comb, const uint32_t & wordlen) const = 0;
   public:
     virtual ~LangBuilder() {};
-    void build(WordData & wd) const {
-    	uint64_t max_comb = 1 << ((uint64_t) wd.wordlen());
+    void build(Language & lang) const {
+    	uint64_t max_comb = 1 << ((uint64_t) lang.wordlen());
     	for (uint64_t comb = 0; comb < max_comb; comb++) 
-            if (is_relevant(comb, wd.wordlen()))
-                wd.add(i2s(comb, wd.wordlen()));
+            if (is_relevant(comb, lang.wordlen()))
+                lang.add(i2s(comb, lang.wordlen()));
     }
  };
 

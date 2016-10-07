@@ -1,7 +1,7 @@
 DATA=data/wt2ss
 IN=$DATA/in
 OUT=$DATA/out
-EXEC=testwt2ss
+EXEC=testl2ss
 RES=$DATA/res
 DIFF=colordiff
 

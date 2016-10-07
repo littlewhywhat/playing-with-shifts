@@ -1,5 +1,5 @@
 DATA=data/g2wt
-EXEC=testg2wt
+EXEC=testg2l
 RES=$DATA/res
 DIFF=colordiff
 IN=$DATA/in

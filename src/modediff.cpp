@@ -51,7 +51,7 @@ int main(int argc, char * argv[]) {
        
         ModeDiff max_diff;
         MaxBCntPlayer mbc_player;
-        mbc_player.set_out_wd(false);
+        mbc_player.set_out_lang(false);
         mbc_player.set_out_result(false);
         GraphConsole gc(std::cout);
         for (uint32_t i = 0; i < cnt_graphs; i++) {
