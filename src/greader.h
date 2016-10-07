@@ -8,12 +8,10 @@
 
 class GReader {
   private:
-    const char DELIM = ',';
-    const std::string m_GraphFile;
+    const static char DELIM = ',';
   public: 
-    GReader(const std::string & graphfile) : m_GraphFile(graphfile) {}
-    void read(Graph & g) const {
-        std::fstream fs(m_GraphFile, std::ios::in);
+    void read(Graph & g, const std::string & path) const {
+        std::fstream fs(path, std::ios::in);
         try {
             if (!fs) 
                 throw "Error while openning file";

@@ -23,8 +23,8 @@ class GraphConsole : public Console {
     }
     void fill(Language & lang) override {
         Graph graph;
-        GReader greader(m_GraphFile);
-        greader.read(graph);
+        GReader greader;
+        greader.read(graph, m_GraphFile);
         Graph2Lang g2l;
         g2l.translate(graph, lang);
     }
