@@ -23,7 +23,7 @@ class GraphGen {
     }
     void write_edges(std::fstream & fs, const uint32_t & cnt_nodes) const{
         uint32_t max_num_edges = (1 << cnt_nodes) - 1;
-        int rcnt_edges = m_R.randint(1, max_num_edges);
+        uint32_t rcnt_edges = m_R.randint(1, max_num_edges);
         for (uint32_t i = 0; i < rcnt_edges; i++) {
             int r_from = m_R.randnode(cnt_nodes);
             int r_to = m_R.randnode(cnt_nodes);

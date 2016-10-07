@@ -1,8 +1,8 @@
 #include <iostream>
 
 #include "graphgen.h"
-#include "app.h"
-#include "mode.h"
+#include "graphconsole.h"
+#include "maxbcntplayer.h"
 
 const int32_t PATH_N_NAME_ID = 1;
 const int32_t CNT_NODES_ID = 2; 
@@ -40,23 +40,30 @@ int main(int argc, char * argv[]) {
         return 1;
     }
     std::string pathname = argv[PATH_N_NAME_ID];
-    const int32_t cnt_nodes = atoi(argv[CNT_NODES_ID]);
-    const int32_t cnt_graphs = atoi(argv[CNT_GRAPHS_ID]);
-    const int32_t mode_code1 = atoi(argv[MODE_CODE1_ID]);
-    const int32_t mode_code2 = atoi(argv[MODE_CODE2_ID]);
-    const int32_t wordlen = atoi(argv[WORDLEN_ID]);
+    const uint32_t cnt_nodes = atoi(argv[CNT_NODES_ID]);
+    const uint32_t cnt_graphs = atoi(argv[CNT_GRAPHS_ID]);
+    const uint32_t mode_code1 = atoi(argv[MODE_CODE1_ID]);
+    const uint32_t mode_code2 = atoi(argv[MODE_CODE2_ID]);
+    const uint32_t wordlen = atoi(argv[WORDLEN_ID]);
     try {
         GraphGen gg;
         gg.gen(pathname, cnt_nodes, cnt_graphs);
        
         ModeDiff max_diff;
+        MaxBCntPlayer mbc_player;
+        mbc_player.set_out_wd(false);
+        mbc_player.set_out_result(false);
+        GraphConsole gc(std::cout);
         for (uint32_t i = 0; i < cnt_graphs; i++) {
            std::cout << "graph " << i << std::endl;
-           App app(gg.getname(pathname, i), wordlen, mode_code1);
-           uint32_t max1 = app.run(NULL);
+           gc.set_graphfile(gg.getname(pathname, i));
+           gc.load(mode_code1, wordlen);
+           uint32_t max1 = mbc_player.play(gc);
            std::cout << "max for mode " << mode_code1 << ": " << max1 << std::endl;
-           App app2(gg.getname(pathname, i), wordlen, mode_code2);
-           uint32_t max2 = app2.run(NULL);
+           gc.reset();
+           gc.set_graphfile(gg.getname(pathname, i));
+           gc.load(mode_code2, wordlen);
+           uint32_t max2 = mbc_player.play(gc);
            std::cout << "max for mode " << mode_code2 << ": " << max2 << std::endl;
            uint32_t diff = max1 > max2 ? max1 - max2 : max2 - max1;
            if (diff > max_diff.m_Diff) {

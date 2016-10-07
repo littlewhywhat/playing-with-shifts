@@ -11,10 +11,16 @@
 
 class GraphConsole : public Console {
   private:
-    const std::string m_GraphFile;
+    std::string m_GraphFile;
   public:
+    GraphConsole(std::ostream & out) : Console(out) {};
     GraphConsole(std::ostream & out, const std::string & graphfile) : 
-            Console(out), m_GraphFile(graphfile) {};
+            GraphConsole(out) {
+        set_graphfile(graphfile);
+    };
+    void set_graphfile(const std::string & graphfile) {
+        m_GraphFile = graphfile;
+    }
     void fill(WordData & wd) override {
         Graph graph;
         GReader greader(m_GraphFile);

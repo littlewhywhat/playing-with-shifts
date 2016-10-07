@@ -18,7 +18,7 @@ class Console {
   public:
     Console(std::ostream & out) : m_Out(out) {}
     virtual ~Console() {
-        delete m_Game;
+        reset();
     }
     std::ostream & out() {
         return m_Out;
@@ -28,6 +28,9 @@ class Console {
     }
     const WordData & wd() const {
         return game().wd();
+    }
+    void reset() {
+        delete m_Game;
     }
     void load(const uint32_t & game_mode, const uint32_t & wordlen) {
         m_Game = GameFactory::get() -> create_instance(game_mode, wordlen);

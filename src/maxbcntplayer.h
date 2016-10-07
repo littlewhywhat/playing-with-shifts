@@ -13,6 +13,12 @@ class MaxBCntPlayer {
     bool m_OutWD;
   public:
     MaxBCntPlayer() : m_OutResult(true), m_OutWD(true) {}
+    void set_out_wd(bool val) {
+        m_OutWD = val;
+    }
+    void set_out_result(bool val) {
+        m_OutResult = val;
+    }
     uint32_t play(Console & console) const {
         if (m_OutWD)
             console.out() << "Building worddata..." << std::endl 
