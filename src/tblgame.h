@@ -30,7 +30,9 @@ class TblGame : public Game {
     TblGame(const uint32_t & wordlen) {
         m_WT = new WordTable(wordlen);
     }
-    virtual ~TblGame() {};
+    virtual ~TblGame() {
+        delete m_WT;
+    };
     WordData & wd() const override {
         return *m_WT;
     }

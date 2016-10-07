@@ -35,6 +35,9 @@ class TrGame : public Game {
     }
   public:
     TrGame(const uint32_t & wordlen) : m_WT(new WordTree(wordlen)) {}
+    ~TrGame() {
+        delete m_WT;
+    }
     const uint32_t & wordlen() const override {
         return wt().wordlen();
     }

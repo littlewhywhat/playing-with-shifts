@@ -16,7 +16,7 @@ class Console {
   protected:
     virtual void fill(WordData & wd) = 0;
   public:
-    Console(std::ostream & out) : m_Out(out) {}
+    Console(std::ostream & out) : m_Out(out), m_Game(NULL) {}
     virtual ~Console() {
         reset();
     }

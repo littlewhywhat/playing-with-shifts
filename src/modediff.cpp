@@ -56,6 +56,7 @@ int main(int argc, char * argv[]) {
         GraphConsole gc(std::cout);
         for (uint32_t i = 0; i < cnt_graphs; i++) {
            std::cout << "graph " << i << std::endl;
+           gc.reset();
            gc.set_graphfile(gg.getname(pathname, i));
            gc.load(mode_code1, wordlen);
            uint32_t max1 = mbc_player.play(gc);

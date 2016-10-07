@@ -24,13 +24,15 @@ class MaxBCntPlayer {
             console.out() << "Building worddata..." << std::endl 
                           << console.wd() << std::endl;
         uint32_t max_bcnt = 0;   
-        console.out() << "good strategies are: " << std::endl;
+        if (m_OutResult)
+            console.out() << "good strategies are: " << std::endl;
         uint64_t strat_bound = (uint64_t)1 << console.wordlen();
         for (uint64_t strat_val = 1; strat_val < strat_bound; strat_val++) {
             Strategy strat(strat_val, console.wordlen());
             uint32_t bcnt = strat.bcnt();
             if (bcnt > max_bcnt && console.play(strat)) {
-                console.out() << strat << std::endl;
+                if (m_OutResult)
+                    console.out() << strat << std::endl;
                 max_bcnt = bcnt;
             }
         }
