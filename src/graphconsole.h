@@ -21,6 +21,9 @@ class GraphConsole : public Console {
     void set_graphfile(const std::string & graphfile) {
         m_GraphFile = graphfile;
     }
+    const std::string & graphfile() const {
+        return m_GraphFile;
+    }
     void fill(Language & lang) override {
         Graph graph;
         GReader greader;

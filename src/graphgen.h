@@ -16,6 +16,11 @@ class GraphGen {
             rand = m_R.randnode(cnt_nodes);
         return rand;
     }
+    void write_random(const std::string & pathname) const {
+        std::fstream fs(pathname, std::ios_base::out);
+        fs << m_R << std::endl;
+        fs.close();
+    }
     void write_node(std::fstream & fs, const uint32_t & r_from, 
                                        const uint32_t & r_to, 
                                        const uint32_t & lbl) const {
@@ -62,6 +67,7 @@ class GraphGen {
     void gen(const std::string & pathname, 
              const uint32_t & cnt_nodes, 
              const uint32_t & cnt_graphs) const {
+        write_random(pathname);
         for (uint32_t i = 0; i < cnt_graphs; i++) {
             const std::string & filename = getname(pathname, i);
             std::fstream fs(filename, std::ios_base::out);
