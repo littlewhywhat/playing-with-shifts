@@ -17,6 +17,9 @@ class LangConsole : public Console {
         LangReader lreader;
         lreader.read(lang, m_LangFile);
     }
+    void print_info() override {
+        out() << "langfile: " << m_LangFile << std::endl;
+    }
 };
 
 #endif

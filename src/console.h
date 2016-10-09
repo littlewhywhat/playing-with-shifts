@@ -10,13 +10,14 @@ class Console {
   private:
     std::ostream & m_Out;
     Game * m_Game;
+    uint32_t m_WordLen;
     Game & game() const {
         return *m_Game;
     }
   protected:
     virtual void fill(Language & lang) = 0;
   public:
-    Console(std::ostream & out) : m_Out(out), m_Game(NULL) {}
+    Console(std::ostream & out) : m_Out(out), m_Game(NULL), m_WordLen(0) {}
     virtual ~Console() {
         reset();
     }
@@ -32,13 +33,20 @@ class Console {
     void reset() {
         delete m_Game;
     }
+    void set_wordlen(uint32_t val) {
+        m_WordLen = val;
+    }
     void load(const uint32_t & game_mode, const uint32_t & wordlen) {
         m_Game = GameFactory::get() -> create_instance(game_mode, wordlen);
         fill(game().lang());
     }
+    void load(const uint32_t & game_mode) {
+        load(game_mode, m_WordLen);
+    }
     bool play(const Strategy & strategy) const {
         return game().play(strategy);
     }
+    virtual void print_info() = 0;
 };
 
 #endif

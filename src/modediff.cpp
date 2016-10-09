@@ -3,6 +3,7 @@
 #include "graphgen.h"
 #include "graphconsole.h"
 #include "maxbcntplayer.h"
+#include "gameserver.h"
 
 const int32_t PATH_N_NAME_ID = 1;
 const int32_t CNT_NODES_ID = 2; 
@@ -23,25 +24,6 @@ void print_usage(std::ostream & out, char * argv[], const uint32_t & num_args) {
         << argv[0] << " path rcnt_nodes cnt_graph mcode1 mcode2 wordlen" << std::endl;
 }
 
-uint32_t process_mode(GraphConsole & gc, MaxBCntPlayer & player, uint32_t & mode_code, uint32_t wordlen) {
-    gc.reset();
-    gc.load(mode_code, wordlen);
-    player.play(gc);
-    uint32_t max = player.max_bcnt();
-    std::cout << "max for mode " << mode_code << ": " << max << std::endl;
-    return max;
-}
-
-void process_modes(GraphConsole & gc, MaxBCntPlayer & player, std::vector<uint32_t> & modes, uint32_t wordlen) {
-    uint32_t max_i = process_mode(gc, player, modes[0], wordlen);
-    for (uint32_t i = 1; i < modes.size(); i++) {
-        uint32_t diff = max_i - process_mode(gc, player, modes[i], wordlen);
-        if (diff) {
-            std::cout << "difference: " << diff << std::endl
-                << "filename: " << gc.graphfile() << std::endl;
-        }
-    }
-}
 
 int main(int argc, char * argv[]) {
     if (argc != CNT_ARGS) {
@@ -63,10 +45,12 @@ int main(int argc, char * argv[]) {
        
         MaxBCntPlayer mbc_player;
         GraphConsole gc(std::cout);
+        gc.set_wordlen(wordlen);
+        GameServer gs(gc, mbc_player, modes);
         for (uint32_t i = 0; i < cnt_graphs; i++) {
            std::cout << "graph " << i << std::endl;
            gc.set_graphfile(gg.getname(pathname, i));
-           process_modes(gc, mbc_player, modes, wordlen);
+           gs.launch();
         }
     } catch (const char * e) {
         std::cout << e << std::endl;

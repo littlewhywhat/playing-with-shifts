@@ -12,6 +12,7 @@
 class BuildConsole : public Console {
   private:
     LangBuilder * m_LangBuilder;
+    std::string m_Tag;
     LangBuilder & langbuilder() {
         return *m_LangBuilder;
     }
@@ -19,12 +20,16 @@ class BuildConsole : public Console {
         langbuilder().build(lang);
     }
   public:
-    BuildConsole(std::ostream & out) : Console(out), m_LangBuilder(NULL) {}
+    BuildConsole(std::ostream & out) : Console(out), m_LangBuilder(NULL), m_Tag(std::string()) {}
     ~BuildConsole() {
         delete m_LangBuilder;
     }
     void set_langbuilder(const std::string & tag) {
         m_LangBuilder = LangBuilderFactory::get() -> create_instance(tag);
+        m_Tag = tag;
+    }
+    void print_info() const {
+        out() << "tag: " << m_Tag << std::endl; 
     }
 };
 
