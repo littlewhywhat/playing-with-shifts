@@ -28,7 +28,7 @@ class BuildConsole : public Console {
         m_LangBuilder = LangBuilderFactory::get() -> create_instance(tag);
         m_Tag = tag;
     }
-    void print_info() const {
+    void print_info() override {
         out() << "tag: " << m_Tag << std::endl; 
     }
 };

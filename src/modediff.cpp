@@ -3,7 +3,7 @@
 #include "graphgen.h"
 #include "graphconsole.h"
 #include "maxbcntplayer.h"
-#include "gameserver.h"
+#include "diffserver.h"
 
 const int32_t PATH_N_NAME_ID = 1;
 const int32_t CNT_NODES_ID = 2; 
@@ -46,7 +46,7 @@ int main(int argc, char * argv[]) {
         MaxBCntPlayer mbc_player;
         GraphConsole gc(std::cout);
         gc.set_wordlen(wordlen);
-        GameServer gs(gc, mbc_player, modes);
+        DiffServer gs(gc, mbc_player, modes);
         for (uint32_t i = 0; i < cnt_graphs; i++) {
            std::cout << "graph " << i << std::endl;
            gc.set_graphfile(gg.getname(pathname, i));

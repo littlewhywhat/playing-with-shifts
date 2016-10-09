@@ -2,6 +2,7 @@
 
 #include "buildconsole.h"
 #include "maxbcntplayer.h"
+#include "gameserver.h"
 
 const uint32_t WORDLEN_ID = 1;
 const uint32_t GAME_MODE_ID = 2;
@@ -29,9 +30,12 @@ int main(int argc, char * argsv[]) {
     uint32_t wordlen = std::stoi(argsv[WORDLEN_ID]); 
     BuildConsole bc(std::cout);
     bc.set_langbuilder(lang_tag);
-    bc.load(game_mode, wordlen);
+    bc.set_wordlen(wordlen);
     MaxBCntPlayer mbc_player;
     mbc_player.set_out_result(true);
-    mbc_player.play(bc);
+    std::vector<uint32_t> game_modes;
+    game_modes.push_back(game_mode);
+    GameServer gs(bc, mbc_player, game_modes);
+    gs.launch();
     return 0;
 }
