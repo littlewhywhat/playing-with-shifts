@@ -36,9 +36,7 @@ class GameServer {
         m_GameModes = modes;
     }
     virtual void launch() {
-        std::cout << "gameserver" << std::endl;
         for (auto game_mode : m_GameModes) { 
-
             console().reset();
             console().load(game_mode);
             player().play(console());

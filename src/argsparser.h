@@ -200,7 +200,6 @@ class ArgsParser {
             player -> set_out_lang(!find_tag(TAG_NO_OUT_LANG));
             player -> set_out_result(!find_tag(TAG_NO_OUT_RES));
             GameServer * gs = create_server(m_ServerTag);
-            std::cout << m_ServerTag << std::endl;
             gs -> set_console(console);
             gs -> set_player(player);
             gs -> set_modes(m_GameModes);
