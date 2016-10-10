@@ -15,9 +15,11 @@ class DiffServer : public GameServer {
         console().load(game_mode);
         player().play(console());
         uint32_t score = player().score();
+        std::cout << "mode: " <<  game_mode << " results: " << score << std::endl;
         return score;
     }
  public:
+    DiffServer() : GameServer() {}  
     DiffServer(Console * console, Player * player, const std::vector<uint32_t> & game_modes) :
         GameServer(console, player, game_modes) {}
     void launch() override {
@@ -30,6 +32,9 @@ class DiffServer : public GameServer {
                 std::cout << "difference: " << diff << std::endl;
             }
         }
+    }
+    static GameServer * create() {
+        return new DiffServer();
     }
 };
 

@@ -59,7 +59,7 @@ class GraphGen {
         fs << cnt_nodes << std::endl;
     }
   public:
-    std::string getname(const std::string & pathname, const uint32_t & i) const {
+    static std::string getname(const std::string & pathname, const uint32_t & i) {
         std::string s(pathname);
         s.push_back(i + '0');
         return s;

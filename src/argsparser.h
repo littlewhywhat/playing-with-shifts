@@ -12,11 +12,7 @@
 #include "serverfactory.h"
 #include "console.h"
 #include "consolefactory.h"
-
-std::string gen_i(std::string folder, uint32_t i) {
-    folder.push_back(i + '0');
-    return folder;
-}
+#include "graphgen.h"
 
 class ArgsParser {
   private:
@@ -26,7 +22,9 @@ class ArgsParser {
     const std::string TAG_LANG = "-l"; // these -> langconsole
     const std::string TAG_LANGFOLDER = "-lf"; // these -> langconsole
     const std::string TAG_GRAPHFOLDER = "-gf"; // these -> graphdconsole
-    const std::string TAG_NUM_FILES = "-n"; 
+    const std::string TAG_NUM_FILES = "-n";
+    const std::string TAG_NUM_NODES = "-nn";
+    const std::string TAG_GRAPHGEN = "-gg"; 
     const std::string TAG_MODE = "-m"; // at least one -> 1 - gameserver
                                        //                > 1 - diffserver
     const std::string TAG_PLAYER = "-p";
@@ -63,7 +61,7 @@ class ArgsParser {
     std::string folder2console(const std::string & tag) {
         std::string console = tag;
         console.pop_back();
-        return tag;
+        return console;
     }
     void print_usage(uint32_t argc, char * argsv[]) {
         std::cout << "You typed: " << std::endl;
@@ -87,10 +85,10 @@ class ArgsParser {
         return false;
     }
     bool find_all_s_by_tag(const std::string & tag, std::vector<std::string> & opts_by_tag) {
-        for (uint32_t i = 0; i < m_Opts.size(); i += 2)
+        for (uint32_t i = 0; i < m_Opts.size(); i++)
             if (m_Opts[i] == tag) {
                 opts_by_tag.push_back(m_Opts[i]);
-                opts_by_tag.push_back(m_Opts[i + 1]);
+                opts_by_tag.push_back(m_Opts[++i]);
             }
         return !opts_by_tag.empty();
     }
@@ -130,11 +128,35 @@ class ArgsParser {
                tag == TAG_NUM_FILES ||
                tag == TAG_WORDLEN ||
                tag == TAG_SERVER ||
-               tag == TAG_PLAYER;
+               tag == TAG_PLAYER ||
+               tag == TAG_GRAPHGEN ||
+               tag == TAG_NUM_NODES;
     }
     bool is_single(const std::string & tag) { 
         return tag == TAG_NO_OUT_RES ||
                tag == TAG_NO_OUT_LANG;
+    }
+    bool only_gen() {
+        return m_Opts.size() == 6;
+    }
+    bool set_graphgen() {
+        std::string folder;
+        uint32_t nnodes;
+        uint32_t nfiles;
+        bool has_gg = find_s_by_tag(TAG_GRAPHGEN, folder);
+        bool has_nn = find_i_by_tag(TAG_NUM_NODES, nnodes);
+        bool has_nf = find_i_by_tag(TAG_NUM_FILES, nfiles);
+        if (!has_gg && !has_nn)
+            return false;
+        if (has_gg && has_nn && !has_nf)
+            throw "Provide number of files for generator";
+        if (has_gg && has_nn && has_nf) {
+            GraphGen gg;
+            gg.gen(folder, nnodes, nfiles);
+
+            return true;
+        }
+        throw "Provide more parameters for graphgeneration"; 
     }
     bool set_wordlen() {
         return find_i_by_tag(TAG_WORDLEN, m_WordLen);
@@ -178,6 +200,7 @@ class ArgsParser {
             player -> set_out_lang(!find_tag(TAG_NO_OUT_LANG));
             player -> set_out_result(!find_tag(TAG_NO_OUT_RES));
             GameServer * gs = create_server(m_ServerTag);
+            std::cout << m_ServerTag << std::endl;
             gs -> set_console(console);
             gs -> set_player(player);
             gs -> set_modes(m_GameModes);
@@ -189,7 +212,8 @@ class ArgsParser {
     void process_folders() {
         std::vector<std::string> folder_tags;
         uint32_t nfiles;
-        bool has_folders = find_all_s_by_tag(TAG_GRAPHFOLDER, folder_tags) ||
+        bool has_folders = find_all_s_by_tag(TAG_GRAPHGEN, folder_tags) ||
+                       find_all_s_by_tag(TAG_GRAPHFOLDER, folder_tags) ||
                        find_all_s_by_tag(TAG_LANGFOLDER, folder_tags);
         bool has_nfiles = find_i_by_tag(TAG_NUM_FILES, nfiles);
         if ((!has_folders && has_nfiles) || 
@@ -198,7 +222,7 @@ class ArgsParser {
         for (uint32_t i = 0; i < folder_tags.size(); i+=2) {
             for (uint32_t j = 0; j < nfiles; j++) {
                 m_Opts.push_back(folder2console(folder_tags[i]));
-                m_Opts.push_back(gen_i(folder_tags[i+1], i));
+                m_Opts.push_back(GraphGen::getname(folder_tags[i+1], j));
             }
         }
     }
@@ -209,6 +233,8 @@ class ArgsParser {
     // first singular
     // second folder and number of graphs, languages
     void parse() {
+        if (set_graphgen() && only_gen())
+            return;
         if (!set_wordlen())
             throw "Please provide wordlen!";    
         if (!set_modes())
