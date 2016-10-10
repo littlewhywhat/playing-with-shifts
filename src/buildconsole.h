@@ -20,7 +20,7 @@ class BuildConsole : public Console {
         langbuilder().build(lang);
     }
   public:
-    BuildConsole(std::ostream & out) : Console(out), m_LangBuilder(NULL), m_Tag(std::string()) {}
+    BuildConsole(std::ostream & out) : Console(out), m_LangBuilder(NULL) {}
     ~BuildConsole() {
         delete m_LangBuilder;
     }
@@ -30,6 +30,9 @@ class BuildConsole : public Console {
     }
     void print_info() override {
         out() << "tag: " << m_Tag << std::endl; 
+    }
+    static Console * create(std::ostream & out) {
+        return new BuildConsole(out);
     }
 };
 

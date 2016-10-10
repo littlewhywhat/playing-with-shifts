@@ -1,6 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "console.h"
+
 class Player {
   protected:
     bool m_OutResult;
@@ -17,6 +19,7 @@ class Player {
     }
   public:
     Player() : m_OutResult(false), m_OutLang(false), m_Score(0) {}
+    virtual ~Player() {}
     void set_out_lang(bool val) {
         m_OutLang = val;
     }
@@ -39,6 +42,9 @@ class Player {
         }
         postcompute(console);
     }
+    static Player * create() {
+        return new Player();
+    } 
 };
 
 #endif

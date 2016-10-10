@@ -10,15 +10,17 @@
 
 class LangConsole : public Console {
   private:
-    std::string m_LangFile;
   public:
-    LangConsole(std::ostream & out, const std::string & langfile) : Console(out), m_LangFile(langfile) {}
+    LangConsole(std::ostream & out) : Console(out) {}
     void fill(Language & lang) override {
         LangReader lreader;
-        lreader.read(lang, m_LangFile);
+        lreader.read(lang, m_Setup);
     }
     void print_info() override {
-        out() << "langfile: " << m_LangFile << std::endl;
+        out() << "langfile: " << m_Setup << std::endl;
+    }
+    static Console * create(std::ostream & out) {
+        return new LangConsole(out);
     }
 };
 

@@ -2,6 +2,7 @@
 #define STRATEGY_H
 
 #include <cstdint>
+#include <iostream>
 
 class Strategy {
   private:

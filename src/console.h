@@ -15,14 +15,22 @@ class Console {
         return *m_Game;
     }
   protected:
+    std::string m_Setup;
     virtual void fill(Language & lang) = 0;
   public:
-    Console(std::ostream & out) : m_Out(out), m_Game(NULL), m_WordLen(0) {}
+    Console(std::ostream & out) : m_Out(out), m_Game(NULL), m_WordLen() {}
     virtual ~Console() {
         reset();
     }
     std::ostream & out() {
         return m_Out;
+    }
+    void set_setup(const std::string & setup) {
+        m_Setup.clear();
+        m_Setup += setup;
+    }
+    const std::string & setup() const {
+        return m_Setup;
     }
     const uint32_t & wordlen() const {
         return game().wordlen();

@@ -10,29 +10,24 @@
 #include "language.h"
 
 class GraphConsole : public Console {
-  private:
-    std::string m_GraphFile;
   public:
     GraphConsole(std::ostream & out) : Console(out) {};
     GraphConsole(std::ostream & out, const std::string & graphfile) : 
             GraphConsole(out) {
-        set_graphfile(graphfile);
+        set_setup(graphfile);
     };
-    void set_graphfile(const std::string & graphfile) {
-        m_GraphFile = graphfile;
-    }
-    const std::string & graphfile() const {
-        return m_GraphFile;
-    }
     void fill(Language & lang) override {
         Graph graph;
         GReader greader;
-        greader.read(graph, m_GraphFile);
+        greader.read(graph, m_Setup);
         Graph2Lang g2l;
         g2l.translate(graph, lang);
     }
     void print_info() override {
-        out() << "file: " << m_GraphFile << std::endl;
+        out() << "file: " << m_Setup << std::endl;
+    }
+    static Console * create(std::ostream & out) {
+        return new GraphConsole(out);
     }
 };
 

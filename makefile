@@ -2,11 +2,11 @@ CC = g++
 CFLAGS = -g -Wall -pedantic -std=c++11 -Wno-long-long -O0 -O2 -ggdb
 BIN = bin
 SRC = src
-MAIN = playgraph
+MAIN = main
 TEST1 = testl2ss
 TEST2 = testg2l
 RM = rm -r -f
-ARGS = data/g2wt/in/graph1 3
+ARGS = -g data/g2wt/in/graph1 -w 3 -p maxbcnt -m
 DOX = config
 
 all: compile run

@@ -5,86 +5,86 @@ DIFF=colordiff
 IN=$DATA/in
 OUT=$DATA/out
 
-if g++ -std=c++11 src/$EXEC.cpp -o $EXEC;
+if g++ -std=c++11 src/main.cpp -o $EXEC;
 then
     echo "graph1_1_1"
-    ./$EXEC $IN/graph1 1 1 > ./$RES
+    ./$EXEC -g $IN/graph1 -w 1 -m 1 -p langout -nores -nolang > ./$RES
     $DIFF ./$RES $OUT/graph1_1_1
 
     echo "graph1_1_2"
-    ./$EXEC $IN/graph1 1 3 > ./$RES
+    ./$EXEC -g $IN/graph1 -w 1 -m 3 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph1_1_2
 
     echo "graph1_2_1"
-    ./$EXEC $IN/graph1 2 1 > ./$RES
+    ./$EXEC -g $IN/graph1 -w 2 -m 1 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph1_2_1
 
     echo "graph1_2_2"
-    ./$EXEC $IN/graph1 2 3 > ./$RES
+    ./$EXEC -g $IN/graph1 -w 2 -m 3 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph1_2_2
 
     echo "graph1_3_1"
-    ./$EXEC $IN/graph1 3 1 > ./$RES
+    ./$EXEC -g $IN/graph1 -w 3 -m 1 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph1_3_1
 
     echo "graph1_3_2"
-    ./$EXEC $IN/graph1 3 3 > ./$RES
+    ./$EXEC -g $IN/graph1 -w 3 -m 3 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph1_3_2
 
     echo "graph1_4_1"
-    ./$EXEC $IN/graph1 4 1 > ./$RES
+    ./$EXEC -g $IN/graph1 -w 4 -m 1 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph1_4_1
 
     echo "graph1_4_2"
-    ./$EXEC $IN/graph1 4 3 > ./$RES
+    ./$EXEC -g $IN/graph1 -w 4 -m 3 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph1_4_2
 
     echo "graph1_5_1"
-    ./$EXEC $IN/graph1 5 1 > ./$RES
+    ./$EXEC -g $IN/graph1 -w 5 -m 1 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph1_5_1
 
     echo "graph1_5_2"
-    ./$EXEC $IN/graph1 5 3 > ./$RES
+    ./$EXEC -g $IN/graph1 -w 5 -m 3 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph1_5_2
 
     echo "graph2_1_1"
-    ./$EXEC $IN/graph2 1 1 > ./$RES
+    ./$EXEC -g $IN/graph2 -w 1 -m 1 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph2_1_1
 
     echo "graph2_1_2"
-    ./$EXEC $IN/graph2 1 3 > ./$RES
+    ./$EXEC -g $IN/graph2 -w 1 -m 3 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph2_1_2
 
     echo "graph2_2_1"
-    ./$EXEC $IN/graph2 2 1 > ./$RES
+    ./$EXEC -g $IN/graph2 -w 2 -m 1 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph2_2_1
 
     echo "graph2_2_2"
-    ./$EXEC $IN/graph2 2 3 > ./$RES
+    ./$EXEC -g $IN/graph2 -w 2 -m 3 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph2_2_2
 
     echo "graph2_3_1"
-    ./$EXEC $IN/graph2 3 1 > ./$RES
+    ./$EXEC -g $IN/graph2 -w 3 -m 1 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph2_3_1
 
     echo "graph2_3_2"
-    ./$EXEC $IN/graph2 3 3 > ./$RES
+    ./$EXEC -g $IN/graph2 -w 3 -m 3 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph2_3_2
 
     echo "graph2_4_1"
-    ./$EXEC $IN/graph2 4 1 > ./$RES
+    ./$EXEC -g $IN/graph2 -w 4 -m 1 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph2_4_1
 
     echo "graph2_4_2"
-    ./$EXEC $IN/graph2 4 3 > ./$RES
+    ./$EXEC -g $IN/graph2 -w 4 -m 3 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph2_4_2
 
     echo "graph2_5_1"
-    ./$EXEC $IN/graph2 5 1 > ./$RES
+    ./$EXEC -g $IN/graph2 -w 5 -m 1 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph2_5_1
 
     echo "graph2_5_2"
-    ./$EXEC $IN/graph2 5 3 > ./$RES
+    ./$EXEC -g $IN/graph2 -w 5 -m 3 -p langout -nolang -nores > ./$RES
     $DIFF ./$RES $OUT/graph2_5_2
     rm -f $RES; rm -f $EXEC
 fi

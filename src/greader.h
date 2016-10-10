@@ -33,6 +33,7 @@ class GReader {
         } catch (const char * e) {
             fs.clear();
             fs.close();
+            std::cout << e << std::endl;
             throw e;
         }
     }

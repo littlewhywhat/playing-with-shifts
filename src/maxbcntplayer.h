@@ -27,6 +27,9 @@ class MaxBCntPlayer : public Player {
     }
   public:
     MaxBCntPlayer() : Player() {}
+    static Player * create() {
+        return new MaxBCntPlayer();
+    }
 };
 
 #endif
