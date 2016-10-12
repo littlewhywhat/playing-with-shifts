@@ -3,6 +3,7 @@ CFLAGS = -g -Wall -pedantic -std=c++11 -Wno-long-long -O0 -O2 -ggdb
 BIN = bin
 SRC = src
 MAIN = main
+EXEC = playshift
 TEST1 = testl2ss
 TEST2 = testg2l
 RM = rm -r -f
@@ -12,15 +13,15 @@ DOX = config
 all: compile run
 
 compile: $(SRC)/$(MAIN).cpp 
-	$(CC) $(CFLAGS) $(SRC)/$(MAIN).cpp -o $(MAIN) 2>&1 | less
+	$(CC) $(CFLAGS) $(SRC)/$(MAIN).cpp -o $(EXEC) 2>&1 | less
 run: compile
-	./$(MAIN) $(ARGS) 1	
+	./$(EXEC) $(ARGS) 1	
 clean:
-	rm -f $(MAIN); rm -f $(TEST1); rm -f $(TEST2)
+	rm -f $(EXEC); rm -f $(TEST1); rm -f $(TEST2)
 valg: compile
-	valgrind ./$(MAIN) $(ARGS) 1; valgrind ./$(MAIN) $(ARGS) 2; valgrind ./$(MAIN) $(ARGS) 3
+	valgrind ./$(EXEC) $(ARGS) 1; valgrind ./$(EXEC) $(ARGS) 2; valgrind ./$(EXEC) $(ARGS) 3
 gdb: compile
-	gdb --args ./$(MAIN) $(ARGS) 1
+	gdb --args ./$(EXEC) $(ARGS) 1
 test:
 	./test.sh; ./$(TEST1).sh ./$(TEST2).sh;
 doxygen:

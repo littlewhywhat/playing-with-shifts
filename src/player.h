@@ -8,9 +8,7 @@ class Player {
     bool m_OutResult;
     bool m_OutLang;
     uint32_t m_Score;
-    virtual void precompute(Console & console) {
-        std::cout << "successful strategies: " << std::endl;
-    }
+    virtual void precompute(Console & console) {}
     virtual void compute(Console & console, const Strategy & strat) {
         if (console.play(strat) && m_OutResult)
             console.out() << strat << std::endl;
