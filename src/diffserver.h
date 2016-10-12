@@ -28,8 +28,10 @@ class DiffServer : public GameServer {
             uint32_t score_i = process_mode(m_GameModes[i]);
             if (score_0 != score_i) {
                 uint32_t diff = score_0 > score_i ? score_0 - score_i : score_i - score_0;
-                console().print_info();
-                std::cout << "difference: " << diff << std::endl;
+                
+                
+                std::cout << "setup: " << console().setup() << std::endl
+                          << "difference: " << diff << std::endl;
             }
         }
     }

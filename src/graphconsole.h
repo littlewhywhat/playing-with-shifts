@@ -23,9 +23,6 @@ class GraphConsole : public Console {
         Graph2Lang g2l;
         g2l.translate(graph, lang);
     }
-    void print_info() override {
-        out() << "file: " << m_Setup << std::endl;
-    }
     static Console * create(std::ostream & out) {
         return new GraphConsole(out);
     }

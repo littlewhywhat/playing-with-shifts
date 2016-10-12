@@ -12,24 +12,21 @@
 class BuildConsole : public Console {
   private:
     LangBuilder * m_LangBuilder;
-    std::string m_Tag;
     LangBuilder & langbuilder() {
         return *m_LangBuilder;
     }
     void fill(Language & lang) override {
+        if (!m_LangBuilder)
+            set_langbuilder(m_Setup);
         langbuilder().build(lang);
+    }
+    void set_langbuilder(const std::string & tag) {
+        m_LangBuilder = LangBuilderFactory::get() -> create_instance(tag);
     }
   public:
     BuildConsole(std::ostream & out) : Console(out), m_LangBuilder(NULL) {}
     ~BuildConsole() {
         delete m_LangBuilder;
-    }
-    void set_langbuilder(const std::string & tag) {
-        m_LangBuilder = LangBuilderFactory::get() -> create_instance(tag);
-        m_Tag = tag;
-    }
-    void print_info() override {
-        out() << "tag: " << m_Tag << std::endl; 
     }
     static Console * create(std::ostream & out) {
         return new BuildConsole(out);

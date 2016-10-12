@@ -54,7 +54,6 @@ class Console {
     bool play(const Strategy & strategy) const {
         return game().play(strategy);
     }
-    virtual void print_info() = 0;
 };
 
 #endif
