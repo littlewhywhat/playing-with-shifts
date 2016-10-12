@@ -110,12 +110,51 @@ Graph with 4 nodes and one edge from node 1 to 0 with label 1.
 
 ## Run
 
-run the following command in shell from root folder:
+usage: playshift -g graph_path | -b class_name | -l lang_path |
+                -lf lang_folder | -gf graph_folder -m [1..3] -w [1..63]  
+                [ -p player_name -gs gameserver_name -nores -nolang] 
+                | -gg path_with_prefix -nn num_nodes -n num_graphs
+                [-g graph_path | -b class_name | -l lang_path |
+                -lf lang_folder | -gf graph_folder -m [1..3] -w [1..63]  
+                [ -p player_name -gs gameserver_name -nores -nolang]]
 
-`./program path_to_graph length_of_language game_mode`
+example of commands to try:
 
-where length_of_language is a positive integer from 1 to 63 
-and game_mode is one of 1,2,3.
+- compute on language of specified graph in mode 1 and 
+output language with all successful strategies:
+
+```
+./playshift -g data/g2wt/in/graph1 -m 1 -w 3
+```
+
+- compute language of specified builder class and
+output language with all successful strategies:
+
+```
+./playshift -b no3inrow -m 1 -w 3
+```
+
+- compute language of specified set of words and
+output language with all successful strategies:
+
+```
+./playshift -l data/wt2ss/in/wt0 -m 1 -w 3
+```
+
+- generate graphs:
+
+```
+mkdir tmp;
+./playshift -gg tmp/graph -nn 5 -n 5
+```
+
+- generate graphs and compare them in modes 1 and 3:
+
+```
+mkdir tmp;
+./playshift -gg tmp/graph -nn 5 -n 5 -w 10 -m 1 -m 3 -gs diff -p maxbcnt
+-nolang -nores
+```
 
 ## Example
 
