@@ -109,11 +109,9 @@ class ArgsParser {
         return true;
     }
     bool find_all_i_by_tag(const std::string & tag, std::vector<uint32_t> & opts_by_tag) {
-        for (uint32_t i = 0; i < m_Opts.size(); i++) {
-            if (m_Opts[i] == tag) {
+        for (uint32_t i = 0; i < m_Opts.size(); i++) 
+            if (m_Opts[i] == tag) 
                 opts_by_tag.push_back(std::stoi(m_Opts[++i]));
-            }
-        }
         return !opts_by_tag.empty();
     }
     bool check_argc(uint32_t argc) {
