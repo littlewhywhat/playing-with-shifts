@@ -162,7 +162,7 @@ class ArgsParser {
     bool set_wordlen() {
         bool found = find_i_by_tag(TAG_WORDLEN, m_WordLen);
         if (m_WordLen < 0 || m_WordLen > 63)
-            throw "Wrong length!";
+            throw "Wrong word length!";
         return found;
     }
     bool set_modes() {
