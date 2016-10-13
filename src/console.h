@@ -46,6 +46,8 @@ class Console {
     }
     void load(const uint32_t & game_mode, const uint32_t & wordlen) {
         m_Game = GameFactory::get() -> create_instance(game_mode, wordlen);
+        if (!m_Game)
+            throw "No such game mode.";
         fill(game().lang());
     }
     void load(const uint32_t & game_mode) {

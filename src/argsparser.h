@@ -40,7 +40,6 @@ class ArgsParser {
     std::vector<GameServer *> m_Servers;
     std::vector<std::string> m_Opts;
     std::vector<uint32_t> m_GameModes;
-  
     Console * create_console(const std::string & tag, std::ostream & out) const {
         Console * c = ConsoleFactory::get() -> create_instance(tag, out);
         if (c)
@@ -71,9 +70,12 @@ class ArgsParser {
         std::cout << std::endl;
     }
 
-    uint32_t stoi(std::string & val) {
+    uint32_t stoi(const std::string & val) {
         try {
-            return std::stoi(val);
+            int i = std::stoi(val);
+            if (i < 0)
+                throw "Number arguments can't be negative!";
+            return i;
         } catch (std::invalid_argument e) {
             throw "Invalid integer option";
         }
@@ -111,7 +113,7 @@ class ArgsParser {
     bool find_all_i_by_tag(const std::string & tag, std::vector<uint32_t> & opts_by_tag) {
         for (uint32_t i = 0; i < m_Opts.size(); i++) 
             if (m_Opts[i] == tag) 
-                opts_by_tag.push_back(std::stoi(m_Opts[++i]));
+                opts_by_tag.push_back(stoi(m_Opts[++i]));
         return !opts_by_tag.empty();
     }
     bool check_argc(uint32_t argc) {
@@ -158,7 +160,10 @@ class ArgsParser {
         throw "Provide more parameters for graphgeneration"; 
     }
     bool set_wordlen() {
-        return find_i_by_tag(TAG_WORDLEN, m_WordLen);
+        bool found = find_i_by_tag(TAG_WORDLEN, m_WordLen);
+        if (m_WordLen < 0 || m_WordLen > 63)
+            throw "Wrong length!";
+        return found;
     }
     bool set_modes() {
         return find_all_i_by_tag(TAG_MODE, m_GameModes); 
