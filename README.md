@@ -4,17 +4,21 @@ PLAYING WITH SUBSHIFTS
 Imagine a game with two opponents (A and B), a string of some length with open positions to fill in
 and a predefined language or set of words with the same length as a string.
 Each player has its own unique positions to fill that are prescribed by strategy.
-They play in turns (concretely specified by game mode).
+They play in turns (the order is specified by game mode).
 
 `Aim of A` - fill its positions in a such manner that resulting word will be in a language.
 
 `Aim of B` - opposite - fill its positions to make some word out of a language.
 
-According to game mode strategy can be called successfull.
+Successful strategy is a strategy that doesn't allow B to win.
 
-This application takes in a graph with labeled edges (`only '1' or '0' labels are supported`),
-based on it produces a language of defined length
-and find max number of positions in successful strategy that could be given to B.
+So far three game modes are considered:
+1. Player B plays its positions first;
+2. Player B plays its positions second;
+3. Player B and player A play the game by order specified by strategy,
+
+This application can construct a language for a game using a graph, file with words or class.
+Then it performs computations on language in a specified game mode using other options provided by user.
 
 ## Build
 
