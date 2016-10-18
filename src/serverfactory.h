@@ -4,14 +4,10 @@
 #include <cstdint>
 
 #include "gameserver.h"
-#include "diffserver.h"
 
 class ServerFactory {
   private:
-    ServerFactory() {
-    	reg_server("gameserver", &GameServer::create);
-    	reg_server("diff", &DiffServer::create);
-    }
+    ServerFactory();
     ServerFactory(const ServerFactory & src) = delete;
     ServerFactory & operator = (const ServerFactory & src) = delete;
     typedef GameServer* (*create_server_fn)();
@@ -24,15 +20,8 @@ class ServerFactory {
         return &singleton;
     }
 
-    void reg_server(const std::string & type, create_server_fn func) {
-    	server_map[type] = func;
-    }
-    GameServer * create_instance(const std::string & type) const {
-    	auto search = server_map.find(type);
-    	if (search != server_map.end())
-    		return search -> second();
-    	return NULL;
-    }
+    void reg_server(const std::string & type, create_server_fn func);
+    GameServer * create_instance(const std::string & type) const;
 };
 
 #endif

@@ -10,31 +10,9 @@
 
 class Graph2Lang {
   private:
-    void produceNext(std::set<std::string> & wordset, Language & lang, const GNode * node, uint32_t lettercnt, std::string & buffer) const {
-        if (lettercnt == lang.wordlen()) {
-            if (wordset.find(buffer) == wordset.end()) {
-                lang.add(buffer);
-                wordset.insert(buffer);
-            }
-            return;
-        }
-        for (GEdge * edge : node -> out()) {
-            lettercnt += 1;
-            buffer.push_back(edge -> m_Label);
-            produceNext(wordset, lang, edge -> m_Node, lettercnt, buffer);
-            lettercnt -= 1;
-            buffer.pop_back();
-        }
-
-    }
+    void produceNext(std::set<std::string> & wordset, Language & lang, const GNode * node, uint32_t lettercnt, std::string & buffer) const;
   public:
-    void translate(const Graph & graph, Language & lang) const {
-        std::set<std::string> wordset;
-        uint32_t lettercnt = 0;
-        std::string buffer;
-        for (auto node : graph.nodes())
-            produceNext(wordset, lang, node, lettercnt, buffer);
-    }
+    void translate(const Graph & graph, Language & lang) const;
 };
 
 #endif

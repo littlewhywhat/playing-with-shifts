@@ -4,8 +4,7 @@
 #include <cstdint>
 
 #include "strategy.h"
-
-class Language;
+#include "language.h"
 
 class Game {
   protected:
@@ -15,11 +14,7 @@ class Game {
     virtual ~Game() {};
     virtual Language & lang() const = 0;
     virtual const uint32_t & wordlen() const = 0;
-    bool play(const Strategy & s) const {
-        if (!has_lang())
-            throw "Language wasn't set!";
-        return play_ch(s); 
-    }
+    bool play(const Strategy & s) const;
 };
 
 #endif
