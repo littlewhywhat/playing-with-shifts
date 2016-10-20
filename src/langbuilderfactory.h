@@ -1,7 +1,10 @@
 #ifndef LANGBUILDERFACTORY_H
 #define LANGBUILDERFACTORY_H
 
+#include <map>
+
 #include "langbuilder.h"
+
 
 class LangBuilderFactory {
   private:

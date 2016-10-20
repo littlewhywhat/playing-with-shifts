@@ -5,7 +5,7 @@
 #include "maxbcntplayer.h"
 #include "langoutplayer.h"
 
-Playerfactory::PlayerFactory() {
+PlayerFactory::PlayerFactory() {
     reg_player("player", &Player::create);
     reg_player("maxbcnt", &MaxBCntPlayer::create);
     reg_player("langout", &LangOutPlayer::create);

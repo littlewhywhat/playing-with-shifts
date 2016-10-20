@@ -10,7 +10,7 @@ Strategy::Strategy(uint64_t val, const uint32_t & len) : m_Len(len), m_Val(val),
         val >>= 1;
     }
 }
-friend std::ostream & operator << (std::ostream & out, const Strategy & s) {
+std::ostream & operator << (std::ostream & out, const Strategy & s) {
     uint64_t mask = 1;
     uint64_t val = s.m_Val;
     for (uint32_t i = 0; i < s.m_Len; i++) {

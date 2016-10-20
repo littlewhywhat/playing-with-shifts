@@ -1,7 +1,10 @@
 #include <fstream>
 #include <string>
 
+#include <iostream>
+
 #include "language.h"
+#include "langreader.h"
 
 void LangReader::read(Language & lang, const std::string & path) const {
     std::fstream fs(path, std::ios_base::in);

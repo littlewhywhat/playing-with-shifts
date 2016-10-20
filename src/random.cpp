@@ -26,7 +26,7 @@ uint32_t Random::randlbl() const {
     return randint(2);
 }
 
-friend std::ostream & operator << (std::ostream & out, const Random & src) {
+std::ostream & operator << (std::ostream & out, const Random & src) {
     out << src.m_Seed;
     return out;
 }

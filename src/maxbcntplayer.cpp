@@ -4,11 +4,11 @@
 #include "strategy.h"
 #include "maxbcntplayer.h"
 
-void MaxBCntPlayer::precompute(Console & console) override {
+void MaxBCntPlayer::precompute(Console & console) {
     if (m_OutResult)
         console.out() << "good strategies are:" << std::endl;
 }
-void MaxBCntPlayer::compute(Console & console, const Strategy & strat) override {
+void MaxBCntPlayer::compute(Console & console, const Strategy & strat) {
     uint32_t bcnt = strat.bcnt();
     if (bcnt > m_Score && console.play(strat)) {
         if (m_OutResult)
@@ -16,7 +16,7 @@ void MaxBCntPlayer::compute(Console & console, const Strategy & strat) override 
         m_Score = bcnt;
     }
 }
-void MaxBCntPlayer::postcompute(Console & console) override {
+void MaxBCntPlayer::postcompute(Console & console) {
     if (m_OutResult)
         console.out() << "max = " << m_Score << std::endl;
 }

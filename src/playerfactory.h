@@ -2,6 +2,7 @@
 #define PLAYERFACTORY_H
 
 #include <string>
+#include <map>
 
 #include "player.h"
 

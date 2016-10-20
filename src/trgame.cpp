@@ -1,4 +1,4 @@
-include "trlanguage.h"
+#include "trlanguage.h"
 #include "game.h"
 #include "tnode.h"
 #include "trgame.h"
@@ -18,6 +18,6 @@ bool TrGame::play_rem(const TNode & node, uint64_t rem_strat, uint32_t wordlen) 
         return (node.has_zero() && play_rem(node.zero(), rem_strat >> 1, wordlen - 1)) || 
                (node.has_one() && play_rem(node.one(), rem_strat >> 1, wordlen - 1));
 }
-bool TrGame::play_ch(const Strategy & s) const override {
+bool TrGame::play_ch(const Strategy & s) const {
     return play_rem(trlang().root(), s.val(), s.length());    
 }

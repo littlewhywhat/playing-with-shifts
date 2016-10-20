@@ -5,6 +5,7 @@
 #include <ostream>
 
 #include "tnode.h"
+#include "language.h"
 
 class TrLanguage : public Language {
   private:
@@ -12,6 +13,7 @@ class TrLanguage : public Language {
     void add_word(TNode & node, const std::string word, uint32_t pos);
   public:
     TrLanguage(const uint32_t & wordlen) : Language(wordlen) {}
+    TNode & root() { return m_Tree; }
     const TNode & root() const { return m_Tree; }
     void add(const std::string & word) override;
     std::ostream & print(std::ostream & out) const override;

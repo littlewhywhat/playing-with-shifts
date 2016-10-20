@@ -2,7 +2,7 @@
 
 #include "no3inrow.h"
 
-bool No3inRow::is_relevant(uint64_t word, const uint32_t & wordlen) const override {
+bool No3inRow::is_relevant(uint64_t word, const uint32_t & wordlen) const {
     uint32_t cnt_ones = 0;
     for (uint32_t i = 0; i < wordlen; i++) {
        uint32_t last_digit = word & 1;

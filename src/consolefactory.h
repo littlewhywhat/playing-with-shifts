@@ -1,6 +1,8 @@
 #ifndef CONSOLEFACTORY_H
 #define CONSOLEFACTORY_H
 
+#include <map>
+
 #include "console.h"
 
 class ConsoleFactory {

@@ -42,7 +42,7 @@ void GraphGen::write_cycles(std::fstream & fs, const uint32_t & cnt_nodes) const
 void GraphGen::write_cnt_nodes(std::fstream & fs, const uint32_t & cnt_nodes) const {
     fs << cnt_nodes << std::endl;
 }
-static std::string GraphGen::getname(const std::string & pathname, const uint32_t & i) {
+std::string GraphGen::getname(const std::string & pathname, const uint32_t & i) {
     std::string s(pathname);
     s.push_back(i + '0');
     return s;

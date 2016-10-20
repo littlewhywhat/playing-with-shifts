@@ -2,6 +2,7 @@
 #define GAMEFACTORY_H
 
 #include <cstdint>
+#include <map>
 
 #include "game.h"
 
@@ -18,7 +19,7 @@ class GameFactory {
     static GameFactory * get();
     void reg_game(const uint32_t & type, create_game_fn func);
     
-    Game * create_instance(const uint32_t & type, const uint32_t & wordlen) const 
+    Game * create_instance(const uint32_t & type, const uint32_t & wordlen) const; 
 };
 
 #endif

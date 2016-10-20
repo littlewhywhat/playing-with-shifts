@@ -2,7 +2,7 @@
 #include "language.h"
 #include "langbuilderfactory.h"
 
-void BuildConsole::fill(Language & lang) override {
+void BuildConsole::fill(Language & lang) {
     if (!m_LangBuilder)
         set_langbuilder(m_Setup);
     langbuilder().build(lang);

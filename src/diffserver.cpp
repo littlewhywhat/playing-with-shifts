@@ -5,6 +5,7 @@
 #include "player.h"
 #include "console.h"
 #include "gameserver.h"
+#include "diffserver.h"
 
 uint32_t DiffServer::process_mode(const uint32_t & game_mode) {
     console().reset();
@@ -15,7 +16,7 @@ uint32_t DiffServer::process_mode(const uint32_t & game_mode) {
               << " results: " << score << std::endl;
     return score;
 }
-void DiffServer::launch() override {
+void DiffServer::launch() {
     uint32_t score_0 = process_mode(m_GameModes[0]);
     for (uint32_t i = 1; i < m_GameModes.size(); i++) { 
         uint32_t score_i = process_mode(m_GameModes[i]);

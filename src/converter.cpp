@@ -1,4 +1,9 @@
-static uint64_t Converter::s2i(const std::string & s) {
+#include <cstdint>
+#include <string>
+
+#include "converter.h"
+
+uint64_t Converter::s2i(const std::string & s) {
     uint64_t i = 0;
     for (uint32_t pos = 0; pos < s.length(); pos++)
         if (s.at(pos) - '0')
@@ -6,7 +11,7 @@ static uint64_t Converter::s2i(const std::string & s) {
     return i;
 }
 
-static std::string Converter::i2s(uint64_t val, uint32_t wordlen) {
+std::string Converter::i2s(uint64_t val, uint32_t wordlen) {
     std::string s;
     for (uint32_t i = 0; i < wordlen; i++) {
         s.push_back((val & 1) + '0');

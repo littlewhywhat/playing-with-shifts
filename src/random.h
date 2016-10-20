@@ -2,12 +2,14 @@
 #define RANDOM_H
 
 #include <ctime>
+#include <cstdint>
+#include <ostream>
 
 class Random {
   private:
     unsigned m_Seed;
   public:
-    Random() : m_Seed(std::time(0)); 
+    Random(); 
     uint32_t randint(const uint32_t & to) const;
     uint32_t randint(const uint32_t & from, const uint32_t & to) const;
     uint32_t randnode(const uint32_t & cnt_nodes) const;

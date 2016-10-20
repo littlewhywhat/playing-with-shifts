@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <string>
 
+#include "argsparser.h"
 #include "playerfactory.h"
 #include "player.h"
 #include "gameserver.h"
@@ -111,7 +112,7 @@ bool ArgsParser::is_single(const std::string & tag) const {
 bool ArgsParser::only_gen() const {
     return m_Opts.size() == 6;
 }
-bool ArgsParser::set_graphgen() {
+bool ArgsParser::set_graphgen() const {
     std::string folder;
     uint32_t nnodes;
     uint32_t nfiles;

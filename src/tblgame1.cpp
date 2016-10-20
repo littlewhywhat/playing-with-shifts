@@ -6,7 +6,7 @@
 bool TblGame1::Less::operator() (const uint64_t & a, const uint64_t & b) const {
     return (a & m_Mask) < (b & m_Mask);
 }
-bool TblGame::play_tm(const uint64_t & max_comb_val, const uint64_t & s_val) const override{
+bool TblGame1::play_tm(const uint64_t & max_comb_val, const uint64_t & s_val) const {
     Less less(s_val);
     std::set<uint64_t, Less> combset(less);
     for (auto word : tbllang()) 

@@ -1,6 +1,9 @@
 #ifndef GRAPHGEN_H
 #define GRAPHGEN_H
 
+#include <set>
+#include <cstdint>
+
 #include "random.h"
 
 class GraphGen {

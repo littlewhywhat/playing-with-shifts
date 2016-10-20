@@ -1,6 +1,3 @@
-#ifndef TRLANGUAGE_H
-#define TRLANGUAGE_H
-
 #include <string>
 #include <ostream>
 
@@ -21,10 +18,10 @@ void TrLanguage::add_word(TNode & node, const std::string word, uint32_t pos) {
         add_word(node.one(), word, pos + 1);
     }
 }
-void TrLanguage::add(const std::string & word) override {
+void TrLanguage::add(const std::string & word) {
     add_word(m_Tree, word, 0);
 }
-std::ostream & TrLanguage::print(std::ostream & out) const override {
+std::ostream & TrLanguage::print(std::ostream & out) const {
     out << m_Tree;
     return out;
 }

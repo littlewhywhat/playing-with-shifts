@@ -29,3 +29,4 @@ class Console {
     bool play(const Strategy & strategy) const { return game().play(strategy); } 
 };
 
+#endif

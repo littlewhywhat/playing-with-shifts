@@ -2,6 +2,7 @@
 #define SERVERFACTORY_H
 
 #include <cstdint>
+#include <map>
 
 #include "gameserver.h"
 

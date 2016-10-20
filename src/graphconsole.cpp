@@ -4,7 +4,7 @@
 #include "greader.h"
 #include "language.h"
     
-void GraphConsole::fill(Language & lang) override {
+void GraphConsole::fill(Language & lang) {
     Graph graph;
     GReader greader;
     greader.read(graph, m_Setup);

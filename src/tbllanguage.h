@@ -2,11 +2,9 @@
 #define WORDTABLE_H
 
 #include <ostream>
-#include <string>
 #include <vector>
 #include <cstdint>
 
-#include "utils.h"
 #include "language.h"
 
 class TblLanguage : public Language {
@@ -14,22 +12,14 @@ class TblLanguage : public Language {
     std::vector<uint64_t> m_Words;
   public:
     TblLanguage(const uint32_t & wordlen) : Language(wordlen) {}
-    uint32_t size() const {
-        return m_Words.size();
-    }
-    void add(const std::string & word) override {
-        m_Words.push_back(s2i(word));
-    }
+    uint32_t size() const;
+    void add(const std::string & word) override;
+    std::ostream & print(std::ostream & out) const override;
     friend std::vector<uint64_t>::const_iterator begin(const TblLanguage & src) {
         return src.m_Words.cbegin();
     }
     friend std::vector<uint64_t>::const_iterator end(const TblLanguage & src) {
         return src.m_Words.cend();
-    }
-    std::ostream & print(std::ostream & out) const override {
-        for (auto word : m_Words)
-            out << i2s(word, wordlen()) << std::endl;
-        return out;
     }
 };
 
