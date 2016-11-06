@@ -9,7 +9,7 @@ TEST2 = testg2l
 RM = rm -r -f
 ARGS = -g data/g2wt/in/graph1 -w 3 -p maxbcnt -m
 DOX = config
-DIRECT = 2>&1 | less
+#DIRECT = 2>&1 | less
 
 all: $(EXEC)
 
@@ -26,11 +26,11 @@ $(OBJDIR):
 
 clean:
 	$(RM) $(OBJDIR); $(RM) $(EXEC); $(RM) $(TEST1); $(RM) $(TEST2)
-#valg: compile
-#	valgrind ./$(EXEC) $(ARGS) 1; valgrind ./$(EXEC) $(ARGS) 2; valgrind ./$(EXEC) $(ARGS) 3
-#gdb: compile
-#	gdb --args ./$(EXEC) $(ARGS) 1
-#test:
-#	./test.sh; ./$(TEST1).sh ./$(TEST2).sh;
+valg: $(EXEC)
+	valgrind ./$(EXEC) $(ARGS) 1; valgrind ./$(EXEC) $(ARGS) 2; valgrind ./$(EXEC) $(ARGS) 3
+gdb: $(EXEC)
+	gdb --args ./$(EXEC) $(ARGS) 1
+test:
+	./test.sh; ./$(TEST1).sh ./$(TEST2).sh;
 doxygen:
 	doxygen $(DOX)

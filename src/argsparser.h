@@ -29,7 +29,7 @@ class ArgsParser {
     const std::string TAG_SERVER = "-gs";
     const std::string TAG_NO_OUT_RES = "-nores";
     const std::string TAG_NO_OUT_LANG = "-nolang";
-    const std::string TAG_STANDARD_PLAYER = "player";
+    const std::string TAG_STANDARD_PLAYER = "success";
     const std::string TAG_STANDARD_SERVER = "gameserver";
 
     uint32_t m_WordLen;

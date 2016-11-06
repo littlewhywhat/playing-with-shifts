@@ -4,9 +4,10 @@
 #include "player.h"
 #include "maxbcntplayer.h"
 #include "langoutplayer.h"
+#include "successplayer.h"
 
 PlayerFactory::PlayerFactory() {
-    reg_player("player", &Player::create);
+    reg_player("success", &SuccessPlayer::create);
     reg_player("maxbcnt", &MaxBCntPlayer::create);
     reg_player("langout", &LangOutPlayer::create);
 }

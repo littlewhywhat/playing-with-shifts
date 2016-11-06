@@ -11,6 +11,7 @@ class SuccessPlayer : public Player {
     virtual void postcompute(Console & console) {} 
   public:
     SuccessPlayer() : Player() {}
+    static Player * create() { return new SuccessPlayer(); }
 };
 
 #endif
