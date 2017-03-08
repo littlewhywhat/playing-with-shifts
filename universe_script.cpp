@@ -5,6 +5,8 @@
 #include <set>
 #include <stack>
 #include <cmath>
+#include <string>
+#include <algorithm>
 
 void print(int word, int wordlen) {
     int buffer = word;
@@ -87,13 +89,38 @@ bool isSCGraph(std::vector<std::vector<int>> matrix, int cntNodes) {
     return true;
 }
 
-int cnt_graphs = 0;
+std::string convertToString(std::vector<std::vector<int>> matrix, int cntNodes) {
+	std::string s;
+	std::vector<std::string> subwords;
+	std::string buffer;
+	for (int node = 0; node < cntNodes; node++) {
+		for (int i = 0; i < cntNodes; i++)
+			buffer.push_back(matrix[i][node] + 48);
+		for (int j = 0; j < cntNodes; j++)
+			buffer.push_back(matrix[node][j] + 48);
+		subwords.push_back(buffer);
+		buffer.clear();
+	}
+	std::sort(subwords.begin(), subwords.end());
+	for (std::string & subword : subwords)
+		s.append(subword);
+	return s;
+}
+
+std::set<std::string> nonisographs;
+bool isomorphic(std::vector<std::vector<int>> matrix, int cntNodes) {
+	std::string s = convertToString(matrix, cntNodes);
+	if (nonisographs.find(s) == nonisographs.end()) {
+		nonisographs.insert(s);
+		return true;
+	}
+	return false;
+}
+
 void generateGraphs(int i, int j, std::vector<std::vector<int>> & matrix, int cntNodes, int numSymbols) {
     if (i == cntNodes) {
-        if (isSCGraph(matrix, cntNodes)) {
-            printMatrix(matrix, cntNodes);
-            cnt_graphs++;
-        }
+        if (isSCGraph(matrix, cntNodes) && !isomorphic(matrix, cntNodes))
+        	printMatrix(matrix, cntNodes);
         return;
     }
     int nexti;
@@ -125,21 +152,32 @@ void generateGraphs(int cntNodes, int numSymbols) {
 }
 
 int main(int argc, char** argv) {
-    /*
-    int cntNodes = 5;
-    std::vector<std::vector<int>> matrix;
-    for (int i = 0; i < cntNodes; i++) {
-        std::vector<int> line;
-        for (int j = 0; j < cntNodes; j++)
-            line.push_back(0);
-        matrix.push_back(line);
-    }
-    for (int j = 0; j < cntNodes; j++)
-        matrix[0][j] = 1;
-    printMatrix(matrix, cntNodes);
-    std::cout << std::boolalpha << isSCGraph(matrix, cntNodes) << std::endl;
-    */
-    generateGraphs(3, 2);
-    std::cout << cnt_graphs << std::endl;
+
+    int cntNodes = 3;
+    std::vector<std::vector<int>> matrix1;
+    std::vector<int> row10 = { 2, 2, 2 };
+    std::vector<int> row11 = { 2, 0, 1 };
+    std::vector<int> row12 = { 2, 1, 0 };
+    matrix1.push_back(row10);
+    matrix1.push_back(row11);
+    matrix1.push_back(row12);
+    printMatrix(matrix1, cntNodes);
+    std::vector<std::vector<int>> matrix2;
+    std::vector<int> row20 = { 0, 1, 2 };
+    std::vector<int> row21 = { 1, 0, 2 };
+    std::vector<int> row22 = { 2, 2, 2 };
+    matrix2.push_back(row20);
+    matrix2.push_back(row21);
+    matrix2.push_back(row22);
+    printMatrix(matrix2, cntNodes);
+
+    std::cout << convertToString(matrix1, cntNodes) << std::endl;
+    std::cout << convertToString(matrix2, cntNodes) << std::endl;
+    //std::cout << std::boolalpha << isSCGraph(matrix, cntNodes) << std::endl;
+
+
+
+	//generateGraphs(3, 2);
+    //std::cout << noisographs.size() << std::endl;
     return 0;
 }
