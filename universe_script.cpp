@@ -4,7 +4,7 @@
 #include <vector>
 #include <set>
 #include <stack>
-
+#include <cmath>
 
 void print(int word, int wordlen) {
     int buffer = word;
@@ -106,14 +106,14 @@ void generateGraphs(int i, int j, std::vector<std::vector<int>> & matrix, int cn
     } else {
         nextj = j + 1;
         nexti = i;
-        for (int k = 0; k <= numSymbols; k++) {
+        for (int k = 0; k < numSymbols; k++) {
             matrix[i][j] = k;
             generateGraphs(nexti, nextj, matrix, cntNodes, numSymbols);
         }
     }
 }
 
-void generateGraphs(int cntNodes) {
+void generateGraphs(int cntNodes, int numSymbols) {
     std::vector<std::vector<int>> matrix;
     for (int i = 0; i < cntNodes; i++) {
         std::vector<int> line;
@@ -121,7 +121,7 @@ void generateGraphs(int cntNodes) {
             line.push_back(0);
         matrix.push_back(line);
     }
-    generateGraphs(0, 0, matrix, cntNodes, 1);
+    generateGraphs(0, 0, matrix, cntNodes, std::pow(2,numSymbols));
 }
 
 int main(int argc, char** argv) {
@@ -139,7 +139,7 @@ int main(int argc, char** argv) {
     printMatrix(matrix, cntNodes);
     std::cout << std::boolalpha << isSCGraph(matrix, cntNodes) << std::endl;
     */
-    generateGraphs(3);
+    generateGraphs(3, 2);
     std::cout << cnt_graphs << std::endl;
     return 0;
 }
