@@ -44,7 +44,7 @@ void GraphGen::write_cnt_nodes(std::fstream & fs, const uint32_t & cnt_nodes) co
 }
 std::string GraphGen::getname(const std::string & pathname, const uint32_t & i) {
     std::string s(pathname);
-    s.push_back(i + '0');
+    s.append(std::to_string(i));
     return s;
 }
 void GraphGen::gen(const std::string & pathname, 
