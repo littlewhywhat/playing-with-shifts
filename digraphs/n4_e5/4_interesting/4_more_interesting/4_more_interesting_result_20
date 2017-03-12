@@ -1,0 +1,40 @@
+mode: 1 results: 7
+mode: 3 results: 4
+setup: digraphs/4_interesting/4_more_interesting/4_9
+difference: 3
+mode: 1 results: 6
+mode: 3 results: 4
+setup: digraphs/4_interesting/4_more_interesting/4_11
+difference: 2
+mode: 1 results: 6
+mode: 3 results: 4
+setup: digraphs/4_interesting/4_more_interesting/4_12
+difference: 2
+mode: 1 results: 7
+mode: 3 results: 6
+setup: digraphs/4_interesting/4_more_interesting/4_15
+difference: 1
+mode: 1 results: 7
+mode: 3 results: 4
+setup: digraphs/4_interesting/4_more_interesting/4_38
+difference: 3
+mode: 1 results: 7
+mode: 3 results: 4
+setup: digraphs/4_interesting/4_more_interesting/4_81
+difference: 3
+mode: 1 results: 6
+mode: 3 results: 4
+setup: digraphs/4_interesting/4_more_interesting/4_107
+difference: 2
+mode: 1 results: 6
+mode: 3 results: 4
+setup: digraphs/4_interesting/4_more_interesting/4_108
+difference: 2
+mode: 1 results: 7
+mode: 3 results: 4
+setup: digraphs/4_interesting/4_more_interesting/4_110
+difference: 3
+mode: 1 results: 7
+mode: 3 results: 6
+setup: digraphs/4_interesting/4_more_interesting/4_113
+difference: 1
