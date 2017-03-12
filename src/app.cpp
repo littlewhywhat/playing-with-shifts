@@ -4,10 +4,10 @@
 #include "gameserver.h"
 
 void App::run() {
-    try {
-        for (GameServer * gs : m_Args.servers())
+	for (GameServer * gs : m_Args.servers())
+    	try {
             gs -> launch();
-    } catch (const char * e) {
-        std::cout << e << std::endl;
-    }
+    	} catch (const char * e) {
+        	//std::cout << e << std::endl;
+    	}
 }

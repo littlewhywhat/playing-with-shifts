@@ -28,7 +28,7 @@ void GReader::read(Graph & g, const std::string & path) const {
     } catch (const char * e) {
         fs.clear();
         fs.close();
-        std::cout << e << std::endl;
+        //std::cout << e << std::endl;
         throw e;
     }
 }
