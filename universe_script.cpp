@@ -93,6 +93,17 @@ class GraphMatrix {
     	m_Values.pop_back();
     }
 
+    void zeros() {
+        if (!m_Values.size()) {
+            for (int i = 0; i < m_Size; i++) {
+                std::vector<int> row;
+                for (int j = 0; j < m_Size; j++)
+                    row.push_back(0);
+                m_Values.push_back(row);
+            }
+        }
+    }
+
     bool isSCGraph() {
         if (DFSCnt() != m_Size)
             return false;
@@ -241,6 +252,7 @@ void generateGraphs(int i, int j, GraphMatrix & matrix,
 				&&
 				!matrix.isomorphic_to(nonisographs)
 				) {
+            matrix.print();
             std::string basefilename = matrix.get_filename();
             std::string newfilename = basefilename;
             newfilename.append(std::to_string(nonisographs.size()));
@@ -290,6 +302,69 @@ void generateGraphs(int cntNodes, int maxEdges, int numSymbols, std::string & fi
 
 }
 
+void generateGraphsByTemplateR(GraphMatrix & matrix, int i, int j, int numECodes) {
+    if (i == matrix.size()) {
+        if (
+            !matrix.is_trivial() 
+            && 
+            !matrix.isomorphic_to(nonisographs)
+            ) {
+            std::string basefilename = matrix.get_filename();
+            std::string newfilename = basefilename;
+            newfilename.append(std::to_string(nonisographs.size()));
+            matrix.set_filename(newfilename);
+            nonisographs.insert(matrix.to_string());
+
+            matrix.write_to_file();
+            matrix.set_filename(basefilename);
+        }
+        return;
+    }
+    if (j == matrix.size()) {
+        generateGraphsByTemplateR(matrix, i + 1, 0, numECodes);
+        return;
+    }
+    if (!matrix.v()[i][j]) {
+        generateGraphsByTemplateR(matrix, i, j + 1, numECodes);
+        return;
+    }
+    for (int code = 1; code < numECodes; code++) {
+        matrix.v()[i][j] = code;
+        generateGraphsByTemplateR(matrix, i, j + 1, numECodes);
+    }
+    matrix.v()[i][j] = 1;
+}
+
+GraphMatrix readOnesMatrix(const std::string & templatefile) {
+    std::fstream fs(templatefile, std::ios::in);
+    std::string buffer;
+    std::getline(fs, buffer);
+    GraphMatrix matrix(std::stoi(buffer));
+    matrix.zeros();
+    char DELIM = ',';
+    int n1, n2, lbl = 1;
+    while (std::getline(fs, buffer, DELIM)) {
+        n1 = std::stoi(buffer);
+        if (!std::getline(fs, buffer))
+            throw "Error while reading n1 in file";
+        n2 = std::stoi(buffer);
+        std::cout << n1 << ' ' << n2 << std::endl;
+        matrix.v()[n1][n2] = lbl;
+    }
+    fs.close();
+    return matrix;
+}
+
+void generateGraphsByTemplate(const std::string & templatefile, int numECodes) {
+    if (!numECodes)
+        return;
+    GraphMatrix sample = readOnesMatrix(templatefile);
+    std::string filename(templatefile);
+    filename.push_back('_');
+    sample.set_filename(filename);
+    generateGraphsByTemplateR(sample, 0, 0, numECodes);
+}
+
 // cntNodes, maxEdges
 int main(int argc, char** argv) {
 
@@ -300,7 +375,7 @@ int main(int argc, char** argv) {
     int cntNodes = std::stoi(argv[1]);
     int maxEdges = std::stoi(argv[2]);
     std::string filename(argv[3]);
-    
+    int numSymbols = 2;
 
     // int cntNodes = 4;
     // GraphMatrix matrix1(cntNodes);
@@ -328,7 +403,16 @@ int main(int argc, char** argv) {
     // nonisographs.insert(matrix1.to_string());
     // std::cout << std::boolalpha << matrix2.isomorphic_to(nonisographs) << std::endl;
 
-	generateGraphs(cntNodes, maxEdges, 2, filename);
+    // try {
+    //     GraphMatrix matrix = readOnesMatrix(filename);
+    //     matrix.print();
+    // } catch (const char * e) {
+    //     std::cout << e << std::endl;
+    //     return 0;
+    // }
+
+    //generateGraphs(cntNodes, maxEdges, numSymbols, filename);
+	generateGraphsByTemplate(filename, std::pow(2, numSymbols));
     std::cout << nonisographs.size() << std::endl;
     return 0;
 }
