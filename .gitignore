@@ -1,5 +1,8 @@
 bin
+.idea
 .project
+CMakeLists.txt
+cmake-build-debug
 *.swp
 playshift
 testg2wt

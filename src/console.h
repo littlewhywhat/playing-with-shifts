@@ -11,6 +11,7 @@ class Console {
     Game * m_Game;
     uint32_t m_WordLen;
     Game & game() const { return *m_Game; }
+    void load(const uint32_t & game_mode, const uint32_t & wordlen);
   protected:
     std::string m_Setup;
     virtual void fill(Language & lang) = 0;
@@ -24,7 +25,6 @@ class Console {
     const Language & lang() const { return game().lang(); }
     void reset() { delete m_Game; }
     void set_wordlen(uint32_t val) { m_WordLen = val; }
-    void load(const uint32_t & game_mode, const uint32_t & wordlen); 
     void load(const uint32_t & game_mode) { load(game_mode, m_WordLen); }
     bool play(const Strategy & strategy) const { return game().play(strategy); } 
 };
