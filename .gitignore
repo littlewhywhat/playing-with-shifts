@@ -1,4 +1,5 @@
 bin
+.project
 *.swp
 playshift
 testg2wt
