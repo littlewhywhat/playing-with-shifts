@@ -25,7 +25,7 @@ class Console {
     const Language & lang() const { return game().lang(); }
     void reset() { delete m_Game; }
     void set_wordlen(uint32_t val) { m_WordLen = val; }
-    void load(const uint32_t & game_mode) { load(game_mode, m_WordLen); }
+    void load(const uint32_t & game_mode);
     bool play(const Strategy & strategy) const { return game().play(strategy); } 
 };
 
