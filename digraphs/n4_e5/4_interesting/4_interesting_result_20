@@ -1,0 +1,32 @@
+mode: 1 results: 5
+mode: 3 results: 3
+setup: digraphs/4_interesting/4_3
+difference: 2
+mode: 1 results: 5
+mode: 3 results: 3
+setup: digraphs/4_interesting/4_8
+difference: 2
+mode: 1 results: 7
+mode: 3 results: 4
+setup: digraphs/4_interesting/4_9
+difference: 3
+mode: 1 results: 8
+mode: 3 results: 7
+setup: digraphs/4_interesting/4_10
+difference: 1
+mode: 1 results: 6
+mode: 3 results: 4
+setup: digraphs/4_interesting/4_11
+difference: 2
+mode: 1 results: 6
+mode: 3 results: 4
+setup: digraphs/4_interesting/4_12
+difference: 2
+mode: 1 results: 6
+mode: 3 results: 5
+setup: digraphs/4_interesting/4_14
+difference: 1
+mode: 1 results: 7
+mode: 3 results: 6
+setup: digraphs/4_interesting/4_15
+difference: 1

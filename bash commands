@@ -1,0 +1,5 @@
+copy interesting files:
+
+grep -rn 'digraphs/4_result_10' -e 'setup: ' | cut -f2 -d ' ' | xargs cp -t digraphs/4_interesting/
+
+
