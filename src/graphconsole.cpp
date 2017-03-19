@@ -8,7 +8,7 @@
 void GraphConsole::start() {
     Graph graph;
     GReader greader;
-    greader.read(graph, m_Setup);
+    greader.read(graph, setup());
     Graph2Lang g2l;
     g2l.translate(graph, wordlen(), m_WordSet);
 }

@@ -10,7 +10,6 @@
 class BuildConsole : public Console {
   public:
     BuildConsole(std::ostream & out) : Console(out) {}
-    ~BuildConsole() { }
     void start() override;
     static Console * create(std::ostream & out) {
         return new BuildConsole(out);

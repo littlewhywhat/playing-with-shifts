@@ -7,8 +7,6 @@
 class GraphConsole : public Console {
   public:
     GraphConsole(std::ostream & out) : Console(out) {};
-    GraphConsole(std::ostream & out, const std::string & graphfile) : 
-            GraphConsole(out) { set_setup(graphfile); }
     void start() override;
     static Console * create(std::ostream & out) { return new GraphConsole(out);}
 

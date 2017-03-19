@@ -17,8 +17,6 @@ class TrGame : public Game {
         m_TrLang = new TrLanguage(wordlen);
         set_lang(m_TrLang);
     }
-    // TODO decide if destructor should be virtual here
-    virtual ~TrGame() {}
     static Game * create(const uint32_t & wordlen) { return new TrGame(wordlen); }
 };
 
