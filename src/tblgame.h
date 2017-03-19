@@ -9,8 +9,7 @@
 
 class TblGame : public Game {
   private:
-    TblLanguage * m_Lang;
-    bool has_lang() const override { return m_Lang; }
+    TblLanguage * m_TblLang;
     bool play_ch(const Strategy & s) const override {
         if (!s.val())
             return true;
@@ -21,12 +20,13 @@ class TblGame : public Game {
     }     
     virtual bool play_tm(const uint64_t & max_comb_val, const uint64_t & s_val) const = 0;
   protected:
-    const TblLanguage & tbllang() const { return *m_Lang; }
+    const TblLanguage & tbllang() const { return *m_TblLang; }
   public:
-    TblGame(const uint32_t & wordlen) : m_Lang(new TblLanguage(wordlen)) {}
-    virtual ~TblGame() { delete m_Lang; }
-    void add_word(const std::string & word) override { lang().add(word); }
-    Language & lang() const override { return *m_Lang; }
+    TblGame(const uint32_t & wordlen) : Game() {
+        m_TblLang = new TblLanguage(wordlen);
+        set_lang(m_TblLang);
+    }
+    virtual ~TblGame() { }
 };
 
 #endif
