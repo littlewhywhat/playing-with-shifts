@@ -13,7 +13,6 @@ class Game {
   public:
     virtual ~Game() {};
     virtual Language & lang() const = 0;
-    virtual const uint32_t & wordlen() const = 0;
     virtual void add_word(const std::string & word) = 0;
     bool play(const Strategy & s) const;
 };

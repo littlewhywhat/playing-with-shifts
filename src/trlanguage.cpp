@@ -4,7 +4,7 @@
 #include "tnode.h"
 #include "trlanguage.h"
 
-void TrLanguage::add_word(TNode & node, const std::string word, uint32_t pos) {
+void TrLanguage::add_word(TNode & node, const std::string & word, uint32_t pos) {
     if (pos == word.length())
         return;
     if (word.at(pos) == '0') {

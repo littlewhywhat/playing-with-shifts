@@ -13,7 +13,6 @@ class Console {
     Game * m_Game;
     uint32_t m_WordLen;
     Game & game() const { return *m_Game; }
-    void load(const uint32_t & game_mode, const uint32_t & wordlen);
   protected:
     std::string m_Setup;
     std::set<std::string> m_WordSet;

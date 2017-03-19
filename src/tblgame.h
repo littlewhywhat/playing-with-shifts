@@ -27,7 +27,6 @@ class TblGame : public Game {
     virtual ~TblGame() { delete m_Lang; }
     void add_word(const std::string & word) override { lang().add(word); }
     Language & lang() const override { return *m_Lang; }
-    const uint32_t & wordlen() const override { return lang().wordlen(); }
 };
 
 #endif
