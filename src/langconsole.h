@@ -10,7 +10,7 @@ class LangConsole : public Console {
   private:
   public:
     LangConsole(std::ostream & out) : Console(out) {}
-    void fill(Language & lang) override;
+    void start() override;
     static Console * create(std::ostream & out) { return new LangConsole(out); }
 };
 

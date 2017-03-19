@@ -18,6 +18,7 @@ class TrGame : public Game {
     ~TrGame() {
         delete m_Lang;
     }
+    void add_word(const std::string & word) override { lang().add(word); }
     const uint32_t & wordlen() const override { return lang().wordlen(); }
     Language & lang() const override { return *m_Lang; }
     static Game * create(const uint32_t & wordlen) { return new TrGame(wordlen); }

@@ -2,7 +2,7 @@
 #include "langconsole.h"
 #include "langreader.h"
 
-void LangConsole::fill(Language & lang) {
+void LangConsole::start() {
     LangReader lreader;
-    lreader.read(lang, m_Setup);
+    lreader.read(setup(), m_WordSet);
 }

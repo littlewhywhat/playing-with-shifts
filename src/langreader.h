@@ -2,12 +2,13 @@
 #define LANGREADER_H
 
 #include <string>
+#include <set>
 
 #include "language.h"
 
 class LangReader {
   public: 
-    void read(Language & lang, const std::string & path) const; 
+    void read(const std::string & path, std::set<std::string> & wordset) const;
 };
 
 #endif

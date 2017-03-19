@@ -9,8 +9,9 @@ class GraphConsole : public Console {
     GraphConsole(std::ostream & out) : Console(out) {};
     GraphConsole(std::ostream & out, const std::string & graphfile) : 
             GraphConsole(out) { set_setup(graphfile); }
-    void fill(Language & lang) override;
+    void start() override;
     static Console * create(std::ostream & out) { return new GraphConsole(out);}
+
 };
 
 #endif

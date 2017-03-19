@@ -6,26 +6,23 @@
 #include "graph.h"
 #include "language.h"
 
-void Graph2Lang::produceNext(std::set<std::string> & wordset, Language & lang, const GNode * node, uint32_t lettercnt, std::string & buffer) const {
-    if (lettercnt == lang.wordlen()) {
-        if (wordset.find(buffer) == wordset.end()) {
-            lang.add(buffer);
+void Graph2Lang::produceNext(std::set<std::string> & wordset, const uint32_t & wordlength, const GNode * node, uint32_t lettercnt, std::string & buffer) const {
+    if (lettercnt == wordlength) {
+        if (wordset.find(buffer) == wordset.end())
             wordset.insert(buffer);
-        }
         return;
     }
     for (GEdge * edge : node -> out()) {
         lettercnt += 1;
         buffer.push_back(edge -> m_Label);
-        produceNext(wordset, lang, edge -> m_Node, lettercnt, buffer);
+        produceNext(wordset, wordlength, edge -> m_Node, lettercnt, buffer);
         lettercnt -= 1;
         buffer.pop_back();
     }
 }
-void Graph2Lang::translate(const Graph & graph, Language & lang) const {
-    std::set<std::string> wordset;
+void Graph2Lang::translate(const Graph & graph, const uint32_t &wordlength, std::set<std::string> & set) const {
     uint32_t lettercnt = 0;
     std::string buffer;
     for (auto node : graph.nodes())
-        produceNext(wordset, lang, node, lettercnt, buffer);
+        produceNext(set, wordlength, node, lettercnt, buffer);
 }

@@ -1,6 +1,8 @@
 #ifndef CONSOLE_H
 #define CONSOLE_H
 
+#include <set>
+
 #include "game.h"
 #include "language.h"
 #include "strategy.h"
@@ -14,14 +16,18 @@ class Console {
     void load(const uint32_t & game_mode, const uint32_t & wordlen);
   protected:
     std::string m_Setup;
-    virtual void fill(Language & lang) = 0;
+    std::set<std::string> m_WordSet;
+    void set_wordset(const std::set<std::string> & wordset) {
+        m_WordSet = wordset;
+    }
   public:
     Console(std::ostream & out) : m_Out(out), m_Game(NULL), m_WordLen() {}
     virtual ~Console() { reset(); }
     std::ostream & out() { return m_Out; }
-    void set_setup(const std::string & setup); 
+    virtual void set_setup(const std::string & setup);
+    virtual void start() = 0;
     const std::string & setup() const { return m_Setup; }
-    const uint32_t & wordlen() const { return game().wordlen(); }
+    const uint32_t & wordlen() const { return m_WordLen; }
     const Language & lang() const { return game().lang(); }
     void reset() { delete m_Game; }
     void set_wordlen(uint32_t val) { m_WordLen = val; }
