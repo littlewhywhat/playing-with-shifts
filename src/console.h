@@ -23,7 +23,7 @@ class Console {
     Console(std::ostream & out) : m_Out(out), m_Game(NULL), m_WordLen() {}
     virtual ~Console() { reset(); }
     std::ostream & out() { return m_Out; }
-    virtual void set_setup(const std::string & setup);
+    void set_setup(const std::string & setup);
     virtual void start() = 0;
     const std::string & setup() const { return m_Setup; }
     const uint32_t & wordlen() const { return m_WordLen; }
