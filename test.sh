@@ -1,9 +1,15 @@
 DATA=data
 EXEC=playshift
 RES=$DATA/app/res
-DIFF=colordiff
 IN=$DATA/g2wt/in
 OUT=$DATA/app/out
+SORT=sort
+
+function sorteddiff {
+	colordiff <($SORT $1) <($SORT $2)
+}
+
+DIFF=sorteddiff
 
 echo "graph1_1_1"
 ./$EXEC -g $IN/graph1 -w 1 -m 1 -p maxbcnt > ./$RES

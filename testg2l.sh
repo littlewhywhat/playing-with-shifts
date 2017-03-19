@@ -1,88 +1,42 @@
 DATA=data/g2wt
 EXEC=playshift
 RES=$DATA/res
-DIFF=colordiff
+DIFF='colordiff'
+SORT='sort'
 IN=$DATA/in
 OUT=$DATA/out
 
-echo "graph1_1_1"
-./$EXEC -g $IN/graph1 -w 1 -m 1 -p langout -nores -nolang > ./$RES
-$DIFF ./$RES $OUT/graph1_1_1
+function diff {
+	$DIFF <($SORT $1) <($SORT $2)
+}
 
-echo "graph1_1_2"
-./$EXEC -g $IN/graph1 -w 1 -m 3 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph1_1_2
+function test {
+    echo $1
+    ./$EXEC -g $IN/graph$2 -w $3 -m $4 -p langout -nores -nolang > ./$RES
+    diff $RES $OUT/$1
+}
 
-echo "graph1_2_1"
-./$EXEC -g $IN/graph1 -w 2 -m 1 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph1_2_1
+test graph1_1_1 1 1 1 
+test graph1_1_2 1 1 3
+test graph1_2_1 1 2 1
+test graph1_2_2 1 2 3
+test graph1_3_1 1 3 1
+test graph1_3_2 1 3 3
+test graph1_4_1 1 4 1
+test graph1_4_2 1 4 3
+test graph1_5_1 1 5 1
+test graph1_5_2 1 5 3
 
-echo "graph1_2_2"
-./$EXEC -g $IN/graph1 -w 2 -m 3 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph1_2_2
+test graph2_1_1 2 1 1 
+test graph2_1_2 2 1 3
+test graph2_2_1 2 2 1
+test graph2_2_2 2 2 3
+test graph2_3_1 2 3 1
+test graph2_3_2 2 3 3
+test graph2_4_1 2 4 1
+test graph2_4_2 2 4 3
+test graph2_5_1 2 5 1
+test graph2_5_2 2 5 3
 
-echo "graph1_3_1"
-./$EXEC -g $IN/graph1 -w 3 -m 1 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph1_3_1
-
-echo "graph1_3_2"
-./$EXEC -g $IN/graph1 -w 3 -m 3 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph1_3_2
-
-echo "graph1_4_1"
-./$EXEC -g $IN/graph1 -w 4 -m 1 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph1_4_1
-
-echo "graph1_4_2"
-./$EXEC -g $IN/graph1 -w 4 -m 3 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph1_4_2
-
-echo "graph1_5_1"
-./$EXEC -g $IN/graph1 -w 5 -m 1 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph1_5_1
-
-echo "graph1_5_2"
-./$EXEC -g $IN/graph1 -w 5 -m 3 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph1_5_2
-
-echo "graph2_1_1"
-./$EXEC -g $IN/graph2 -w 1 -m 1 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph2_1_1
-
-echo "graph2_1_2"
-./$EXEC -g $IN/graph2 -w 1 -m 3 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph2_1_2
-
-echo "graph2_2_1"
-./$EXEC -g $IN/graph2 -w 2 -m 1 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph2_2_1
-
-echo "graph2_2_2"
-./$EXEC -g $IN/graph2 -w 2 -m 3 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph2_2_2
-
-echo "graph2_3_1"
-./$EXEC -g $IN/graph2 -w 3 -m 1 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph2_3_1
-
-echo "graph2_3_2"
-./$EXEC -g $IN/graph2 -w 3 -m 3 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph2_3_2
-
-echo "graph2_4_1"
-./$EXEC -g $IN/graph2 -w 4 -m 1 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph2_4_1
-
-echo "graph2_4_2"
-./$EXEC -g $IN/graph2 -w 4 -m 3 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph2_4_2
-
-echo "graph2_5_1"
-./$EXEC -g $IN/graph2 -w 5 -m 1 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph2_5_1
-
-echo "graph2_5_2"
-./$EXEC -g $IN/graph2 -w 5 -m 3 -p langout -nolang -nores > ./$RES
-$DIFF ./$RES $OUT/graph2_5_2
 rm -f $RES
 

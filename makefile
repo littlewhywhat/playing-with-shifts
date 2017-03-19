@@ -31,6 +31,6 @@ valg: $(EXEC)
 gdb: $(EXEC)
 	gdb --args ./$(EXEC) $(ARGS) 1
 test:
-	./test.sh; ./$(TEST1).sh ./$(TEST2).sh;
+	./test.sh; ./$(TEST1).sh; ./$(TEST2).sh;
 doxygen:
 	doxygen $(DOX)
