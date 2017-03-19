@@ -10,8 +10,3 @@ uint32_t TblLanguage::size() const {
 void TblLanguage::add(const std::string & word) {
     m_Words.push_back(Converter::s2i(word));
 }
-std::ostream & TblLanguage::print(std::ostream & out) const {
-    for (auto word : m_Words)
-        out << Converter::i2s(word, wordlen()) << std::endl;
-    return out;
-}

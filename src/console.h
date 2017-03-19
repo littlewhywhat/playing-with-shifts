@@ -27,7 +27,7 @@ class Console {
     virtual void start() = 0;
     const std::string & setup() const { return m_Setup; }
     const uint32_t & wordlen() const { return m_WordLen; }
-    const Language & lang() const { return game().lang(); }
+    void print_lang() const;
     void reset() { delete m_Game; }
     void set_wordlen(uint32_t val) { m_WordLen = val; }
     void load(const uint32_t & game_mode);

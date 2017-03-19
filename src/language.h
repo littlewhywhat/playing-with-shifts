@@ -10,10 +10,6 @@ class Language {
     Language(const uint32_t & wordlen) : m_Wordlen(wordlen) {}
     virtual ~Language() {}
     virtual void add(const std::string & word) = 0;
-    virtual std::ostream & print(std::ostream & out) const = 0;
     const uint32_t & wordlen() const { return m_Wordlen; };
-    friend std::ostream & operator << (std::ostream & out, const Language & src) {
-        return src.print(out);
-    }
 };
 #endif

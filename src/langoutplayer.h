@@ -9,7 +9,7 @@
 class LangOutPlayer : public Player {
   private:
     void precompute(Console & console) override {
-        console.out() << console.lang();
+        console.print_lang();
     }
   public:
     LangOutPlayer() : Player() {}

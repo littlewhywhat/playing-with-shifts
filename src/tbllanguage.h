@@ -14,7 +14,6 @@ class TblLanguage : public Language {
     TblLanguage(const uint32_t & wordlen) : Language(wordlen) {}
     uint32_t size() const;
     void add(const std::string & word) override;
-    std::ostream & print(std::ostream & out) const override;
     friend std::vector<uint64_t>::const_iterator begin(const TblLanguage & src) {
         return src.m_Words.cbegin();
     }

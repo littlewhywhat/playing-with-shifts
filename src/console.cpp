@@ -15,4 +15,7 @@ void Console::load(const uint32_t & game_mode) {
         game().add_word(word);
 }
 
-
+void Console::print_lang() const {
+    for (auto & word : m_WordSet)
+        m_Out << word << std::endl;
+}
