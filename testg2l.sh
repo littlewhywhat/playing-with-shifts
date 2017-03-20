@@ -12,7 +12,7 @@ function diff {
 
 function test {
     echo $1
-    ./$EXEC -g $IN/graph$2 -w $3 -m $4 -p langout -nores -nolang > ./$RES
+    ./$EXEC -g $IN/graph$2 -w $3 -m $4 -nores -test -nogame > ./$RES
     diff $RES $OUT/$1
 }
 

@@ -2,7 +2,9 @@
 #include "langconsole.h"
 #include "langreader.h"
 
-void LangConsole::start() {
+std::set<std::string> LangConsole::start(const std::uint32_t & wordlen) {
     LangReader lreader;
-    lreader.read(setup(), m_WordSet);
+    std::set<std::string> wordset;
+    lreader.read(setup(), wordset);
+    return wordset;
 }

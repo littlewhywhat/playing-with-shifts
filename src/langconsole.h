@@ -9,9 +9,9 @@
 class LangConsole : public Console {
   private:
   public:
-    LangConsole(std::ostream & out) : Console(out) {}
-    void start() override;
-    static Console * create(std::ostream & out) { return new LangConsole(out); }
+    LangConsole() : Console() {}
+    std::set<std::string> start(const uint32_t & wordlen) override;
+    static Console * create() { return new LangConsole(); }
 };
 
 #endif

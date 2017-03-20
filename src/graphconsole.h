@@ -6,9 +6,9 @@
 
 class GraphConsole : public Console {
   public:
-    GraphConsole(std::ostream & out) : Console(out) {};
-    void start() override;
-    static Console * create(std::ostream & out) { return new GraphConsole(out);}
+    GraphConsole() : Console() {};
+    std::set<std::string> start(const uint32_t &wordlen) override;
+    static Console * create() { return new GraphConsole();}
 
 };
 

@@ -20,9 +20,11 @@ void Graph2Lang::produceNext(std::set<std::string> & wordset, const uint32_t & w
         buffer.pop_back();
     }
 }
-void Graph2Lang::translate(const Graph & graph, const uint32_t &wordlength, std::set<std::string> & set) const {
+std::set<std::string> Graph2Lang::translate(const Graph &graph, const uint32_t &wordlength) const {
+    std::set<std::string> wordset;
     uint32_t lettercnt = 0;
     std::string buffer;
     for (auto node : graph.nodes())
-        produceNext(set, wordlength, node, lettercnt, buffer);
+        produceNext(wordset, wordlength, node, lettercnt, buffer);
+    return wordset;
 }

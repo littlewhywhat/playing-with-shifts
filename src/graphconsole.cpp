@@ -5,12 +5,12 @@
 #include "language.h"
     
 
-void GraphConsole::start() {
+std::set<std::string> GraphConsole::start(const uint32_t & wordlen) {
     Graph graph;
     GReader greader;
     greader.read(graph, setup());
     Graph2Lang g2l;
-    g2l.translate(graph, wordlen(), m_WordSet);
+    return g2l.translate(graph, wordlen);
 }
 
 

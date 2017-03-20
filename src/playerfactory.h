@@ -11,7 +11,7 @@ class PlayerFactory {
     PlayerFactory();
     PlayerFactory(const PlayerFactory & src) = delete;
     PlayerFactory & operator = (const PlayerFactory & src) = delete;
-    typedef Player* (*create_player_fn)();
+    typedef Player* (*create_player_fn)(const uint32_t & len);
     std::map<std::string, create_player_fn> player_map;
   public:
     ~PlayerFactory() {};
@@ -22,7 +22,7 @@ class PlayerFactory {
     }
 
     void reg_player(const std::string & type, create_player_fn func); 
-    Player * create_instance(const std::string & type) const; 
+    Player *create_instance(const std::string &type, const uint32_t &len) const;
 };
 
 #endif

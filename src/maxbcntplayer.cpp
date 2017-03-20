@@ -1,22 +1,12 @@
 #include <cstdint>
 
-#include "console.h"
-#include "strategy.h"
 #include "maxbcntplayer.h"
 
-void MaxBCntPlayer::precompute(Console & console) {
-    if (m_OutResult)
-        console.out() << "good strategies are:" << std::endl;
-}
-void MaxBCntPlayer::compute(Console & console, const Strategy & strat) {
-    uint32_t bcnt = strat.bcnt();
-    if (bcnt > m_Score && console.play(strat)) {
-        if (m_OutResult)
-            console.out() << strat << std::endl;
-        m_Score = bcnt;
+const Strategy &MaxBCntPlayer::next_strategy(const uint32_t &score) {
+    SuccessPlayer::next_strategy(score);
+    while (m_PrevStrategy.bcnt() <= score
+                && has_next()) {
+        m_PrevStrategy.increment();
     }
-}
-void MaxBCntPlayer::postcompute(Console & console) {
-    if (m_OutResult)
-        console.out() << "max = " << m_Score << std::endl;
+    return m_PrevStrategy;
 }

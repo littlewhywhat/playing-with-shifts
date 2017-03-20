@@ -29,6 +29,8 @@ class ArgsParser {
     const std::string TAG_SERVER = "-gs";
     const std::string TAG_NO_OUT_RES = "-nores";
     const std::string TAG_NO_OUT_LANG = "-nolang";
+    const std::string TAG_NO_OUT_GAME = "-nogame";
+    const std::string TAG_TEST_MODE = "-test";
     const std::string TAG_STANDARD_PLAYER = "success";
     const std::string TAG_STANDARD_SERVER = "gameserver";
 
@@ -38,12 +40,12 @@ class ArgsParser {
     std::vector<GameServer *> m_Servers;
     std::vector<std::string> m_Opts;
     std::vector<uint32_t> m_GameModes;
-    Console * create_console(const std::string & tag, std::ostream & out) const;
+    Console * create_console(const std::string & tag) const;
     Player * create_player(const std::string & tag) const;
     GameServer * create_server(const std::string & tag) const;
     std::string folder2console(const std::string & tag) const;
     void print_usage(uint32_t argc, char * argsv[]) const; 
-    uint32_t stoi(const std::string & val) const; 
+    uint32_t stointopt(const std::string &val) const;
     bool find_tag(const std::string & tag) const;
     bool find_all_s_by_tag(const std::string & tag, std::vector<std::string> & opts_by_tag) const; 
     bool find_s_by_tag(const std::string & tag, std::string & val) const; 

@@ -1,0 +1,28 @@
+//
+// Created by littlewhywhat on 3/19/17.
+//
+
+#include "printer.h"
+
+void Printer::print(const std::set<std::string> &wordset) {
+    if (!m_OutTest)
+        std::cout << "language:" << std::endl;
+    for (auto & word : wordset)
+        std::cout << word << std::endl;
+    std::cout << std::endl;
+}
+
+void Printer::print(const Strategy &strategy) const {
+    std::cout << strategy << std::endl;
+}
+
+void Printer::announce(const Judge &judge) const {
+    if (!m_OutTest)
+        std::cout << "good strategies are:" << std::endl;
+}
+
+void Printer::print_score(const Judge &judge) const {
+    if (!m_OutTest)
+        std::cout << "max = ";
+    std::cout << judge.current_score() << std::endl;
+}

@@ -12,14 +12,14 @@
 #include "consolefactory.h"
 #include "graphgen.h"
 
-Console * ArgsParser::create_console(const std::string & tag, std::ostream & out) const {
-    Console * c = ConsoleFactory::get() -> create_instance(tag, out);
+Console * ArgsParser::create_console(const std::string & tag) const {
+    Console * c = ConsoleFactory::get() -> create_instance(tag);
     if (c)
         return c;
     throw "Wrong console!";
 }
 Player * ArgsParser::create_player(const std::string & tag) const {
-    Player * p = PlayerFactory::get() -> create_instance(tag);
+    Player * p = PlayerFactory::get()->create_instance(tag, m_WordLen);
     if (p)
         return p;
     throw "Wrong player!";
@@ -42,7 +42,7 @@ void ArgsParser::print_usage(uint32_t argc, char * argsv[]) const {
     std::cout << std::endl;
 }
 
-uint32_t ArgsParser::stoi(const std::string & val) const {
+uint32_t ArgsParser::stointopt(const std::string &val) const {
     try {
         int i = std::stoi(val);
         if (i < 0)
@@ -79,13 +79,13 @@ bool ArgsParser::find_i_by_tag(const std::string & tag, uint32_t & val) const {
     std::string val_s;
     if (!find_s_by_tag(tag, val_s))
         return false;
-    val = stoi(val_s);
+    val = stointopt(val_s);
     return true;
 }
 bool ArgsParser::find_all_i_by_tag(const std::string & tag, std::vector<uint32_t> & opts_by_tag) const {
     for (uint32_t i = 0; i < m_Opts.size(); i++) 
         if (m_Opts[i] == tag) 
-            opts_by_tag.push_back(stoi(m_Opts[++i]));
+            opts_by_tag.push_back(stointopt(m_Opts[++i]));
     return !opts_by_tag.empty();
 }
 bool ArgsParser::check_argc(uint32_t argc) const {
@@ -107,7 +107,9 @@ bool ArgsParser::is_double(const std::string & tag) const {
 }
 bool ArgsParser::is_single(const std::string & tag) const { 
     return tag == TAG_NO_OUT_RES ||
-           tag == TAG_NO_OUT_LANG;
+           tag == TAG_NO_OUT_LANG ||
+           tag == TAG_NO_OUT_GAME ||
+           tag == TAG_TEST_MODE;
 }
 bool ArgsParser::only_gen() const {
     return m_Opts.size() == 6;
@@ -169,16 +171,20 @@ bool ArgsParser::set_what_single() {
     if (what_tags.empty())
         return false;
     for (uint32_t i = 0; i < what_tags.size(); i += 2) {
-        Console * console = create_console(what_tags[i], std::cout);
+        Console * console = create_console(what_tags[i]);
         console -> set_setup(what_tags[i+1]);
-        console -> set_wordlen(m_WordLen);
         Player * player = create_player(m_PlayerTag);
-        player -> set_out_lang(!find_tag(TAG_NO_OUT_LANG));
-        player -> set_out_result(!find_tag(TAG_NO_OUT_RES));
+        Printer * printer = new Printer();
+        printer -> set_out_lang(!find_tag(TAG_NO_OUT_LANG));
+        printer -> set_out_game(!find_tag(TAG_NO_OUT_GAME));
+        printer -> set_out_score(!find_tag(TAG_NO_OUT_RES));
+        printer -> set_out_test(find_tag(TAG_TEST_MODE));
         GameServer * gs = create_server(m_ServerTag);
+        gs -> set_printer(printer);
         gs -> set_console(console);
         gs -> set_player(player);
         gs -> set_modes(m_GameModes);
+        gs -> set_wordlen(m_WordLen);
         m_Servers.push_back(gs);
     }
     return true;

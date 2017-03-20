@@ -1,19 +1,16 @@
 #ifndef MAXBCNTPLAYER_H
 #define MAXBCNTPLAYER_H
 
-#include "console.h"
 #include "strategy.h"
-#include "player.h"
+#include "successplayer.h"
 
-class MaxBCntPlayer : public Player {
-  private:
-    void precompute(Console & console) override;
-    void compute(Console & console, const Strategy & strat) override;
-    void postcompute(Console & console) override;
+class MaxBCntPlayer : public SuccessPlayer {
   public:
-    MaxBCntPlayer() : Player() {}
-    static Player * create() {
-        return new MaxBCntPlayer();
+    MaxBCntPlayer(const uint32_t & len) : SuccessPlayer(len) {}
+    const Strategy & next_strategy(const uint32_t & score) override;
+
+    static Player * create(const uint32_t & len) {
+        return new MaxBCntPlayer(len);
     }
 };
 

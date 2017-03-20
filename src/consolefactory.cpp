@@ -19,9 +19,9 @@ void ConsoleFactory::reg_console(const std::string & type, create_console_fn fun
     console_map[type] = func;
 }
 
-Console * ConsoleFactory::create_instance(const std::string & type, std::ostream & out) const {
+Console * ConsoleFactory::create_instance(const std::string & type) const {
     auto search = console_map.find(type);
     if (search != console_map.end())
-        return search -> second(out);
+        return search -> second();
     return NULL;
 }

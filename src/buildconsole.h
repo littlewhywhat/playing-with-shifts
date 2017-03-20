@@ -9,10 +9,10 @@
 
 class BuildConsole : public Console {
   public:
-    BuildConsole(std::ostream & out) : Console(out) {}
-    void start() override;
-    static Console * create(std::ostream & out) {
-        return new BuildConsole(out);
+    BuildConsole() : Console() {}
+    std::set<std::string> start(const uint32_t & wordlen) override;
+    static Console * create() {
+        return new BuildConsole();
     }
 };
 

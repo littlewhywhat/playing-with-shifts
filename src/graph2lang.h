@@ -11,7 +11,7 @@ class Graph2Lang {
   private:
     void produceNext(std::set<std::string> & wordset, const uint32_t & wordlength, const GNode * node, uint32_t lettercnt, std::string & buffer) const;
   public:
-    void translate(const Graph & graph, const uint32_t &wordlength, std::set<std::string> & set) const;
+    std::set<std::string> translate(const Graph &graph, const uint32_t &wordlength) const;
 };
 
 #endif

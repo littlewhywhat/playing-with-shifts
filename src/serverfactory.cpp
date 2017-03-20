@@ -2,11 +2,9 @@
 
 #include "serverfactory.h"
 #include "gameserver.h"
-#include "diffserver.h"
-      
+
 ServerFactory::ServerFactory() {
     reg_server("gameserver", &GameServer::create);
-    reg_server("diff", &DiffServer::create);
 }
 void ServerFactory::reg_server(const std::string & type, create_server_fn func) {
     server_map[type] = func;
