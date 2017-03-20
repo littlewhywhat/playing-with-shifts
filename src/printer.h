@@ -5,8 +5,10 @@
 #include "strategy.h"
 #include "player.h"
 #include "judge.h"
+#include "gamesession.h"
 
 class Judge;
+class SessionResults;
 
 class Printer {
   private:
@@ -19,6 +21,7 @@ class Printer {
     void print(const Strategy & strategy) const;
     void announce(const Judge & judge) const;
     void print_score(const Judge & judge) const;
+    void print_score(const uint32_t &score) const;
   public:
     Printer() : m_OutLang(true), m_OutScore(true), m_OutGame(true), m_OutTest(false) {}
     void set_out_lang(bool val) { m_OutLang = val; }
@@ -37,7 +40,10 @@ class Printer {
     void send_to_print_score(const Judge & judge) const {
         if (m_OutScore) print_score(judge);
     }
-
+    void send_to_print_score(const uint32_t & score) const {
+        if (m_OutScore) print_score(score);
+    }
+    void send_to_print(const SessionResults & results);
 };
 
 

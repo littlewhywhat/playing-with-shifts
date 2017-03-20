@@ -26,3 +26,15 @@ void Printer::print_score(const Judge &judge) const {
         std::cout << "max = ";
     std::cout << judge.current_score() << std::endl;
 }
+
+void Printer::print_score(const uint32_t &score) const {
+    if (!m_OutTest)
+        std::cout << "max = ";
+    std::cout << score << std::endl;
+}
+
+void Printer::send_to_print(const SessionResults &results) {
+    for (const auto & strategy : results.get_strategies())
+        send_to_print(strategy);
+    send_to_print_score(results.get_score());
+}
