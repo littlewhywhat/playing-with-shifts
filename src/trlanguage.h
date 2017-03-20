@@ -16,6 +16,7 @@ class TrLanguage : public Language {
     TNode & root() { return m_Tree; }
     const TNode & root() const { return m_Tree; }
     void add(const std::string & word) override;
+    void clear() override;
 };
 
 #endif

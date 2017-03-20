@@ -3,9 +3,11 @@
 
 #include "tnode.h"
 
-void TNode::delete_node(TNode * node) {
-   if (node != NULL) 
+void TNode::delete_node(TNode * & node) {
+   if (node != NULL) {
        delete node;
+       node = NULL;
+   }
 }
 
 void TNode::print(std::ostream & out) const {
@@ -31,8 +33,7 @@ void TNode::print(std::ostream & out, std::string & buffer) const {
 }
 
 TNode::~TNode() {
-    delete_node(m_Zero);
-    delete_node(m_One);
+   clear();
 }
 
 bool TNode::is_leaf() const {
@@ -44,4 +45,9 @@ bool TNode::is_leaf() const {
 std::ostream & operator <<  (std::ostream & out, const TNode & src) {
     src.print(out);
     return out;
+}
+
+void TNode::clear() {
+    delete_node(m_Zero);
+    delete_node(m_One);
 }

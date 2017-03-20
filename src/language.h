@@ -10,6 +10,7 @@ class Language {
     Language(const uint32_t & wordlen) : m_Wordlen(wordlen) {}
     virtual ~Language() {}
     virtual void add(const std::string & word) = 0;
+    virtual void clear() = 0;
     const uint32_t & wordlen() const { return m_Wordlen; };
 };
 #endif

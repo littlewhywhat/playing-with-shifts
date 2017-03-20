@@ -10,3 +10,7 @@ uint32_t TblLanguage::size() const {
 void TblLanguage::add(const std::string & word) {
     m_Words.push_back(Converter::s2i(word));
 }
+
+void TblLanguage::clear() {
+    m_Words.clear();
+}

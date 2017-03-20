@@ -21,3 +21,7 @@ void TrLanguage::add_word(TNode & node, const std::string & word, uint32_t pos) 
 void TrLanguage::add(const std::string & word) {
     add_word(m_Tree, word, 0);
 }
+
+void TrLanguage::clear() {
+    m_Tree.clear();
+}

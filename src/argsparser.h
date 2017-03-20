@@ -43,6 +43,7 @@ class ArgsParser {
     Console * create_console(const std::string & tag) const;
     Player * create_player(const std::string & tag) const;
     GameServer * create_server(const std::string & tag) const;
+    Game * create_game(const uint32_t & mode) const;
     std::string folder2console(const std::string & tag) const;
     void print_usage(uint32_t argc, char * argsv[]) const; 
     uint32_t stointopt(const std::string &val) const;

@@ -10,7 +10,7 @@ class TNode {
     const char ONE = '1';
     TNode * m_Zero;
     TNode * m_One;
-    void delete_node(TNode * node);
+    void delete_node(TNode * & node);
     void print(std::ostream & out, std::string & buffer) const;
   public:
     void print(std::ostream & out) const;
@@ -23,6 +23,7 @@ class TNode {
     bool has_one() const { return m_One; }
     bool has_zero() const { return m_Zero; }
     bool is_leaf() const;
+    void clear();
     TNode & one() const { return *m_One; }
     TNode & zero() const { return *m_Zero; }
     friend std::ostream & operator <<  (std::ostream & out, const TNode & src);

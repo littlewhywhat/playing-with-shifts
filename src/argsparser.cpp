@@ -11,6 +11,7 @@
 #include "console.h"
 #include "consolefactory.h"
 #include "graphgen.h"
+#include "gamefactory.h"
 
 Console * ArgsParser::create_console(const std::string & tag) const {
     Console * c = ConsoleFactory::get() -> create_instance(tag);
@@ -25,10 +26,17 @@ Player * ArgsParser::create_player(const std::string & tag) const {
     throw "Wrong player!";
 }
 GameServer * ArgsParser::create_server(const std::string & tag) const {
-    GameServer * gs = ServerFactory::get() -> create_instance(m_ServerTag);        if (gs)
+    GameServer * gs = ServerFactory::get() -> create_instance(m_ServerTag);
+    if (gs)
         return gs;
     throw "Wrong server!";
-} 
+}
+Game * ArgsParser::create_game(const uint32_t & mode) const {
+    Game * game = GameFactory::get() -> create_instance(mode, m_WordLen);
+    if (game)
+        return game;
+    throw "Wrong game specifier";
+}
 std::string ArgsParser::folder2console(const std::string & tag) const {
     std::string console = tag;
     console.pop_back();
@@ -183,7 +191,8 @@ bool ArgsParser::set_what_single() {
         gs -> set_printer(printer);
         gs -> set_console(console);
         gs -> set_player(player);
-        gs -> set_modes(m_GameModes);
+        for (auto & mode : m_GameModes)
+            gs -> add_game(create_game(mode));
         gs -> set_wordlen(m_WordLen);
         m_Servers.push_back(gs);
     }

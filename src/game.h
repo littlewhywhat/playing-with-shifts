@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <cstdint>
+#include <set>
 
 #include "strategy.h"
 #include "language.h"
@@ -18,7 +19,8 @@ class Game {
   public:
     virtual ~Game() { delete m_Lang; };
     Language & lang() const { return *m_Lang; };
-    void add_word(const std::string & word);
+    void reset() { m_Lang -> clear(); }
+    void load(std::set<std::string> words);
     bool play(const Strategy & s) const;
 };
 

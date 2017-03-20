@@ -20,6 +20,8 @@ class TblLanguage : public Language {
     friend std::vector<uint64_t>::const_iterator end(const TblLanguage & src) {
         return src.m_Words.cend();
     }
+
+    void clear() override;
 };
 
 #endif
