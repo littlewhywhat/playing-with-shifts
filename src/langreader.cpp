@@ -4,8 +4,9 @@
 #include <iostream>
 
 #include "langreader.h"
+#include "language.h"
 
-void LangReader::read(const std::string & path, std::set<std::string> & wordset) const {
+void LangReader::read(const std::string & path, Language & wordset) const {
     std::fstream fs(path, std::ios_base::in);
     try {
         if (!fs.is_open())

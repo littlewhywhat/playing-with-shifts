@@ -3,12 +3,12 @@
 #include "graph2lang.h"
 #include "greader.h"
 
-std::set<std::string> GraphConsole::start(const uint32_t & wordlen) {
+void GraphConsole::start(Language & lang, const uint32_t & wordlen) {
     Graph graph;
     GReader greader;
     greader.read(graph, setup());
     Graph2Lang g2l;
-    return g2l.translate(graph, wordlen);
+    g2l.translate(graph, lang, wordlen);
 }
 
 

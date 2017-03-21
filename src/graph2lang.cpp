@@ -4,10 +4,11 @@
 
 #include "graph2lang.h"
 #include "graph.h"
+#include "language.h"
 
-void Graph2Lang::produceNext(std::set<std::string> & wordset, const uint32_t & wordlength, const GNode * node, uint32_t lettercnt, std::string & buffer) const {
+void Graph2Lang::produceNext(Language & wordset, const uint32_t & wordlength, const GNode * node, uint32_t lettercnt, std::string & buffer) const {
     if (lettercnt == wordlength) {
-        if (wordset.find(buffer) == wordset.end())
+        if (!wordset.has(buffer))
             wordset.insert(buffer);
         return;
     }
@@ -19,11 +20,9 @@ void Graph2Lang::produceNext(std::set<std::string> & wordset, const uint32_t & w
         buffer.pop_back();
     }
 }
-std::set<std::string> Graph2Lang::translate(const Graph &graph, const uint32_t &wordlength) const {
-    std::set<std::string> wordset;
+void Graph2Lang::translate(const Graph &graph, Language & lang, const uint32_t &wordlength) const {
     uint32_t lettercnt = 0;
     std::string buffer;
     for (auto node : graph.nodes())
-        produceNext(wordset, wordlength, node, lettercnt, buffer);
-    return wordset;
+        produceNext(lang, wordlength, node, lettercnt, buffer);
 }

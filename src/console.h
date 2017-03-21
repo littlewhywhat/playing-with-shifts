@@ -3,6 +3,7 @@
 
 #include <set>
 #include <string>
+#include "language.h"
 
 class Console {
   private:
@@ -14,7 +15,7 @@ class Console {
     void set_setup(const std::string & setup) { m_Setup = setup; };
     const std::string & setup() const { return m_Setup; }
 
-    virtual std::set<std::string> start(const uint32_t &wordlen) = 0;
+    virtual void start(Language & lang, const uint32_t &wordlen) = 0;
 };
 
 #endif

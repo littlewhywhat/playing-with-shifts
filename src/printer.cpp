@@ -4,7 +4,7 @@
 
 #include "printer.h"
 
-void Printer::print(const std::set<std::string> &wordset) {
+void Printer::print(const Language &wordset) {
     if (!m_OutTest)
         std::cout << "language:" << std::endl;
     for (auto & word : wordset)

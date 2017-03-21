@@ -27,7 +27,7 @@ class GameSession {
     GameSession(Game * game, Player * player, Judge * judge, const uint32_t & wordlen) :
             m_Game(game), m_WordLen(wordlen), m_Judge(judge), m_Player(player) {}
     ~GameSession();
-    void run(const std::set<std::string> & lang);
+    void run(const Language & lang);
     const std::list<Strategy> & won_history() const {
         return m_Results;
     };

@@ -6,12 +6,13 @@
 #include <cstdint>
 
 #include "graph.h"
+#include "language.h"
 
 class Graph2Lang {
   private:
-    void produceNext(std::set<std::string> & wordset, const uint32_t & wordlength, const GNode * node, uint32_t lettercnt, std::string & buffer) const;
+    void produceNext(Language & lang, const uint32_t & wordlength, const GNode * node, uint32_t lettercnt, std::string & buffer) const;
   public:
-    std::set<std::string> translate(const Graph &graph, const uint32_t &wordlength) const;
+    void translate(const Graph &graph, Language & lang, const uint32_t &wordlength) const;
 };
 
 #endif

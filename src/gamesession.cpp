@@ -18,7 +18,7 @@ const Judge &GameSession::get_judge() const {
     return *m_Judge;
 }
 
-void GameSession::run(const std::set<std::string> &lang) {
+void GameSession::run(const Language &lang) {
     reset();
     get_game().load(lang);
     while (m_Player -> has_next()) {

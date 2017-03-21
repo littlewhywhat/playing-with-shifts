@@ -4,7 +4,8 @@
 #include "gamesession.h"
 
 void GameServer::launch() {
-    std::set<std::string> lang = console().start(m_WordLen);
+    Language & lang = get_lang();
+    console().start(lang, m_WordLen);
     printer().send_to_print(lang);
     for (auto * session : m_GameSessions) {
         session -> run(lang);

@@ -17,7 +17,7 @@ class Printer {
     bool m_OutGame;
     bool m_OutTest;
   protected:
-    void print(const std::set<std::string> & wordset);
+    void print(const Language & wordset);
     void print(const Strategy & strategy) const;
     void announce(const Judge & judge) const;
     void print_score(const uint32_t &score) const;
@@ -27,7 +27,7 @@ class Printer {
     void set_out_score(bool val) { m_OutScore = val; }
     void set_out_game(bool val) { m_OutGame = val; }
     void set_out_test(bool val) { m_OutTest = val; }
-    void send_to_print(const std::set<std::string> & wordset) {
+    void send_to_print(const Language & wordset) {
         if (m_OutLang) print(wordset);
     }
     void send_to_print(const Strategy & strategy) const {
