@@ -1,19 +1,19 @@
 DATA=data/g2wt
 EXEC=playshift
 RES=$DATA/res
-DIFF='colordiff'
+DIFF='diff'
 SORT='sort'
 IN=$DATA/in
 OUT=$DATA/out
 
-function diff {
+function sdiff {
 	$DIFF <($SORT $1) <($SORT $2)
 }
 
 function test {
     echo $1
     ./$EXEC -g $IN/graph$2 -w $3 -m $4 -nores -test -nogame > ./$RES
-    diff $RES $OUT/$1
+    sdiff $RES $OUT/$1
 }
 
 test graph1_1_1 1 1 1 
@@ -27,7 +27,7 @@ test graph1_4_2 1 4 3
 test graph1_5_1 1 5 1
 test graph1_5_2 1 5 3
 
-test graph2_1_1 2 1 1 
+test graph2_1_1 2 1 1
 test graph2_1_2 2 1 3
 test graph2_2_1 2 2 1
 test graph2_2_2 2 2 3

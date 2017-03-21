@@ -3,7 +3,7 @@ IN=$DATA/in
 OUT=$DATA/out
 EXEC=playshift
 RES=$DATA/res
-DIFF=colordiff
+DIFF=diff
 
 echo "full_in"
 echo " - mode1"
