@@ -11,21 +11,17 @@
 class GameServer {
   protected:
     Console * m_Console;
-    Player * m_Player;
     Printer * m_Printer;
     uint32_t m_WordLen;
-    Judge m_Judge;
-    std::vector<Game *> m_Games;
+    std::vector<GameSession *> m_GameSessions;
     Console & console() { return *m_Console; }
-    Player & get_player() { return *m_Player; }
     Printer & printer() { return *m_Printer; }
   public:
-    GameServer() : m_Console(NULL), m_Player(NULL), m_Printer(NULL),
+    GameServer() : m_Console(NULL), m_Printer(NULL),
                    m_WordLen(0) {}
     virtual ~GameServer();
     void set_console(Console * console) { m_Console = console; }
-    void set_player(Player * player) { m_Player = player; }
-    void add_game(Game * game) { m_Games.push_back(game); }
+    void add_session(GameSession * session) { m_GameSessions.push_back(session); }
     void set_printer(Printer * printer) { m_Printer = printer; }
     void set_wordlen(const uint32_t & wordlen) { m_WordLen = wordlen; }
     virtual void launch();

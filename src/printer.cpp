@@ -21,20 +21,17 @@ void Printer::announce(const Judge &judge) const {
         std::cout << "good strategies are:" << std::endl;
 }
 
-void Printer::print_score(const Judge &judge) const {
-    if (!m_OutTest)
-        std::cout << "max = ";
-    std::cout << judge.current_score() << std::endl;
-}
-
 void Printer::print_score(const uint32_t &score) const {
     if (!m_OutTest)
         std::cout << "max = ";
     std::cout << score << std::endl;
 }
 
-void Printer::send_to_print(const SessionResults &results) {
-    for (const auto & strategy : results.get_strategies())
+void Printer::send_to_print(const GameSession &session) {
+    const Judge & judge = session.get_judge();
+    judge.announce_to(*this);
+    for (const auto & strategy : session.won_history())
         send_to_print(strategy);
-    send_to_print_score(results.get_score());
+    send_to_print_score(judge.current_score());
+
 }

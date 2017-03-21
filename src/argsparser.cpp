@@ -19,8 +19,8 @@ Console * ArgsParser::create_console(const std::string & tag) const {
         return c;
     throw "Wrong console!";
 }
-Player * ArgsParser::create_player(const std::string & tag) const {
-    Player * p = PlayerFactory::get()->create_instance(tag, m_WordLen);
+Player * ArgsParser::create_player(const std::string & tag, const uint32_t & wordlen) const {
+    Player * p = PlayerFactory::get()->create_instance(tag, wordlen);
     if (p)
         return p;
     throw "Wrong player!";
@@ -32,7 +32,7 @@ GameServer * ArgsParser::create_server(const std::string & tag) const {
     throw "Wrong server!";
 }
 Game * ArgsParser::create_game(const uint32_t & mode) const {
-    Game * game = GameFactory::get() -> create_instance(mode, m_WordLen);
+    Game * game = GameFactory::get() -> create_instance(mode);
     if (game)
         return game;
     throw "Wrong game specifier";
@@ -181,7 +181,6 @@ bool ArgsParser::set_what_single() {
     for (uint32_t i = 0; i < what_tags.size(); i += 2) {
         Console * console = create_console(what_tags[i]);
         console -> set_setup(what_tags[i+1]);
-        Player * player = create_player(m_PlayerTag);
         Printer * printer = new Printer();
         printer -> set_out_lang(!find_tag(TAG_NO_OUT_LANG));
         printer -> set_out_game(!find_tag(TAG_NO_OUT_GAME));
@@ -190,9 +189,8 @@ bool ArgsParser::set_what_single() {
         GameServer * gs = create_server(m_ServerTag);
         gs -> set_printer(printer);
         gs -> set_console(console);
-        gs -> set_player(player);
         for (auto & mode : m_GameModes)
-            gs -> add_game(create_game(mode));
+            gs -> add_session(new GameSession(create_game(mode), create_player(m_PlayerTag, m_WordLen), new Judge(), m_WordLen));
         gs -> set_wordlen(m_WordLen);
         m_Servers.push_back(gs);
     }

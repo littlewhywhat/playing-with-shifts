@@ -41,7 +41,7 @@ class ArgsParser {
     std::vector<std::string> m_Opts;
     std::vector<uint32_t> m_GameModes;
     Console * create_console(const std::string & tag) const;
-    Player * create_player(const std::string & tag) const;
+    Player * create_player(const std::string & tag, const uint32_t & wordlen) const;
     GameServer * create_server(const std::string & tag) const;
     Game * create_game(const uint32_t & mode) const;
     std::string folder2console(const std::string & tag) const;
