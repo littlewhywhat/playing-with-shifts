@@ -1,12 +1,12 @@
 #ifndef NO3INROW_H
 #define NO3INROW_H
 
-#include "langbuilder.h"
+#include "buildconsole.h"
 
-class No3inRow : public LangBuilder {
+class No3inRow : public BuildConsole {
   public:
     bool is_relevant(uint64_t word, const uint32_t & wordlen) const override; 
-    static LangBuilder * create() { return new No3inRow(); }
+    static BuildConsole * create() { return new No3inRow(); }
 };
 
 #endif

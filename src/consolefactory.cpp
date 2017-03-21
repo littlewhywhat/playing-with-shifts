@@ -3,11 +3,12 @@
 #include "graphconsole.h"
 #include "langconsole.h"
 #include "buildconsole.h"
+#include "no3inrow.h"
 
 ConsoleFactory::ConsoleFactory() {
     reg_console("-g", &GraphConsole::create);
     reg_console("-l", &LangConsole::create);
-    reg_console("-b", &BuildConsole::create);
+    reg_console("-b", &No3inRow::create);
 }
 
 ConsoleFactory * ConsoleFactory::get() {
