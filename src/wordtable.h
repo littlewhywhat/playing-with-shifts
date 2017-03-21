@@ -5,19 +5,19 @@
 #include <vector>
 #include <cstdint>
 
-#include "language.h"
+#include "wordstructure.h"
 
-class TblLanguage : public Language {
+class WordTable : public WordStructure {
   private:
     std::vector<uint64_t> m_Words;
   public:
-    TblLanguage() : Language() {}
+    WordTable() : WordStructure() {}
     uint32_t size() const;
     void add(const std::string & word) override;
-    friend std::vector<uint64_t>::const_iterator begin(const TblLanguage & src) {
+    friend std::vector<uint64_t>::const_iterator begin(const WordTable & src) {
         return src.m_Words.cbegin();
     }
-    friend std::vector<uint64_t>::const_iterator end(const TblLanguage & src) {
+    friend std::vector<uint64_t>::const_iterator end(const WordTable & src) {
         return src.m_Words.cend();
     }
 

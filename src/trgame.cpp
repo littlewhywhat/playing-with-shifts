@@ -1,4 +1,4 @@
-#include "trlanguage.h"
+#include "wordtree.h"
 #include "game.h"
 #include "trgame.h"
 

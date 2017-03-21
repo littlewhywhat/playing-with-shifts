@@ -5,11 +5,11 @@
 
 #include "strategy.h"
 #include "game.h"
-#include "tbllanguage.h"
+#include "wordtable.h"
 
 class TblGame : public Game {
   private:
-    TblLanguage * m_TblLang;
+    WordTable * m_TblLang;
     bool play_ch(const Strategy & s) const override {
         if (!s.val())
             return true;
@@ -20,10 +20,10 @@ class TblGame : public Game {
     }     
     virtual bool play_tm(const uint64_t & max_comb_val, const uint64_t & s_val) const = 0;
   protected:
-    const TblLanguage & tbllang() const { return *m_TblLang; }
+    const WordTable & tbllang() const { return *m_TblLang; }
   public:
     TblGame() : Game() {
-        m_TblLang = new TblLanguage();
+        m_TblLang = new WordTable();
         set_lang(m_TblLang);
     }
     virtual ~TblGame() { }

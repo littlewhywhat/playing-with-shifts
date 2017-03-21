@@ -2,9 +2,9 @@
 #include <ostream>
 
 #include "tnode.h"
-#include "trlanguage.h"
+#include "wordtree.h"
 
-void TrLanguage::add_word(TNode & node, const std::string & word, uint32_t pos) {
+void WordTree::add_word(TNode & node, const std::string & word, uint32_t pos) {
     if (pos == word.length())
         return;
     if (word.at(pos) == '0') {
@@ -18,10 +18,10 @@ void TrLanguage::add_word(TNode & node, const std::string & word, uint32_t pos) 
         add_word(node.one(), word, pos + 1);
     }
 }
-void TrLanguage::add(const std::string & word) {
+void WordTree::add(const std::string & word) {
     add_word(m_Tree, word, 0);
 }
 
-void TrLanguage::clear() {
+void WordTree::clear() {
     m_Tree.clear();
 }

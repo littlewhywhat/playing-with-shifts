@@ -3,10 +3,10 @@
 
 #include <string>
 
-class Language {
+class WordStructure {
   public:
-    Language() {}
-    virtual ~Language() {}
+    WordStructure() {}
+    virtual ~WordStructure() {}
     virtual void add(const std::string & word) = 0;
     virtual void clear() = 0;
 };
