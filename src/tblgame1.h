@@ -17,8 +17,8 @@ class TblGame1 : public TblGame {
     };
     bool play_tm(const uint64_t & max_comb_val, const uint64_t & s_val) const override;
   public:
-    TblGame1(const uint32_t & wordlen) : TblGame(wordlen) {}
-    static Game * create(const uint32_t & wordlen) { return new TblGame1(wordlen); }
+    TblGame1() : TblGame() {}
+    static Game * create() { return new TblGame1(); }
 };
 
 #endif

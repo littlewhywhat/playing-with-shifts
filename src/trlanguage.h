@@ -12,7 +12,7 @@ class TrLanguage : public Language {
     TNode m_Tree;
     void add_word(TNode & node, const std::string & word, uint32_t pos);
   public:
-    TrLanguage(const uint32_t & wordlen) : Language(wordlen) {}
+    TrLanguage() : Language() {}
     TNode & root() { return m_Tree; }
     const TNode & root() const { return m_Tree; }
     void add(const std::string & word) override;

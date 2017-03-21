@@ -16,10 +16,10 @@ class TblGame2 : public TblGame {
     };
     bool play_tm(const uint64_t & max_comb_val, const uint64_t & s_val) const override;
   public:
-    TblGame2(const uint32_t & wordlen) : TblGame(wordlen) {}
+    TblGame2() : TblGame() {}
     ~TblGame2() override {}
-    static Game * create(const uint32_t & wordlen) {
-        return new TblGame2(wordlen);
+    static Game * create() {
+        return new TblGame2();
     }
 };
 

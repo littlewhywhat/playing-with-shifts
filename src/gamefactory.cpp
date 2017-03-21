@@ -18,9 +18,9 @@ GameFactory * GameFactory::get() {
 void GameFactory::reg_game(const uint32_t & type, create_game_fn func) {
     game_map[type] = func;
 }
-Game * GameFactory::create_instance(const uint32_t & type, const uint32_t & wordlen) const {
+Game * GameFactory::create_instance(const uint32_t & type) const {
 	auto search = game_map.find(type);
     if (search != game_map.end())
-    	return search -> second(wordlen);
+    	return search -> second();
     return NULL;
 }

@@ -22,8 +22,8 @@ class TblGame : public Game {
   protected:
     const TblLanguage & tbllang() const { return *m_TblLang; }
   public:
-    TblGame(const uint32_t & wordlen) : Game() {
-        m_TblLang = new TblLanguage(wordlen);
+    TblGame() : Game() {
+        m_TblLang = new TblLanguage();
         set_lang(m_TblLang);
     }
     virtual ~TblGame() { }

@@ -13,11 +13,11 @@ class TrGame : public Game {
   protected:
     bool play_ch(const Strategy & s) const override;
   public:
-    TrGame(const uint32_t & wordlen) : Game() {
-        m_TrLang = new TrLanguage(wordlen);
+    TrGame() : Game() {
+        m_TrLang = new TrLanguage();
         set_lang(m_TrLang);
     }
-    static Game * create(const uint32_t & wordlen) { return new TrGame(wordlen); }
+    static Game * create() { return new TrGame(); }
 };
 
 #endif
