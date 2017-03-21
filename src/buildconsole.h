@@ -5,7 +5,6 @@
 
 #include "console.h"
 #include "langbuilder.h"
-#include "language.h"
 
 class BuildConsole : public Console {
   public:

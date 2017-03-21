@@ -2,8 +2,7 @@
 #define LANGBUILDER_H
 
 #include <set>
-
-#include "language.h"
+#include <string>
 
 class LangBuilder {
   protected:

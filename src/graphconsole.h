@@ -2,7 +2,6 @@
 #define GRAPHCONSOLE_H
 
 #include "console.h"
-#include "language.h"
 
 class GraphConsole : public Console {
   public:

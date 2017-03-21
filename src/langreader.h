@@ -4,8 +4,6 @@
 #include <string>
 #include <set>
 
-#include "language.h"
-
 class LangReader {
   public: 
     void read(const std::string & path, std::set<std::string> & wordset) const;

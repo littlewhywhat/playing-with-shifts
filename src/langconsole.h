@@ -4,7 +4,6 @@
 #include <ostream>
 
 #include "console.h"
-#include "language.h"
 
 class LangConsole : public Console {
   private:

@@ -3,7 +3,6 @@
 
 #include <iostream>
 
-#include "language.h"
 #include "langreader.h"
 
 void LangReader::read(const std::string & path, std::set<std::string> & wordset) const {

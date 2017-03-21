@@ -4,7 +4,6 @@
 
 #include "graph2lang.h"
 #include "graph.h"
-#include "language.h"
 
 void Graph2Lang::produceNext(std::set<std::string> & wordset, const uint32_t & wordlength, const GNode * node, uint32_t lettercnt, std::string & buffer) const {
     if (lettercnt == wordlength) {

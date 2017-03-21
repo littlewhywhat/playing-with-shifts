@@ -1,5 +1,4 @@
 #include "buildconsole.h"
-#include "language.h"
 #include "langbuilderfactory.h"
 
 std::set<std::string> BuildConsole::start(const uint32_t & wordlen) {
