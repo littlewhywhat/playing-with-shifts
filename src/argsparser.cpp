@@ -5,12 +5,8 @@
 
 #include "argsparser.h"
 #include "playerfactory.h"
-#include "player.h"
-#include "gameroom.h"
-#include "languageservice.h"
 #include "languageservicefactory.h"
-#include "graphgen.h"
-#include "gamefactory.h"
+#include "appcontext.h"
 
 LanguageService * ArgsParser::create_console(const std::string & tag) const {
     LanguageService * c = LanguageServiceFactory::get() -> create_instance(tag);
@@ -18,24 +14,14 @@ LanguageService * ArgsParser::create_console(const std::string & tag) const {
         return c;
     throw "Wrong console!";
 }
-Player * ArgsParser::create_player(const std::string & tag, const uint32_t & wordlen) const {
-    Player * p = PlayerFactory::get()->create_instance(tag, wordlen);
-    if (p)
-        return p;
-    throw "Wrong player!";
-}
+
 GameRoom * ArgsParser::create_room() const {
     GameRoom * gs = new GameRoom();
     if (gs)
         return gs;
     throw "Wrong server!";
 }
-Game * ArgsParser::create_game(const uint32_t & mode) const {
-    Game * game = GameFactory::get() -> create_instance(mode);
-    if (game)
-        return game;
-    throw "Wrong game specifier";
-}
+
 std::string ArgsParser::folder2console(const std::string & tag) const {
     std::string console = tag;
     console.pop_back();
@@ -185,12 +171,9 @@ bool ArgsParser::set_what_single() {
         printer -> set_out_game(!find_tag(TAG_NO_OUT_GAME));
         printer -> set_out_score(!find_tag(TAG_NO_OUT_RES));
         printer -> set_out_test(find_tag(TAG_TEST_MODE));
-        GameRoom * gs = create_room();
+        GameRoom * gs = AppContext::get().get_gameroom_service().create(m_GameModes, m_PlayerTag, m_WordLen);
         gs -> set_printer(printer);
         gs -> set_console(console);
-        for (auto & mode : m_GameModes)
-            gs -> add_session(new GameSession(create_game(mode), create_player(m_PlayerTag, m_WordLen), new Judge(), m_WordLen));
-        gs -> set_wordlen(m_WordLen);
         m_Servers.push_back(gs);
     }
     return true;
