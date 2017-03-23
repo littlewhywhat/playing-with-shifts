@@ -1,7 +1,7 @@
 #ifndef SuccessPLAYER_H
 #define SuccessPLAYER_H
 
-#include "console.h"
+#include "languageservice.h"
 #include "player.h"
 
 class SuccessPlayer : public Player {

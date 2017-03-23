@@ -8,13 +8,13 @@
 #include "player.h"
 #include "gameserver.h"
 #include "serverfactory.h"
-#include "console.h"
-#include "consolefactory.h"
+#include "languageservice.h"
+#include "languageservicefactory.h"
 #include "graphgen.h"
 #include "gamefactory.h"
 
-Console * ArgsParser::create_console(const std::string & tag) const {
-    Console * c = ConsoleFactory::get() -> create_instance(tag);
+LanguageService * ArgsParser::create_console(const std::string & tag) const {
+    LanguageService * c = LanguageServiceFactory::get() -> create_instance(tag);
     if (c)
         return c;
     throw "Wrong console!";
@@ -179,7 +179,7 @@ bool ArgsParser::set_what_single() {
     if (what_tags.empty())
         return false;
     for (uint32_t i = 0; i < what_tags.size(); i += 2) {
-        Console * console = create_console(what_tags[i]);
+        LanguageService * console = create_console(what_tags[i]);
         console -> set_setup(what_tags[i+1]);
         Printer * printer = new Printer();
         printer -> set_out_lang(!find_tag(TAG_NO_OUT_LANG));

@@ -1,4 +1,4 @@
-#include "console.h"
+#include "languageservice.h"
 #include "strategy.h"
 #include "successplayer.h"
 

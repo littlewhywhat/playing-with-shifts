@@ -1,12 +1,12 @@
 #ifndef NO3INROW_H
 #define NO3INROW_H
 
-#include "buildconsole.h"
+#include "rulelanguageservice.h"
 
-class No3inRow : public BuildConsole {
+class No3inRow : public RuleLanguageService {
   public:
     bool is_relevant(uint64_t word, const uint32_t & wordlen) const override; 
-    static Console * create() { return new No3inRow(); }
+    static LanguageService * create() { return new No3inRow(); }
 };
 
 #endif

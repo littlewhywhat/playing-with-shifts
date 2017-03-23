@@ -5,17 +5,17 @@
 #include <string>
 #include "language.h"
 
-class Console {
+class LanguageService {
   private:
     std::string m_Setup;
   public:
-    Console() {}
-    virtual ~Console() { }
+    LanguageService() {}
+    virtual ~LanguageService() { }
 
     void set_setup(const std::string & setup) { m_Setup = setup; };
     const std::string & setup() const { return m_Setup; }
 
-    virtual void start(Language & lang, const uint32_t &wordlen) = 0;
+    virtual void load(Language &lang, const uint32_t &wordlen) = 0;
 };
 
 #endif

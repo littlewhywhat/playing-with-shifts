@@ -1,9 +1,9 @@
-#include "graphconsole.h"
+#include "graphlanguageservice.h"
 #include "graph.h"
 #include "graph2lang.h"
 #include "greader.h"
 
-void GraphConsole::start(Language & lang, const uint32_t & wordlen) {
+void GraphLanguageService::load(Language &lang, const uint32_t &wordlen) {
     Graph graph;
     GReader greader;
     greader.read(graph, setup());

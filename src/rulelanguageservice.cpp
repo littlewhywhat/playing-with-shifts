@@ -1,7 +1,7 @@
-#include "buildconsole.h"
+#include "rulelanguageservice.h"
 #include "converter.h"
 
-void BuildConsole::start(Language & lang, const uint32_t & wordlen) {
+void RuleLanguageService::load(Language &lang, const uint32_t &wordlen) {
     uint64_t max_comb = 1 << ((uint64_t) wordlen);
     for (uint64_t comb = 0; comb < max_comb; comb++)
         if (is_relevant(comb, wordlen))
