@@ -1,7 +1,7 @@
 #ifndef APP_H
 #define APP_H
 
-#include "gameserver.h"
+#include "gameroom.h"
 #include "argsparser.h"
 
 class App {

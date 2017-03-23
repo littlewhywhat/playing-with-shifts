@@ -1,10 +1,10 @@
 #include <iostream>
 
 #include "app.h"
-#include "gameserver.h"
+#include "gameroom.h"
 
 void App::run() {
-	for (GameServer * gs : m_Args.servers())
+	for (GameRoom * gs : m_Args.servers())
     	try {
             gs -> launch();
     	} catch (const char * e) {

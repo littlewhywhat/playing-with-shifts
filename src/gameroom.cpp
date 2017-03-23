@@ -1,9 +1,9 @@
-#include "gameserver.h"
+#include "gameroom.h"
 #include "gamefactory.h"
 #include "judge.h"
 #include "gamesession.h"
 
-void GameServer::launch() {
+void GameRoom::launch() {
     Language lang;
     console().load(lang, m_WordLen);
     printer().send_to_print(lang);
@@ -13,7 +13,7 @@ void GameServer::launch() {
     }
 }
 
-GameServer::~GameServer() {
+GameRoom::~GameRoom() {
     delete m_Printer;
     delete m_Console;
     for (auto & session : m_GameSessions)

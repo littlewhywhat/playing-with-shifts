@@ -6,8 +6,7 @@
 #include "argsparser.h"
 #include "playerfactory.h"
 #include "player.h"
-#include "gameserver.h"
-#include "serverfactory.h"
+#include "gameroom.h"
 #include "languageservice.h"
 #include "languageservicefactory.h"
 #include "graphgen.h"
@@ -25,8 +24,8 @@ Player * ArgsParser::create_player(const std::string & tag, const uint32_t & wor
         return p;
     throw "Wrong player!";
 }
-GameServer * ArgsParser::create_server(const std::string & tag) const {
-    GameServer * gs = ServerFactory::get() -> create_instance(m_ServerTag);
+GameRoom * ArgsParser::create_room() const {
+    GameRoom * gs = new GameRoom();
     if (gs)
         return gs;
     throw "Wrong server!";
@@ -186,7 +185,7 @@ bool ArgsParser::set_what_single() {
         printer -> set_out_game(!find_tag(TAG_NO_OUT_GAME));
         printer -> set_out_score(!find_tag(TAG_NO_OUT_RES));
         printer -> set_out_test(find_tag(TAG_TEST_MODE));
-        GameServer * gs = create_server(m_ServerTag);
+        GameRoom * gs = create_room();
         gs -> set_printer(printer);
         gs -> set_console(console);
         for (auto & mode : m_GameModes)

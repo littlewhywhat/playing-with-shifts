@@ -6,7 +6,7 @@
 #include <string>
 
 #include "player.h"
-#include "gameserver.h"
+#include "gameroom.h"
 #include "languageservice.h"
 #include "graphgen.h"
 
@@ -37,12 +37,12 @@ class ArgsParser {
     uint32_t m_WordLen;
     std::string m_PlayerTag;
     std::string m_ServerTag;
-    std::vector<GameServer *> m_Servers;
+    std::vector<GameRoom *> m_Servers;
     std::vector<std::string> m_Opts;
     std::vector<uint32_t> m_GameModes;
     LanguageService * create_console(const std::string & tag) const;
     Player * create_player(const std::string & tag, const uint32_t & wordlen) const;
-    GameServer * create_server(const std::string & tag) const;
+    GameRoom *create_room() const;
     Game * create_game(const uint32_t & mode) const;
     std::string folder2console(const std::string & tag) const;
     void print_usage(uint32_t argc, char * argsv[]) const; 
@@ -68,7 +68,7 @@ class ArgsParser {
     void parse();
   public:
     ~ArgsParser(); 
-    std::vector<GameServer *> & servers() { return m_Servers; }
+    std::vector<GameRoom *> & servers() { return m_Servers; }
     void parse(uint32_t argc, char * argsv[]); 
 };
 

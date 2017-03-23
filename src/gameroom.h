@@ -8,7 +8,7 @@
 #include "languageservice.h"
 #include "printer.h"
 
-class GameServer {
+class GameRoom {
   protected:
     LanguageService * m_Console;
     Printer * m_Printer;
@@ -17,15 +17,15 @@ class GameServer {
     LanguageService & console() { return *m_Console; }
     Printer & printer() { return *m_Printer; }
   public:
-    GameServer() : m_Console(NULL), m_Printer(NULL),
+    GameRoom() : m_Console(NULL), m_Printer(NULL),
                    m_WordLen(0) {}
-    virtual ~GameServer();
+    virtual ~GameRoom();
     void set_console(LanguageService * console) { m_Console = console; }
     void add_session(GameSession * session) { m_GameSessions.push_back(session); }
     void set_printer(Printer * printer) { m_Printer = printer; }
     void set_wordlen(const uint32_t & wordlen) { m_WordLen = wordlen; }
     virtual void launch();
-    static GameServer * create() { return new GameServer(); }
+    static GameRoom * create() { return new GameRoom(); }
 
 };
 
