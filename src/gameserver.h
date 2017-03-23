@@ -10,14 +10,12 @@
 
 class GameServer {
   protected:
-    Language m_Language;
     Console * m_Console;
     Printer * m_Printer;
     uint32_t m_WordLen;
     std::vector<GameSession *> m_GameSessions;
     Console & console() { return *m_Console; }
     Printer & printer() { return *m_Printer; }
-    Language & get_lang() { return m_Language; }
   public:
     GameServer() : m_Console(NULL), m_Printer(NULL),
                    m_WordLen(0) {}

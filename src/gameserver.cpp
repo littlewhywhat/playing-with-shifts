@@ -4,7 +4,7 @@
 #include "gamesession.h"
 
 void GameServer::launch() {
-    Language & lang = get_lang();
+    Language lang;
     console().start(lang, m_WordLen);
     printer().send_to_print(lang);
     for (auto * session : m_GameSessions) {
