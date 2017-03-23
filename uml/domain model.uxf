@@ -84,8 +84,8 @@ has </panel_attributes>
       <w>184</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
-m2=1
+    <panel_attributes>lt=-&gt;
+m2=
 playsOn</panel_attributes>
     <additional_attributes>210.0;20.0;10.0;20.0</additional_attributes>
   </element>
