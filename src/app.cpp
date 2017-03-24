@@ -3,10 +3,15 @@
 #include "app.h"
 #include "appcontext.h"
 
-void App::run() {
-    AppContext::get().get_gameserver_service()
-            .launch(m_Args.get_modes(),
-                    m_Args.get_what_tags(),
-                    m_Args.get_player_tag(),
-                    m_Args.get_wordlen());
+void App::run(int argc, char * argsv[]) {
+    ArgsParser parser;
+    AppConfig config;
+    parser.parse(argc, argsv, config);
+    AppContext::get().setup(config);
+    if (config.defines_server())
+        AppContext::get().get_gameserver_service()
+                .launch(config.get_gamemodes(),
+                        config.get_langhostids(),
+                        config.get_playertag(),
+                        config.get_wordlen());
 }

@@ -4,10 +4,7 @@
 #include "argsparser.h"
 
 class App {
-  private:
-    ArgsParser & m_Args;
   public:
-    App(ArgsParser & args) : m_Args(args) {}
-    void run();
+    void run(int argc, char * argv[]);
 };
 #endif
