@@ -11,8 +11,7 @@
 #include "gamesessionservice.h"
 #include "gameroomservice.h"
 #include "reallanguageservice.h"
-
-class GameRoomService;
+#include "gameserverservice.h"
 
 class AppContext {
   public:
@@ -26,6 +25,9 @@ class AppContext {
     GameRoomService & get_gameroom_service() {
         return m_GameRoomService;
     }
+    GameServerService & get_gameserver_service() {
+        return m_GameServerService;
+    }
     Printer & get_printer() {
         return m_Printer;
     }
@@ -35,6 +37,7 @@ class AppContext {
     Printer m_Printer;
     GameSessionService m_GameSessionService;
     GameRoomService m_GameRoomService;
+    GameServerService m_GameServerService;
     AppContext() {};
     AppContext(const AppContext & src) = delete;
     AppContext & operator = (const AppContext & src) = delete;

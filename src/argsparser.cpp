@@ -1,9 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <string>
 
 #include "argsparser.h"
+#include "printer.h"
+#include "appcontext.h"
 
 std::string ArgsParser::folder2console(const std::string & tag) const {
     std::string console = tag;
@@ -128,19 +129,9 @@ bool ArgsParser::set_player() {
 void ArgsParser::set_standard_player() {
     m_PlayerTag = TAG_STANDARD_PLAYER;
 }
-bool ArgsParser::set_game_server() {
-    std::string server_tag;
-    if (!find_s_by_tag(TAG_SERVER, server_tag))
-        return false;
-    m_ServerTag = server_tag;
-    return true;
-}
-void ArgsParser::set_standard_server() {
-    m_ServerTag = TAG_STANDARD_SERVER;
-}
 
 bool ArgsParser::set_what_single() {
-    std::vector<std::string> what_tags;
+    std::vector<std::string> & what_tags = m_What_tags;
     find_all_s_by_tag(TAG_GRAPH, what_tags);
     find_all_s_by_tag(TAG_LANG, what_tags);
     find_all_s_by_tag(TAG_BUILD, what_tags);
@@ -151,11 +142,6 @@ bool ArgsParser::set_what_single() {
     printer.set_out_game(!find_tag(TAG_NO_OUT_GAME));
     printer.set_out_score(!find_tag(TAG_NO_OUT_RES));
     printer.set_out_test(find_tag(TAG_TEST_MODE));
-    for (uint32_t i = 0; i < what_tags.size(); i += 2) {
-        GameRoom * gs = AppContext::get().get_gameroom_service()
-                .create(what_tags[i], what_tags[i + 1], m_GameModes, m_PlayerTag, m_WordLen);
-        m_Server.add_room(gs);
-    }
     return true;
 }
 
@@ -185,8 +171,6 @@ void ArgsParser::parse() {
         throw "Please provide at least one mode!";
     if (!set_player())
         set_standard_player();
-    if (!set_game_server())
-        set_standard_server();
     process_folders();
     if (!set_what_single())
         throw "Please provide at least one object!";

@@ -6,9 +6,9 @@
 #define PLAYING_WITH_SHIFTS_GAMESERVERSERVICE_H
 
 
-#include "app.h"
-#include "appcontext.h"
-#include "gameserver.h"
+#include <cstdint>
+#include <vector>
+#include <string>
 
 class GameServerService {
   public:
@@ -16,18 +16,9 @@ class GameServerService {
 
     void launch(const std::vector <uint32_t> & modes,
                 const std::vector <std::string> & what_tags,
-                const uint32_t wordlen,
-                const App & app) {
-        for (uint32_t i = 0; i < what_tags.size(); i += 2) {
+                const std::string & player_tag,
+                const uint32_t & wordlen);
 
-        }
-    }
-
-  private:
-
-    const Printer & get_printer() const {
-        return AppContext::get().get_printer();
-    }
 };
 
 

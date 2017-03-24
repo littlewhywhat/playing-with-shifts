@@ -5,10 +5,7 @@
 #include <vector>
 #include <string>
 
-#include "player.h"
-#include "languageservice.h"
 #include "graphgen.h"
-#include "gameserver.h"
 
 class ArgsParser {
   private:
@@ -36,11 +33,9 @@ class ArgsParser {
 
     uint32_t m_WordLen;
     std::string m_PlayerTag;
-    std::string m_ServerTag;
-    GameServer m_Server;
     std::vector<std::string> m_Opts;
     std::vector<uint32_t> m_GameModes;
-
+    std::vector<std::string> m_What_tags;
     std::string folder2console(const std::string & tag) const;
     void print_usage(uint32_t argc, char * argsv[]) const; 
     uint32_t stointopt(const std::string &val) const;
@@ -58,15 +53,16 @@ class ArgsParser {
     bool set_modes(); 
     bool set_player();
     void set_standard_player(); 
-    bool set_game_server();
-    void set_standard_server(); 
-    bool set_what_single(); 
+    bool set_what_single();
     void process_folders();
     void parse();
   public:
     ~ArgsParser() {};
-    GameServer & get_gameserver() { return m_Server; }
-    void parse(uint32_t argc, char * argsv[]); 
+    std::vector<uint32_t> get_modes() { return m_GameModes; }
+    const std::string & get_player_tag() { return m_PlayerTag; }
+    const uint32_t & get_wordlen() { return m_WordLen; }
+    std::vector<std::string> get_what_tags() { return m_What_tags; }
+    void parse(uint32_t argc, char * argsv[]);
 };
 
 #endif
