@@ -1,10 +1,9 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <stdexcept>
 
 #include "argsparser.h"
-#include "printer.h"
-#include "appcontext.h"
 
 std::string ArgsParser::folder2console(const std::string & tag) const {
     std::string console = tag;
@@ -110,38 +109,39 @@ bool ArgsParser::set_graphgen() const {
     }
     throw "Provide more parameters for graphgeneration"; 
 }
-bool ArgsParser::set_wordlen() {
-    bool found = find_i_by_tag(TAG_WORDLEN, m_WordLen);
-    if (m_WordLen < 0 || m_WordLen > 63)
+bool ArgsParser::set_wordlen(AppConfig & config) {
+    uint32_t wordlen = 0;
+    bool found = find_i_by_tag(TAG_WORDLEN, wordlen);
+    if (wordlen < 0 || wordlen > 63)
         throw "Wrong word length!";
+    config.set_wordlen(wordlen);
     return found;
 }
-bool ArgsParser::set_modes() {
-    return find_all_i_by_tag(TAG_MODE, m_GameModes); 
+bool ArgsParser::set_modes(AppConfig & config) {
+    return find_all_i_by_tag(TAG_MODE, config.get_gamemodes());
 }
-bool ArgsParser::set_player() {
+bool ArgsParser::set_player(AppConfig & config) {
     std::string player_tag;
     if (!find_s_by_tag(TAG_PLAYER, player_tag))
         return false;
-    m_PlayerTag = player_tag;
+    config.set_playertag(player_tag);
     return true;
 }
-void ArgsParser::set_standard_player() {
-    m_PlayerTag = TAG_STANDARD_PLAYER;
+void ArgsParser::set_standard_player(AppConfig & config) {
+    config.set_playertag(TAG_STANDARD_PLAYER);
 }
 
-bool ArgsParser::set_what_single() {
-    std::vector<std::string> & what_tags = m_What_tags;
+bool ArgsParser::set_langhostids(AppConfig & config) {
+    std::vector<std::string> & what_tags = config.get_langhostids();
     find_all_s_by_tag(TAG_GRAPH, what_tags);
     find_all_s_by_tag(TAG_LANG, what_tags);
     find_all_s_by_tag(TAG_BUILD, what_tags);
     if (what_tags.empty())
         return false;
-    Printer & printer = AppContext::get().get_printer();
-    printer.set_out_lang(!find_tag(TAG_NO_OUT_LANG));
-    printer.set_out_game(!find_tag(TAG_NO_OUT_GAME));
-    printer.set_out_score(!find_tag(TAG_NO_OUT_RES));
-    printer.set_out_test(find_tag(TAG_TEST_MODE));
+    config.set_nooutlang(!find_tag(TAG_NO_OUT_LANG));
+    config.set_nooutgame(!find_tag(TAG_NO_OUT_GAME));
+    config.set_nooutres(!find_tag(TAG_NO_OUT_RES));
+    config.set_testmode(find_tag(TAG_TEST_MODE));
     return true;
 }
 
@@ -162,20 +162,20 @@ void ArgsParser::process_folders() {
         }
     }
 }
-void ArgsParser::parse() {
+void ArgsParser::parse(AppConfig & config) {
     if (set_graphgen() && only_gen())
         return;
-    if (!set_wordlen())
+    if (!set_wordlen(config))
         throw "Please provide wordlen!";    
-    if (!set_modes())
+    if (!set_modes(config))
         throw "Please provide at least one mode!";
-    if (!set_player())
-        set_standard_player();
+    if (!set_player(config))
+        set_standard_player(config);
     process_folders();
-    if (!set_what_single())
+    if (!set_langhostids(config))
         throw "Please provide at least one object!";
 }
-void ArgsParser::parse(uint32_t argc, char * argsv[]) {
+void ArgsParser::parse(uint32_t argc, char * argsv[], AppConfig & config) {
     try {
         if (!check_argc(argc))
             throw "Wrong number of arguments";
@@ -194,7 +194,7 @@ void ArgsParser::parse(uint32_t argc, char * argsv[]) {
                throw "Wrong tag"; 
             }
         }
-        parse();
+        parse(config);
     } catch (const char * e) {
         std::cout << e << std::endl;
         print_usage(argc, argsv);

@@ -17,7 +17,7 @@ class GameServerService {
     void launch(const std::vector <uint32_t> & modes,
                 const std::vector <std::string> & what_tags,
                 const std::string & player_tag,
-                const uint32_t & wordlen);
+                const uint32_t & wordlen) const;
 
 };
 

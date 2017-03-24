@@ -6,6 +6,7 @@
 #include <string>
 
 #include "graphgen.h"
+#include "appconfig.h"
 
 class ArgsParser {
   private:
@@ -49,20 +50,20 @@ class ArgsParser {
     bool is_single(const std::string & tag) const; 
     bool only_gen() const; 
     bool set_graphgen() const; 
-    bool set_wordlen();
-    bool set_modes(); 
-    bool set_player();
-    void set_standard_player(); 
-    bool set_what_single();
+    bool set_wordlen(AppConfig & config);
+    bool set_modes(AppConfig & config);
+    bool set_player(AppConfig & config);
+    void set_standard_player(AppConfig & config);
+    bool set_langhostids(AppConfig & config);
     void process_folders();
-    void parse();
+    void parse(AppConfig & config);
   public:
     ~ArgsParser() {};
     std::vector<uint32_t> get_modes() { return m_GameModes; }
     const std::string & get_player_tag() { return m_PlayerTag; }
     const uint32_t & get_wordlen() { return m_WordLen; }
     std::vector<std::string> get_what_tags() { return m_What_tags; }
-    void parse(uint32_t argc, char * argsv[]);
+    void parse(uint32_t argc, char * argsv[], AppConfig & config);
 };
 
 #endif

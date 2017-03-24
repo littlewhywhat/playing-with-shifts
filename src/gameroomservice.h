@@ -14,7 +14,7 @@ class GameRoom;
 class GameRoomService {
   public:
     GameRoom *create(const std::string & hostid, const std::string &langid, const std::vector<uint32_t> &modes, const std::string &player_tag,
-                     const uint32_t &wordlen);
+                     const uint32_t &wordlen) const;
 
   private:
     const GameSessionService & get_gamesession_service() const;

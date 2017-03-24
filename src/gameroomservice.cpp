@@ -9,7 +9,7 @@
 GameRoom *GameRoomService::create(const std::string & hostid,
                                   const std::string &langid, const std::vector<uint32_t> &modes,
                                   const std::string &player_tag,
-                                  const uint32_t &wordlen) {
+                                  const uint32_t &wordlen) const {
     GameRoom * room = new GameRoom();
     for (auto & mode : modes)
         room -> add_session(get_gamesession_service().create(mode, player_tag, wordlen));
