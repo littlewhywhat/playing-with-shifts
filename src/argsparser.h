@@ -30,13 +30,8 @@ class ArgsParser {
     const std::string TAG_NO_OUT_GAME = "-nogame";
     const std::string TAG_TEST_MODE = "-test";
     const std::string TAG_STANDARD_PLAYER = "success";
-    const std::string TAG_STANDARD_SERVER = "gameserver";
 
-    uint32_t m_WordLen;
-    std::string m_PlayerTag;
     std::vector<std::string> m_Opts;
-    std::vector<uint32_t> m_GameModes;
-    std::vector<std::string> m_What_tags;
     std::string folder2console(const std::string & tag) const;
     void print_usage(uint32_t argc, char * argsv[]) const; 
     uint32_t stointopt(const std::string &val) const;
@@ -49,7 +44,7 @@ class ArgsParser {
     bool is_double(const std::string & tag) const; 
     bool is_single(const std::string & tag) const; 
     bool only_gen() const; 
-    bool set_graphgen() const; 
+    bool set_graphgen(AppConfig & config) const;
     bool set_wordlen(AppConfig & config);
     bool set_modes(AppConfig & config);
     bool set_player(AppConfig & config);
@@ -59,10 +54,6 @@ class ArgsParser {
     void parse(AppConfig & config);
   public:
     ~ArgsParser() {};
-    std::vector<uint32_t> get_modes() { return m_GameModes; }
-    const std::string & get_player_tag() { return m_PlayerTag; }
-    const uint32_t & get_wordlen() { return m_WordLen; }
-    std::vector<std::string> get_what_tags() { return m_What_tags; }
     void parse(uint32_t argc, char * argsv[], AppConfig & config);
 };
 

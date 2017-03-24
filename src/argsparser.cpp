@@ -90,7 +90,7 @@ bool ArgsParser::is_single(const std::string & tag) const {
 bool ArgsParser::only_gen() const {
     return m_Opts.size() == 6;
 }
-bool ArgsParser::set_graphgen() const {
+bool ArgsParser::set_graphgen(AppConfig & config) const {
     std::string folder;
     uint32_t nnodes;
     uint32_t nfiles;
@@ -99,15 +99,16 @@ bool ArgsParser::set_graphgen() const {
     bool has_nf = find_i_by_tag(TAG_NUM_FILES, nfiles);
     if (!has_gg && !has_nn)
         return false;
-    if (has_gg && has_nn && !has_nf)
-        throw "Provide number of files for generator";
-    if (has_gg && has_nn && has_nf) {
-        GraphGen gg;
-        gg.gen(folder, nnodes, nfiles);
-
-        return true;
-    }
-    throw "Provide more parameters for graphgeneration"; 
+    if (has_gg && has_nn)
+        if (!has_nf)
+            throw "Provide number of files for generator";
+        else {
+            config.set_pathname(folder);
+            config.set_cntnodes(nnodes);
+            config.set_cntgraphs(nfiles);
+            return true;
+        }
+    throw "Provide more parameters for graphgeneration";
 }
 bool ArgsParser::set_wordlen(AppConfig & config) {
     uint32_t wordlen = 0;
@@ -163,7 +164,7 @@ void ArgsParser::process_folders() {
     }
 }
 void ArgsParser::parse(AppConfig & config) {
-    if (set_graphgen() && only_gen())
+    if (set_graphgen(config) && only_gen())
         return;
     if (!set_wordlen(config))
         throw "Please provide wordlen!";    

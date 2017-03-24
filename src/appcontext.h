@@ -13,6 +13,8 @@
 #include "reallanguageservice.h"
 #include "gameserverservice.h"
 #include "appconfig.h"
+#include "graphgen.h"
+#include "graphgeneratorservice.h"
 
 class AppContext {
   public:
@@ -32,6 +34,12 @@ class AppContext {
     const Printer & get_printer() const {
         return m_Printer;
     }
+    const GraphGen & get_graphgenerator() const {
+        return m_Generator;
+    }
+    const GraphGeneratorService & get_graphgenerator_service() const {
+        return m_GraphGeneratorService;
+    }
     void setup(const AppConfig & config) {
         m_Printer.set_out_lang(config.get_nooutlang());
         m_Printer.set_out_game(config.get_nooutgame());
@@ -45,6 +53,8 @@ class AppContext {
     GameSessionService m_GameSessionService;
     GameRoomService m_GameRoomService;
     GameServerService m_GameServerService;
+    GraphGeneratorService m_GraphGeneratorService;
+    GraphGen m_Generator;
     AppContext() {};
     AppContext(const AppContext & src) = delete;
     AppContext & operator = (const AppContext & src) = delete;
