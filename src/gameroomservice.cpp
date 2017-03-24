@@ -3,13 +3,19 @@
 //
 
 #include "gameroomservice.h"
+#include "gameroom.h"
 #include "appcontext.h"
 
-GameRoom *GameRoomService::create(const std::vector<uint32_t> &modes, std::string &player_tag, const uint32_t &wordlen) {
+GameRoom *GameRoomService::create(const std::string & hostid,
+                                  const std::string &langid, const std::vector<uint32_t> &modes,
+                                  const std::string &player_tag,
+                                  const uint32_t &wordlen) {
     GameRoom * room = new GameRoom();
     for (auto & mode : modes)
         room -> add_session(get_gamesession_service().create(mode, player_tag, wordlen));
     room -> set_wordlen(wordlen);
+    room -> set_langid(langid);
+    room -> set_hostid(hostid);
     return room;
 }
 

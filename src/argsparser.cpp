@@ -156,17 +156,14 @@ bool ArgsParser::set_what_single() {
     find_all_s_by_tag(TAG_BUILD, what_tags);
     if (what_tags.empty())
         return false;
+    Printer & printer = AppContext::get().get_printer();
+    printer.set_out_lang(!find_tag(TAG_NO_OUT_LANG));
+    printer.set_out_game(!find_tag(TAG_NO_OUT_GAME));
+    printer.set_out_score(!find_tag(TAG_NO_OUT_RES));
+    printer.set_out_test(find_tag(TAG_TEST_MODE));
     for (uint32_t i = 0; i < what_tags.size(); i += 2) {
-        LanguageService * console = create_console(what_tags[i]);
-        console -> set_setup(what_tags[i+1]);
-        Printer * printer = new Printer();
-        printer -> set_out_lang(!find_tag(TAG_NO_OUT_LANG));
-        printer -> set_out_game(!find_tag(TAG_NO_OUT_GAME));
-        printer -> set_out_score(!find_tag(TAG_NO_OUT_RES));
-        printer -> set_out_test(find_tag(TAG_TEST_MODE));
-        GameRoom * gs = AppContext::get().get_gameroom_service().create(m_GameModes, m_PlayerTag, m_WordLen);
-        gs -> set_printer(printer);
-        gs -> set_console(console);
+        GameRoom * gs = AppContext::get().get_gameroom_service()
+                .create(what_tags[i], what_tags[i + 1], m_GameModes, m_PlayerTag, m_WordLen);
         m_Server.add_room(gs);
     }
     return true;

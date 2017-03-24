@@ -5,17 +5,15 @@
 
 void GameRoom::launch() {
     Language lang;
-    console().load(lang, m_WordLen);
-    printer().send_to_print(lang);
+    m_LangService.load(m_HostId, m_LangId, lang, m_WordLen);
+    m_Printer.send_to_print(lang);
     for (auto * session : m_GameSessions) {
         session -> run(lang);
-        printer().send_to_print(*session);
+        m_Printer.send_to_print(*session);
     }
 }
 
 GameRoom::~GameRoom() {
-    delete m_Printer;
-    delete m_Console;
     for (auto & session : m_GameSessions)
         delete session;
 }

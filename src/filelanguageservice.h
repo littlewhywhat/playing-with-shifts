@@ -9,7 +9,7 @@ class FileLanguageService : public LanguageService {
   private:
   public:
     FileLanguageService() : LanguageService() {}
-    void load(Language &lang, const uint32_t &wordlen) override;
+    void load(const std::string &langid, Language &lang, const uint32_t &wordlen) const override;
     static LanguageService * create() { return new FileLanguageService(); }
 };
 

@@ -6,7 +6,7 @@
 class GraphLanguageService : public LanguageService {
   public:
     GraphLanguageService() : LanguageService() {};
-    void load(Language &lang, const uint32_t &wordlen) override;
+    void load(const std::string &langid, Language &lang, const uint32_t &wordlen) const override;
     static LanguageService * create() { return new GraphLanguageService();}
 
 };

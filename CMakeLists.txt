@@ -86,6 +86,6 @@ set(SOURCE_FILES
         src/wordtable.h
         src/wordtree.cpp
         src/wordtree.h
-        universe_script.cpp)
+        universe_script.cpp src/reallanguageservice.cpp src/reallanguageservice.h)
 
 add_executable(shifts ${SOURCE_FILES})

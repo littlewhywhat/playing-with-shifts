@@ -5,6 +5,7 @@
 
 #include "languageservice.h"
 
+// TODO consider make it a factory of singletons or just put map with instances in real service
 class LanguageServiceFactory {
   private:
     LanguageServiceFactory();

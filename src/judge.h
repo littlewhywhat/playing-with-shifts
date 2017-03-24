@@ -22,7 +22,7 @@ class Judge {
     const uint32_t & current_score() const { return m_MaxScore; }
     void reset() { m_MaxScore = 0; }
     bool run(const Game & game, const Strategy & strategy);
-    void announce_to(Printer & printer)const;
+    void announce_to(const Printer & printer)const;
 };
 
 

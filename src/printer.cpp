@@ -4,7 +4,7 @@
 
 #include "printer.h"
 
-void Printer::print(const Language &wordset) {
+void Printer::print(const Language &wordset) const {
     if (!m_OutTest)
         std::cout << "language:" << std::endl;
     for (auto & word : wordset)
@@ -27,7 +27,7 @@ void Printer::print_score(const uint32_t &score) const {
     std::cout << score << std::endl;
 }
 
-void Printer::send_to_print(const GameSession &session) {
+void Printer::send_to_print(const GameSession &session) const {
     const Judge & judge = session.get_judge();
     judge.announce_to(*this);
     for (const auto & strategy : session.won_history())

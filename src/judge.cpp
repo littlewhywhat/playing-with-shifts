@@ -17,5 +17,5 @@ void Judge::update_score(const Strategy &strategy) {
         m_MaxScore = score;
 }
 
-void Judge::announce_to(Printer &printer)const { printer.send_to_announce(*this); }
+void Judge::announce_to(const Printer &printer)const { printer.send_to_announce(*this); }
 

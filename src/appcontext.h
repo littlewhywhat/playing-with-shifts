@@ -11,18 +11,15 @@
 #include "printer.h"
 #include "gamesessionservice.h"
 #include "gameroomservice.h"
+#include "reallanguageservice.h"
 
 class GameRoomService;
 
 class AppContext {
   public:
-    //TODO consider exception if name is not found
-    void set_console(std::string & name) {
-        m_Console = LanguageServiceFactory::get()->create_instance(name);
-    }
-    //TODO consider exception if m_Console is NULL
-    LanguageService & get_language_service() {
-        return *m_Console;
+    //TODO consider exception if m_LanguageService is NULL
+    RealLanguageService & get_language_service() {
+        return m_LanguageService;
     }
     GameSessionService & get_gamesession_service() {
         return m_GameSessionService;
@@ -35,11 +32,11 @@ class AppContext {
     }
     static AppContext & get();
   private:
-    LanguageService * m_Console;
+    RealLanguageService m_LanguageService;
     Printer m_Printer;
     GameSessionService m_GameSessionService;
     GameRoomService m_GameRoomService;
-    AppContext() : m_Console(NULL) {};
+    AppContext() {};
     AppContext(const AppContext & src) = delete;
     AppContext & operator = (const AppContext & src) = delete;
 };
