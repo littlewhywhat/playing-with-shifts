@@ -18,11 +18,9 @@ class GameServerService {
                 const std::vector <std::string> & what_tags,
                 const uint32_t wordlen,
                 const App & app) {
-        GameServer server(get_printer());
         for (uint32_t i = 0; i < what_tags.size(); i += 2) {
 
         }
-        server.launch();
     }
 
   private:

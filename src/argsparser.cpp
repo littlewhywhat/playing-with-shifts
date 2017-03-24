@@ -15,13 +15,6 @@ LanguageService * ArgsParser::create_console(const std::string & tag) const {
     throw "Wrong console!";
 }
 
-GameRoom * ArgsParser::create_room() const {
-    GameRoom * gs = new GameRoom();
-    if (gs)
-        return gs;
-    throw "Wrong server!";
-}
-
 std::string ArgsParser::folder2console(const std::string & tag) const {
     std::string console = tag;
     console.pop_back();
@@ -174,7 +167,7 @@ bool ArgsParser::set_what_single() {
         GameRoom * gs = AppContext::get().get_gameroom_service().create(m_GameModes, m_PlayerTag, m_WordLen);
         gs -> set_printer(printer);
         gs -> set_console(console);
-        m_Servers.push_back(gs);
+        m_Server.add_room(gs);
     }
     return true;
 }
@@ -210,10 +203,6 @@ void ArgsParser::parse() {
     process_folders();
     if (!set_what_single())
         throw "Please provide at least one object!";
-}
-ArgsParser::~ArgsParser() {
-    for (auto server : m_Servers)
-        delete server;
 }
 void ArgsParser::parse(uint32_t argc, char * argsv[]) {
     try {

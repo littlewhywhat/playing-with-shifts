@@ -4,10 +4,5 @@
 #include "gameroom.h"
 
 void App::run() {
-	for (GameRoom * gs : m_Args.servers())
-    	try {
-            gs -> launch();
-    	} catch (const char * e) {
-        	//std::cout << e << std::endl;
-    	}
+    m_Args.get_gameserver().launch();
 }
