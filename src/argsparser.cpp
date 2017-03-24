@@ -4,16 +4,6 @@
 #include <string>
 
 #include "argsparser.h"
-#include "playerfactory.h"
-#include "languageservicefactory.h"
-#include "appcontext.h"
-
-LanguageService * ArgsParser::create_console(const std::string & tag) const {
-    LanguageService * c = LanguageServiceFactory::get() -> create_instance(tag);
-    if (c)
-        return c;
-    throw "Wrong console!";
-}
 
 std::string ArgsParser::folder2console(const std::string & tag) const {
     std::string console = tag;

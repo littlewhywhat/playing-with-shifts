@@ -40,7 +40,7 @@ class ArgsParser {
     GameServer m_Server;
     std::vector<std::string> m_Opts;
     std::vector<uint32_t> m_GameModes;
-    LanguageService * create_console(const std::string & tag) const;
+
     std::string folder2console(const std::string & tag) const;
     void print_usage(uint32_t argc, char * argsv[]) const; 
     uint32_t stointopt(const std::string &val) const;

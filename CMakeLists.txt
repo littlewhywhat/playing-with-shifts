@@ -51,8 +51,6 @@ set(SOURCE_FILES
         src/language.h
         src/languageservice.cpp
         src/languageservice.h
-        src/languageservicefactory.cpp
-        src/languageservicefactory.h
         src/maxbcntplayer.cpp
         src/maxbcntplayer.h
         src/no3inrow.cpp
