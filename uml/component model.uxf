@@ -80,12 +80,12 @@ Printer
     <id>Relation</id>
     <coordinates>
       <x>576</x>
-      <y>648</y>
+      <y>624</y>
       <w>184</w>
-      <h>88</h>
+      <h>112</h>
     </coordinates>
     <panel_attributes>lt=)-</panel_attributes>
-    <additional_attributes>200.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
+    <additional_attributes>200.0;110.0;10.0;110.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <type>CustomElementImpl</type>
