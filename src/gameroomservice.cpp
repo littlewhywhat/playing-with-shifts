@@ -16,8 +16,6 @@ GameRoom *GameRoomService::create(const std::string & hostid,
     room -> set_wordlen(wordlen);
     room -> set_langid(langid);
     room -> set_hostid(hostid);
-    if (AppContext::get().sessionfilter_defined())
-        room -> set_filter(AppContext::get().create_sessionfilter());
     return room;
 }
 

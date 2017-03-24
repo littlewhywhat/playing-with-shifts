@@ -16,17 +16,22 @@ class Printer {
     bool m_OutScore;
     bool m_OutGame;
     bool m_OutTest;
+    const PlayedSessionFilter * m_Filter;
   protected:
     void print(const Language & wordset) const;
     void print(const Strategy & strategy) const;
     void announce(const Judge & judge) const;
     void print_score(const uint32_t &score) const;
   public:
-    Printer() : m_OutLang(true), m_OutScore(true), m_OutGame(true), m_OutTest(false) {}
+    Printer() : m_OutLang(true), m_OutScore(true), m_OutGame(true), m_OutTest(false), m_Filter(NULL) {}
+    ~Printer() {
+        delete m_Filter;
+    }
     void set_out_lang(bool val) { m_OutLang = val; }
     void set_out_score(bool val) { m_OutScore = val; }
     void set_out_game(bool val) { m_OutGame = val; }
     void set_out_test(bool val) { m_OutTest = val; }
+    void set_filter(const PlayedSessionFilter * filter) { m_Filter = filter; }
     void send_to_print(const Language & wordset) const {
         if (m_OutLang) print(wordset);
     }
@@ -40,7 +45,9 @@ class Printer {
     void send_to_print_score(const uint32_t & score) const {
         if (m_OutScore) print_score(score);
     }
-    void send_to_print(const GameSession & session) const;
+    void print(const GameRoom & room) const;
+
+    void send_to_print(const GameSession &session) const;
 };
 
 

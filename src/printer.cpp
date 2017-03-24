@@ -3,6 +3,7 @@
 //
 
 #include "printer.h"
+#include "gameroom.h"
 
 void Printer::print(const Language &wordset) const {
     if (!m_OutTest)
@@ -33,4 +34,12 @@ void Printer::send_to_print(const GameSession &session) const {
     for (const auto &strategy : session.won_history())
         send_to_print(strategy);
     send_to_print_score(judge.current_score());
+}
+
+void Printer::print(const GameRoom &room) const {
+    if (m_Filter && !m_Filter -> accepts(room))
+        return;
+    std::cout << room.get_langid() << std::endl;
+    for (auto & session : room.get_sessions())
+        send_to_print(*session);
 }

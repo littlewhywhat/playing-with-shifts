@@ -7,12 +7,9 @@ void GameRoom::launch() {
     Language lang;
     m_LangService.load(m_HostId, m_LangId, lang, m_WordLen);
     m_Printer.send_to_print(lang);
-    for (auto * session : m_GameSessions) {
+    for (auto * session : m_GameSessions)
         session -> run(lang);
-        if (has_filter() && !m_Filter->accepts(*session))
-            continue;
-        m_Printer.send_to_print(*session);
-    }
+    m_Printer.print(*this);
 }
 
 GameRoom::~GameRoom() {

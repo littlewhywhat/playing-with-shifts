@@ -3,12 +3,12 @@
 //
 
 #include "playedsessionfilter.h"
-#include "gamesession.h"
-bool PlayedSessionFilter::accepts(const GameSession &session) {
-    const uint32_t & score = session.get_judge().current_score();
-    if (!m_Score) {
-        m_Score = new uint32_t(score);
-        return true;
-    }
-    return *m_Score != score;
+#include "gameroom.h"
+
+bool PlayedSessionFilter::accepts(const GameRoom &room) const {
+    uint32_t score = room.get_sessions().front()->get_judge().current_score();
+    for (auto & session : room.get_sessions())
+        if (session->get_judge().current_score() != score)
+            return true;
+    return false;
 }

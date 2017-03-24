@@ -58,7 +58,7 @@ class AppConfig {
     }
 
     bool defines_generator() const {
-        return true;
+        return !m_PathName.empty() && m_CntGraphs != 0 && m_CntNodes != 0;
     }
 };
 

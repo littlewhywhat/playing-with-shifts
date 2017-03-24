@@ -13,6 +13,10 @@
 class GameServer {
   public:
     GameServer() : m_Printer(AppContext::get().get_printer()) {}
+    ~GameServer() {
+        for (auto & room : m_Rooms)
+            delete room;
+    }
     void launch() {
         for (auto & room : m_Rooms)
             room->launch();

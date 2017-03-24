@@ -9,16 +9,11 @@
 #include <cstdint>
 #include <cstdlib>
 
-
-class GameSession;
+class GameRoom;
 
 class PlayedSessionFilter {
-  private:
-    uint32_t * m_Score;
   public:
-    PlayedSessionFilter() : m_Score(NULL) {}
-    ~PlayedSessionFilter() { delete m_Score; }
-    bool accepts(const GameSession & session);
+    bool accepts(const GameRoom & session) const;
 };
 
 
