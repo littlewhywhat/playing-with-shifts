@@ -85,7 +85,8 @@ bool ArgsParser::is_single(const std::string & tag) const {
     return tag == TAG_NO_OUT_RES ||
            tag == TAG_NO_OUT_LANG ||
            tag == TAG_NO_OUT_GAME ||
-           tag == TAG_TEST_MODE;
+           tag == TAG_TEST_MODE ||
+           tag == TAG_FILTER;
 }
 bool ArgsParser::only_gen() const {
     return m_Opts.size() == 6;
@@ -99,7 +100,7 @@ bool ArgsParser::set_graphgen(AppConfig & config) const {
     bool has_nf = find_i_by_tag(TAG_NUM_FILES, nfiles);
     if (!has_gg && !has_nn)
         return false;
-    if (has_gg && has_nn)
+    if (has_gg && has_nn) {
         if (!has_nf)
             throw "Provide number of files for generator";
         else {
@@ -108,6 +109,7 @@ bool ArgsParser::set_graphgen(AppConfig & config) const {
             config.set_cntgraphs(nfiles);
             return true;
         }
+    }
     throw "Provide more parameters for graphgeneration";
 }
 bool ArgsParser::set_wordlen(AppConfig & config) {
@@ -143,6 +145,7 @@ bool ArgsParser::set_langhostids(AppConfig & config) {
     config.set_nooutgame(!find_tag(TAG_NO_OUT_GAME));
     config.set_nooutres(!find_tag(TAG_NO_OUT_RES));
     config.set_testmode(find_tag(TAG_TEST_MODE));
+    config.set_filter(find_tag(TAG_FILTER));
     return true;
 }
 

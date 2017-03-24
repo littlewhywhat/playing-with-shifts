@@ -1,11 +1,11 @@
 #ifndef SHIFTS_PRINTER_H
 #define SHIFTS_PRINTER_H
 
-#include <set>
 #include "strategy.h"
 #include "player.h"
 #include "judge.h"
 #include "gamesession.h"
+#include "playedsessionfilter.h"
 
 class Judge;
 class GameSession;

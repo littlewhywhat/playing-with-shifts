@@ -28,10 +28,9 @@ void Printer::print_score(const uint32_t &score) const {
 }
 
 void Printer::send_to_print(const GameSession &session) const {
-    const Judge & judge = session.get_judge();
+    const Judge &judge = session.get_judge();
     judge.announce_to(*this);
-    for (const auto & strategy : session.won_history())
+    for (const auto &strategy : session.won_history())
         send_to_print(strategy);
     send_to_print_score(judge.current_score());
-
 }

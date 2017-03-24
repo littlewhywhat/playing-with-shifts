@@ -40,7 +40,15 @@ class AppContext {
     const GraphGeneratorService & get_graphgenerator_service() const {
         return m_GraphGeneratorService;
     }
+    bool sessionfilter_defined() const {
+       return m_Filter;
+    }
+    PlayedSessionFilter * create_sessionfilter() const {
+        return new PlayedSessionFilter();
+    }
     void setup(const AppConfig & config) {
+        if (config.defines_filter())
+            m_Filter = true;
         m_Printer.set_out_lang(config.get_nooutlang());
         m_Printer.set_out_game(config.get_nooutgame());
         m_Printer.set_out_score(config.get_nooutres());
@@ -50,6 +58,7 @@ class AppContext {
   private:
     RealLanguageService m_LanguageService;
     Printer m_Printer;
+    bool m_Filter;
     GameSessionService m_GameSessionService;
     GameRoomService m_GameRoomService;
     GameServerService m_GameServerService;

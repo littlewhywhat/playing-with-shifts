@@ -29,6 +29,7 @@ class ArgsParser {
     const std::string TAG_NO_OUT_LANG = "-nolang";
     const std::string TAG_NO_OUT_GAME = "-nogame";
     const std::string TAG_TEST_MODE = "-test";
+    const std::string TAG_FILTER = "-filter";
     const std::string TAG_STANDARD_PLAYER = "success";
 
     std::vector<std::string> m_Opts;

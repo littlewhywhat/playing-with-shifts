@@ -9,6 +9,8 @@ void GameRoom::launch() {
     m_Printer.send_to_print(lang);
     for (auto * session : m_GameSessions) {
         session -> run(lang);
+        if (has_filter() && !m_Filter->accepts(*session))
+            continue;
         m_Printer.send_to_print(*session);
     }
 }

@@ -84,6 +84,6 @@ set(SOURCE_FILES
         src/wordtable.h
         src/wordtree.cpp
         src/wordtree.h
-        universe_script.cpp src/reallanguageservice.cpp src/reallanguageservice.h src/appconfig.cpp src/appconfig.h src/graphgeneratorservice.cpp src/graphgeneratorservice.h)
+        universe_script.cpp src/reallanguageservice.cpp src/reallanguageservice.h src/appconfig.cpp src/appconfig.h src/graphgeneratorservice.cpp src/graphgeneratorservice.h src/playedsessionfilter.cpp src/playedsessionfilter.h)
 
 add_executable(shifts ${SOURCE_FILES})
