@@ -6,7 +6,8 @@
 void App::run(int argc, char * argsv[]) {
     ArgsParser parser;
     AppConfig config;
-    parser.parse(argc, argsv, config);
+    ApplicationArguments arguments(argc, argsv);
+    parser.parse(arguments, config);
     AppContext::get().setup(config);
     if (config.defines_generator())
         AppContext::get().get_graphgenerator_service()

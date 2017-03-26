@@ -7,6 +7,7 @@
 
 #include "graphgen.h"
 #include "appconfig.h"
+#include "applicationarguments.h"
 
 class ArgsParser {
   private:
@@ -32,30 +33,13 @@ class ArgsParser {
     const std::string TAG_FILTER = "-filter";
     const std::string TAG_STANDARD_PLAYER = "success";
 
-    std::vector<std::string> m_Opts;
     std::string folder2console(const std::string & tag) const;
-    void print_usage(uint32_t argc, char * argsv[]) const; 
-    uint32_t stointopt(const std::string &val) const;
-    bool find_tag(const std::string & tag) const;
-    bool find_all_s_by_tag(const std::string & tag, std::vector<std::string> & opts_by_tag) const; 
-    bool find_s_by_tag(const std::string & tag, std::string & val) const; 
-    bool find_i_by_tag(const std::string & tag, uint32_t & val) const;
-    bool find_all_i_by_tag(const std::string & tag, std::vector<uint32_t> & opts_by_tag) const;
-    bool check_argc(uint32_t argc) const;
-    bool is_double(const std::string & tag) const; 
+    bool is_double(const std::string & tag) const;
     bool is_single(const std::string & tag) const; 
-    bool only_gen() const; 
-    bool set_graphgen(AppConfig & config) const;
-    bool set_wordlen(AppConfig & config);
-    bool set_modes(AppConfig & config);
-    bool set_player(AppConfig & config);
-    void set_standard_player(AppConfig & config);
-    bool set_langhostids(AppConfig & config);
-    void process_folders();
-    void parse(AppConfig & config);
+    void convert(const ApplicationArguments &args, AppConfig &config);
   public:
     ~ArgsParser() {};
-    void parse(uint32_t argc, char * argsv[], AppConfig & config);
+    void parse(const ApplicationArguments & args, AppConfig & config);
 };
 
 #endif
