@@ -65,8 +65,8 @@ void ArgsParser::map_to_bundle(const ApplicationArguments &args, std::multimap<s
     while (it != map.cend()) {
         current_tag = it->first;
         if (args.has_tag(it->first)) {
+            const auto & opts = args.get_opts(it->first);
             while (it != map.cend() && it->first == current_tag) {
-                const auto & opts = args.get_opts(it->first);
                 if (opts.empty())
                     func(it->second, "");
                 else
