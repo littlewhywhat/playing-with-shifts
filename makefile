@@ -14,12 +14,12 @@ DOX = config
 all: $(EXEC)
 
 $(EXEC): $(OBJECTS)
-	$(CXX) $(LDFLAGS) $(OBJECTS) -o $(EXEC) $(DIRECT)
+	$(CXX) $(LDFLAGS) $(OBJECTS) -o $(EXEC) $(DIRECT) 
 $(OBJECTS): | $(OBJDIR)
 $(OBJDIR)/$(EXEC).o: $(SRCDIR)/$(EXEC).cpp
-	$(CXX) $(CPPFLAGS) $< -c -o $@ $(DIRECT)
+	$(CXX) $(CPPFLAGS) $< -c -o $@ $(DIRECT ) #2>&1 | less
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h
-	$(CXX) $(CPPFLAGS) $< -c -o $@ $(DIRECT)
+	$(CXX) $(CPPFLAGS) $< -c -o $@ $(DIRECT) #2>&1 | less
 
 $(OBJDIR):
 	mkdir $(OBJDIR)
