@@ -12,6 +12,5 @@ const Strategy &SuccessPlayer::next_strategy(const uint32_t &score) {
 }
 
 void SuccessPlayer::reset() {
-    Player::reset();
     m_PrevStrategy = Strategy::MIN(m_PrevStrategy.length());
 }

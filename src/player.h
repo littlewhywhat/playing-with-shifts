@@ -5,14 +5,12 @@
 #include "strategy.h"
 
 class Player {
-  private:
-    uint32_t m_Score;
   protected:
-    Player() : m_Score(0) {}
+    Player() {}
   public:
     virtual bool has_next() const = 0;
     virtual const Strategy & next_strategy(const uint32_t & score) = 0;
-    virtual void reset() { m_Score = 0; };
+    virtual void reset() = 0;
     virtual ~Player() {}
 };
 
