@@ -9,11 +9,11 @@ ApplicationArguments::ApplicationArguments(const uint32_t &argc, char **argv) {
         throw "No arguments";
     if (!is_tag(argv[1]))
         throw "First argument must be a tag";
-    std::string current_tag = argv[1];
+    std::string current_tag(argv[1]);
     add_tag(current_tag);
     for (uint32_t i = 2; i < argc; i++) {
         if (is_tag(argv[i])) {
-            current_tag = argv[i];
+            current_tag.assign(argv[i]);
             add_tag(current_tag);
         } else {
             add_option(current_tag, argv[i]);
