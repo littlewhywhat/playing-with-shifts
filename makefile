@@ -22,7 +22,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h
 	$(CXX) $(CPPFLAGS) $< -c -o $@ $(DIRECT) #2>&1 | less
 
 $(OBJDIR):
-	mkdir $(OBJDIR)
+	mkdir -p $(OBJDIR)
 
 clean:
 	$(RM) $(OBJDIR); $(RM) $(EXEC); $(RM) $(TEST1); $(RM) $(TEST2)
