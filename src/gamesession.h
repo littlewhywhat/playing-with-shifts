@@ -14,7 +14,6 @@ class Judge;
 class GameSession {
   private:
     Game * m_Game;
-    const uint32_t & m_WordLen;
     Judge * m_Judge;
     Player * m_Player;
     std::list<Strategy> m_Results;
@@ -24,8 +23,8 @@ class GameSession {
     Game & get_game() { return *m_Game; }
     Player & get_player() { return *m_Player; }
   public:
-    GameSession(Game * game, Player * player, Judge * judge, const uint32_t & wordlen) :
-            m_Game(game), m_WordLen(wordlen), m_Judge(judge), m_Player(player) {}
+    GameSession(Game * game, Player * player, Judge * judge) :
+            m_Game(game), m_Judge(judge), m_Player(player) {}
     ~GameSession();
     void run(const Language & lang);
     const std::list<Strategy> & won_history() const {
