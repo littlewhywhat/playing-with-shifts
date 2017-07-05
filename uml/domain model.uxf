@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="13.2">
+<diagram program="umlet" version="14.2">
   <help_text>// Uncomment the following line to change the fontsize and font:
 // fontsize=14
 fontfamily=Monospaced //possible: SansSerif,Serif,Monospaced
@@ -82,7 +82,7 @@ has </panel_attributes>
       <x>432</x>
       <y>544</y>
       <w>184</w>
-      <h>40</h>
+      <h>32</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 m2=
