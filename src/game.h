@@ -8,6 +8,10 @@
 #include "wordstructure.h"
 #include "language.h"
 
+/*
+ *  Plays strategy on the language.
+ *  Language prior should be loaded in optimal datastructure.
+ */
 class Game {
   private:
     WordStructure * m_Lang;

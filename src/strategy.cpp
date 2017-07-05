@@ -43,6 +43,7 @@ void Strategy::cntBs() {
     }
 }
 
+// TODO probably a point of performance flow
 void Strategy::increment() {
     m_Val++;
     cntBs();

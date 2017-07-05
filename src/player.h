@@ -4,6 +4,12 @@
 #include <cstdint>
 #include "strategy.h"
 
+/*
+ *  Iterator over strategies to play.
+ *  Computes next strategy by provided score from previous strategy.
+ *  Has some strategy to start with and to end with.
+ */ 
+
 class Player {
   protected:
     Player() {}

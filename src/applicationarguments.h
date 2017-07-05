@@ -11,6 +11,13 @@
 #include <vector>
 #include <map>
 
+/*
+ * Structures input array of console arguments into map<tag, list of options>
+ * Tag is defined by is_tag private method. 
+ * Option is any string that follows some tag and is not a tag.
+ * Each tag is associated with array of options that follows it before other tag
+ */
+
 class ApplicationArguments {
   public:
     ApplicationArguments() {};

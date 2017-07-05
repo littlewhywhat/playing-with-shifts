@@ -14,6 +14,8 @@
 
 class GameSessionService {
   public:
+
+    // TODO make gamesession independent of wordlen by creating a player inside run using language field
     GameSession * create(const uint32_t & mode, const std::string & player_id, const uint32_t & wordlen) const {
         return new GameSession(create_game(mode), create_player(player_id, wordlen), new Judge());
     }

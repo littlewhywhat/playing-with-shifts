@@ -4,7 +4,10 @@
 #include <cstdint>
 #include <iostream>
 
-//TODO Turn into a real immutable type
+/*
+ *  Holds a value of binary strategy.
+ *  Can be incremented and copied.
+ */
 class Strategy {
   private:
     uint32_t m_Len;
