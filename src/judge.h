@@ -13,6 +13,10 @@
 
 class Printer;
 
+/*
+ *  Counts the score of played strategy.
+ *  Stores max score among counted strategies.
+ */
 class Judge {
   private:
     uint32_t m_MaxScore;

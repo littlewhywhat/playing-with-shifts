@@ -11,6 +11,11 @@
 
 class Judge;
 
+/*
+ *  Defined by game, player and judge.
+ *  Runs on a given language.
+ *  Stores winning strategies.
+ */
 class GameSession {
   private:
     Game * m_Game;
@@ -26,6 +31,12 @@ class GameSession {
     GameSession(Game * game, Player * player, Judge * judge) :
             m_Game(game), m_Judge(judge), m_Player(player) {}
     ~GameSession();
+    /*
+     *  Loads language into game,
+     *  Uses strategies that are created by player.
+     *  Gives game and strategy to judge to compute score.
+     *  Remembers winning strategies.
+     */
     void run(const Language & lang);
     const std::list<Strategy> & won_history() const {
         return m_Results;

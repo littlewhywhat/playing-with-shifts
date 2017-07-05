@@ -11,6 +11,7 @@
 /*
  *  Plays strategy on the language.
  *  Language prior should be loaded in optimal datastructure.
+ *  Abstract class.
  */
 class Game {
   private:
