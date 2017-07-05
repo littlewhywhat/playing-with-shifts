@@ -5,7 +5,6 @@
 #ifndef PLAYING_WITH_SHIFTS_APPCONTEXT_H
 #define PLAYING_WITH_SHIFTS_APPCONTEXT_H
 
-
 #include <string>
 #include "bundle.h"
 #include "gamesessionservice.h"
@@ -15,14 +14,10 @@
 #include "graphgen.h"
 #include "graphgeneratorservice.h"
 
-//class RealLanguageService;
-//class GameSessionService;
-//class GameRoomService;
-//class GameServerService;
-//class Printer;
-//class GraphGen;
-//class GraphGeneratorService;
-
+/*
+ *  Defines context of application by
+ *  services and printer parameters stored
+ */
 class AppContext {
   public:
     static const std::string TAG_FILTER;
@@ -30,7 +25,6 @@ class AppContext {
     static const std::string NOOUT_GAME;
     static const std::string NOOUT_RES;
     static const std::string TESTMODE;
-    //TODO consider exception if m_LanguageService is NULL
     const RealLanguageService & get_language_service() const {
         return m_LanguageService;
     }
