@@ -32,14 +32,17 @@ bool ArgsParser::is_single(const std::string & tag) const {
 void ArgsParser::convert(const ApplicationArguments & args, Bundle & bundle) {
     map_to_bundle(args, MAP_ARGS_TO_INTVEC,
                   [& bundle](const std::string & bundle_tag, const std::string & opt){
+        // conversion to int
         bundle.push_to_intvector(bundle_tag, std::stoi(opt));
     });
     map_to_bundle(args, MAP_ARGS_TO_STRVEC,
                   [& bundle](const std::string & bundle_tag, const std::string & opt){
+        // no conversion
         bundle.push_to_strvector(bundle_tag, opt);
     });
     map_to_bundle(args, MAP_ARGS_BOOLS,
         [& bundle](const std::string & bundle_tag, const std::string & opt){
+        // conversion to bool
         bundle.push_to_bools(bundle_tag, true);
     });
 }
@@ -52,31 +55,33 @@ void ArgsParser::parse(const ApplicationArguments & args, Bundle & bundle) {
             if (!is_single(tag_options.first) &&
                     !is_double(tag_options.first))
                 throw "Tag " + tag_options.first + " is not recognized";
+        // all tags are valid
         convert(args, bundle);
     } catch (const char * e) {
         std::cout << e << std::endl;
+        throw e;
     }
 }
 
 template<typename Func>
-void ArgsParser::map_to_bundle(const ApplicationArguments &args, std::multimap<std::string, std::string> map, Func func) {
-    std::multimap<std::string, std::string>::const_iterator it = map.cbegin();
+void ArgsParser::map_to_bundle(const ApplicationArguments &args, std::multimap<std::string, std::string> input_real_map, Func func) {
+    std::multimap<std::string, std::string>::const_iterator pair_input_real = input_real_map.cbegin();
     std::string current_tag;
-    while (it != map.cend()) {
-        current_tag = it->first;
-        if (args.has_tag(it->first)) {
-            const auto & opts = args.get_opts(it->first);
-            while (it != map.cend() && it->first == current_tag) {
+    while (pair_input_real != input_real_map.cend()) {
+        current_tag = pair_input_real->first;
+        if (args.has_tag(pair_input_real->first)) {
+            const auto & opts = args.get_opts(pair_input_real->first);
+            while (pair_input_real != input_real_map.cend() && pair_input_real->first == current_tag) {
                 if (opts.empty())
-                    func(it->second, "");
+                    func(pair_input_real->second, "");
                 else
                     for (auto &opt : opts)
-                        func(it->second, opt);
-                ++it;
+                        func(pair_input_real->second, opt);
+                ++pair_input_real;
             }
         } else {
-            while (it != map.cend() && it->first == current_tag) {
-                ++it;
+            while (pair_input_real != input_real_map.cend() && pair_input_real->first == current_tag) {
+                ++pair_input_real;
             }
         }
     }
@@ -104,5 +109,4 @@ ArgsParser::ArgsParser() {
                 { TAG_NO_OUT_GAME, AppContext::NOOUT_GAME },
                 { TAG_TEST_MODE, AppContext::TESTMODE }
             };
-
 }
