@@ -29,9 +29,9 @@ graph, lang
 -g | -l  to turn on
 
 used: 
-./playshift -g file -w 10 -m 10
-./playshift -l file -w 10 -m 2 1
-./playshift -g file -w 1 -m 1 -p maxbcnt
+./playshift -g -f file -w 10 -m 10
+./playshift -l -f file -w 10 -m 2 1
+./playshift -g -f file -w 1 -m 1 -p maxbcnt
 
 ./playshift -g -f path/to/file
                -m mode
