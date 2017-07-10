@@ -9,15 +9,12 @@
 #include <vector>
 #include <map>
 
-class Bundle {
+class Bundle {  
   private:
     std::map<std::string, std::vector<uint32_t>> m_IntVectors;
     std::map<std::string, std::vector<std::string>> m_StrVectors;
     std::map<std::string, bool> m_Bools;
   public:
-    void insert_intvector(const std::string & tag, const std::vector<uint32_t> & val) {
-        m_IntVectors[tag] = val;
-    }
     void push_to_intvector(const std::string & tag, const uint32_t & val) {
         m_IntVectors[tag].push_back(val);
     }
@@ -39,7 +36,7 @@ class Bundle {
     bool has_tag_in_strvec(const std::string & tag) const {
         return m_StrVectors.find(tag) != m_StrVectors.cend();
     }
-
+    
 };
 
 
