@@ -15,10 +15,10 @@ const std::string GameServerService::TAG_WORDLEN = "wordlen";
 void GameServerService::launch(const Bundle & bundle) const {
     GameServer server;
     const std::vector<uint32_t> & modes = bundle.get_intvector(TAG_MODES);
-    const std::uint32_t & wordlen = bundle.get_intvector(TAG_WORDLEN).front();
+    const std::uint32_t & wordlen = bundle.get_int(TAG_WORDLEN);
     std::string player;
     if (bundle.has_tag_in_strvec(TAG_PLAYER))
-        player = bundle.get_strvector(TAG_PLAYER).front();
+        player = bundle.get_str(TAG_PLAYER);
     else
         player = "success";
     add_rooms_to_server(server, bundle, "-g", TAG_GRAPH_PATHS, modes, wordlen, player);
@@ -32,11 +32,9 @@ GameServerService::add_rooms_to_server(GameServer &server, const Bundle &bundle,
                                        const std::string &tag, const std::vector<uint32_t> &modes,
                                        const uint32_t &wordlen, const std::string &player_tag) const {
     if (bundle.has_tag_in_strvec(tag)) {
-        const std::vector<std::string> & paths = bundle.get_strvector(tag);
-        for (const auto & path : paths) {
-            GameRoom *gs = AppContext::get().get_gameroom_service()
+        const std::string & path = bundle.get_str(tag);
+        GameRoom *gs = AppContext::get().get_gameroom_service()
                     .create(langservice_tag, path, modes, player_tag, wordlen);
-            server.add_room(gs);
-        }
+        server.add_room(gs);
     }
 }

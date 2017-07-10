@@ -24,11 +24,14 @@ class Bundle {
     void push_to_bools(const std::string & tag, bool val) {
         m_Bools[tag] = val;
     }
+    int get_int(const std::string & tag) const {
+        return m_IntVectors.at(tag).front();
+    }
+    const std::string & get_str(const std::string & tag) const {
+        return m_StrVectors.at(tag).front();
+    }
     const std::vector<uint32_t> & get_intvector(const std::string & tag) const {
         return m_IntVectors.at(tag);
-    }
-    const std::vector<std::string> & get_strvector(const std::string & tag) const {
-        return m_StrVectors.at(tag);
     }
     bool has_tag_in_bools(const std::string & tag) const {
         return m_Bools.find(tag) != m_Bools.cend();
