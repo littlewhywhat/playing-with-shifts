@@ -11,27 +11,17 @@
 #include "gameroom.h"
 #include "appcontext.h"
 
+/*
+ *  Manages and stores several gamerooms.
+ *  Launches them sequentially.
+ *  On error outputs exception and continues to next room.
+ */
 class GameServer {
   public:
-    GameServer() : m_Printer(AppContext::get().get_printer()) {}
-    ~GameServer() {
-        for (auto & room : m_Rooms)
-            delete room;
-    }
-    void launch() {
-        for (auto & room : m_Rooms) {
-            try {
-                room->launch();
-            } catch (char const* e) {
-                std::cout << e << std::endl;
-            }
-        }
-    }
-    void add_room(GameRoom * room) {
-        m_Rooms.push_back(room);
-    }
+    ~GameServer(); 
+    void launch();
+    void add_room(GameRoom * room);
   private:
-    const Printer & m_Printer;
     std::vector<GameRoom*> m_Rooms;
 };
 

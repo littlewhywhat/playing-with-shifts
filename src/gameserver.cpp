@@ -3,3 +3,22 @@
 //
 
 #include "gameserver.h"
+    
+GameServer::~GameServer() {
+    for (auto & room : m_Rooms)
+        delete room;
+}
+
+void GameServer::launch() {
+    for (auto & room : m_Rooms) {
+        try {
+            room->launch();
+        } catch (char const* e) {
+            std::cout << e << std::endl;
+        }
+    }
+}
+
+void GameServer::add_room(GameRoom * room) {
+    m_Rooms.push_back(room);
+}
