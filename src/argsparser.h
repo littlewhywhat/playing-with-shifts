@@ -8,6 +8,11 @@
 #include "applicationarguments.h"
 #include "bundle.h"
 
+/*
+ *  Looks for tags t in ApplicationArguments 
+ *  defined by mappings and copies their parameters 
+ *  into Bundle with tags f(t)
+ */
 class ArgsParser {
   public:
     ArgsParser();
