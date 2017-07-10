@@ -5,6 +5,7 @@
 #ifndef PLAYING_WITH_SHIFTS_GAMESERVERSERVER_H
 #define PLAYING_WITH_SHIFTS_GAMESERVERSERVER_H
 
+#include <iostream> 
 
 #include "language.h"
 #include "gameroom.h"
@@ -18,8 +19,13 @@ class GameServer {
             delete room;
     }
     void launch() {
-        for (auto & room : m_Rooms)
-            room->launch();
+        for (auto & room : m_Rooms) {
+            try {
+                room->launch();
+            } catch (char const* e) {
+                std::cout << e << std::endl;
+            }
+        }
     }
     void add_room(GameRoom * room) {
         m_Rooms.push_back(room);

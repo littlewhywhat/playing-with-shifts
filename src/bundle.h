@@ -39,7 +39,9 @@ class Bundle {
     bool has_tag_in_strvec(const std::string & tag) const {
         return m_StrVectors.find(tag) != m_StrVectors.cend();
     }
-    
+    bool has_tag_in_intvec(const std::string & tag) const {
+        return m_IntVectors.find(tag) != m_IntVectors.cend();
+    } 
 };
 
 

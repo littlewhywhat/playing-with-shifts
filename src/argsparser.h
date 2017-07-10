@@ -28,7 +28,7 @@ class ArgsParser {
     const std::string TAG_GRAPHFOLDER = "-gf";
 
     const std::string TAG_NUM_FILES = "-n";
-    const std::string TAG_NUM_NODES = "-nn";
+    const std::string TAG_NN = "-nn";
     const std::string TAG_GRAPHGEN = "-gg";
 
     const std::string TAG_MODE = "-m";

@@ -5,12 +5,15 @@
 #include "gameserverservice.h"
 #include "gameserver.h"
 
+#include "numbernames.h"
+
 const std::string GameServerService::TAG_MODES = "modes";
 const std::string GameServerService::TAG_GRAPH_PATHS = "graph_paths";
 const std::string GameServerService::TAG_LANG_PATHS = "lang_paths";
 const std::string GameServerService::TAG_BUILD_PATHS = "build_paths";
 const std::string GameServerService::TAG_PLAYER = "player";
 const std::string GameServerService::TAG_WORDLEN = "wordlen";
+const std::string GameServerService::TAG_NUM_PATHS = "num_paths";
 
 void GameServerService::launch(const Bundle & bundle) const {
     GameServer server;
@@ -36,8 +39,24 @@ void GameServerService::launch(const Bundle & bundle) const {
         // missing parameter
         return;
     }
-    GameRoom *gr = AppContext::get().get_gameroom_service()
-                .create(langservice_tag, path, modes, player_tag, wordlen);
-    server.add_room(gr);
+    if (bundle.has_tag_in_intvec(TAG_NUM_PATHS)) {
+        int cnt = bundle.get_int(TAG_NUM_PATHS);
+        std::string path_i;
+        for (int i = 0; i < cnt; i++) {
+            path_i.assign(NumberNames::get_name(path, i));
+            GameRoom *gr = AppContext::get().get_gameroom_service()
+                                            .create(langservice_tag, 
+                                                    path_i,
+                                                    modes, player_tag,
+                                                    wordlen);
+            server.add_room(gr);
+        }
+    } else {
+            GameRoom *gr = AppContext::get().get_gameroom_service()
+                                            .create(langservice_tag, 
+                                                    path, modes, 
+                                                    player_tag, wordlen);
+            server.add_room(gr);
+    }
     server.launch();
 }

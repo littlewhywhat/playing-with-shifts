@@ -19,7 +19,7 @@ bool ArgsParser::is_double(const std::string & tag) const {
            tag == TAG_WORDLEN ||
            tag == TAG_PLAYER ||
            tag == TAG_GRAPHGEN ||
-           tag == TAG_NUM_NODES;
+           tag == TAG_NN;
 }
 bool ArgsParser::is_single(const std::string & tag) const { 
     return tag == TAG_NO_OUT_RES ||
@@ -92,7 +92,7 @@ ArgsParser::ArgsParser() {
             {
                 { TAG_WORDLEN, GameServerService::TAG_WORDLEN },
                 { TAG_MODE, GameServerService::TAG_MODES },
-
+                { TAG_NN, GameServerService::TAG_NUM_PATHS }
             };
     MAP_ARGS_TO_STRVEC =
             {
