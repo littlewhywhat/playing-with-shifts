@@ -9,20 +9,21 @@
 #include "appcontext.h"
 
 bool ArgsParser::is_double(const std::string & tag) const {
-    return tag == TAG_GRAPH ||
-           tag == TAG_BUILD ||
-           tag == TAG_LANG ||
-           tag == TAG_LANGFOLDER ||
+    return tag == TAG_LANGFOLDER ||
            tag == TAG_GRAPHFOLDER ||
            tag == TAG_MODE ||
            tag == TAG_NUM_FILES ||
            tag == TAG_WORDLEN ||
            tag == TAG_PLAYER ||
            tag == TAG_GRAPHGEN ||
-           tag == TAG_NN;
+           tag == TAG_NN ||
+           tag == TAG_FILE;
 }
 bool ArgsParser::is_single(const std::string & tag) const { 
-    return tag == TAG_NO_OUT_RES ||
+    return tag == TAG_GRAPH ||
+           tag == TAG_BUILD ||
+           tag == TAG_LANG ||
+           tag == TAG_NO_OUT_RES ||
            tag == TAG_NO_OUT_LANG ||
            tag == TAG_NO_OUT_GAME ||
            tag == TAG_TEST_MODE ||
@@ -57,7 +58,7 @@ void ArgsParser::parse(const ApplicationArguments & args, Bundle & bundle) {
                 throw "Tag " + tag_options.first + " is not recognized";
         // all tags are valid
         convert(args, bundle);
-    } catch (const char * e) {
+    } catch (std::string const & e) {
         std::cout << e << std::endl;
         throw e;
     }
@@ -96,13 +97,14 @@ ArgsParser::ArgsParser() {
             };
     MAP_ARGS_TO_STRVEC =
             {
-                { TAG_GRAPH, GameServerService::TAG_GRAPH_PATHS },
-                { TAG_LANG, GameServerService::TAG_LANG_PATHS },
-                { TAG_BUILD, GameServerService::TAG_BUILD_PATHS },
+                { TAG_FILE, GameServerService::TAG_FILE },
                 { TAG_PLAYER, GameServerService::TAG_PLAYER },
             };
     MAP_ARGS_BOOLS =
             {
+                { TAG_GRAPH, GameServerService::TAG_GRAPH_PATHS },
+                { TAG_LANG, GameServerService::TAG_LANG_PATHS },
+                { TAG_BUILD, GameServerService::TAG_BUILD_PATHS },
                 { TAG_FILTER, AppContext::TAG_FILTER },
                 { TAG_NO_OUT_LANG, AppContext::NOOUT_LANG },
                 { TAG_NO_OUT_RES, AppContext::NOOUT_RES },

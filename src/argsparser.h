@@ -20,6 +20,7 @@ class ArgsParser {
     void parse(const ApplicationArguments & args, Bundle & bundle);
   private:
     const std::string TAG_WORDLEN = "-w";
+    const std::string TAG_FILE = "-f";
     const std::string TAG_GRAPH = "-g";
     const std::string TAG_BUILD = "-b";
     const std::string TAG_LANG = "-l";

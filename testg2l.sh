@@ -12,7 +12,7 @@ function sdiff {
 
 function test {
     echo $1
-    ./$EXEC -g $IN/graph$2 -w $3 -m $4 -nores -test -nogame > ./$RES
+    ./$EXEC -g -f $IN/graph$2 -w $3 -m $4 -nores -test -nogame > ./$RES
     sdiff $RES $OUT/$1
 }
 

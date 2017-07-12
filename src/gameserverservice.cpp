@@ -14,6 +14,7 @@ const std::string GameServerService::TAG_BUILD_PATHS = "build_paths";
 const std::string GameServerService::TAG_PLAYER = "player";
 const std::string GameServerService::TAG_WORDLEN = "wordlen";
 const std::string GameServerService::TAG_NUM_PATHS = "num_paths";
+const std::string GameServerService::TAG_FILE = "file";
 
 void GameServerService::launch(const Bundle & bundle) const {
     GameServer server;
@@ -24,16 +25,13 @@ void GameServerService::launch(const Bundle & bundle) const {
         player_tag = bundle.get_str(TAG_PLAYER);
     else
         player_tag = "success";
-    std::string path;
+    std::string path = bundle.get_str(TAG_FILE);
     std::string langservice_tag;
-    if (bundle.has_tag_in_strvec(TAG_GRAPH_PATHS)) {
-        path = bundle.get_str(TAG_GRAPH_PATHS);
+    if (bundle.has_tag_in_bools(TAG_GRAPH_PATHS)) {
         langservice_tag = "-g"; 
-    } else if (bundle.has_tag_in_strvec(TAG_LANG_PATHS)) {
-        path = bundle.get_str(TAG_LANG_PATHS);
+    } else if (bundle.has_tag_in_bools(TAG_LANG_PATHS)) {
         langservice_tag = "-l";
-    } else if (bundle.has_tag_in_strvec(TAG_BUILD_PATHS)) {
-        path = bundle.get_str(TAG_BUILD_PATHS);
+    } else if (bundle.has_tag_in_bools(TAG_BUILD_PATHS)) {
         langservice_tag = "-b";
     } else {
         // missing parameter

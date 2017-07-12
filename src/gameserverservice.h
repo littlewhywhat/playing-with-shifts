@@ -22,7 +22,8 @@ class GameServerService {
     static const std::string TAG_PLAYER;
     static const std::string TAG_WORDLEN;
     static const std::string TAG_NUM_PATHS;
-    
+    static const std::string TAG_FILE;
+
     GameServerService() {}
 
     void launch(const Bundle & bundle) const;
