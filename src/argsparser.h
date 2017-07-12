@@ -25,9 +25,6 @@ class ArgsParser {
     const std::string TAG_BUILD = "-b";
     const std::string TAG_LANG = "-l";
 
-    const std::string TAG_LANGFOLDER = "-lf";
-    const std::string TAG_GRAPHFOLDER = "-gf";
-
     const std::string TAG_NUM_FILES = "-n";
     const std::string TAG_NN = "-nn";
     const std::string TAG_GRAPHGEN = "-gg";

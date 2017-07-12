@@ -9,9 +9,7 @@
 #include "appcontext.h"
 
 bool ArgsParser::is_double(const std::string & tag) const {
-    return tag == TAG_LANGFOLDER ||
-           tag == TAG_GRAPHFOLDER ||
-           tag == TAG_MODE ||
+    return tag == TAG_MODE ||
            tag == TAG_NUM_FILES ||
            tag == TAG_WORDLEN ||
            tag == TAG_PLAYER ||
