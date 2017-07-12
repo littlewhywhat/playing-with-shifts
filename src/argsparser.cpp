@@ -93,7 +93,9 @@ ArgsParser::ArgsParser() {
             {
                 { TAG_WORDLEN, GameServerService::TAG_WORDLEN },
                 { TAG_MODE, GameServerService::TAG_MODES },
-                { TAG_NN, GameServerService::TAG_NUM_PATHS }
+                { TAG_NUM_FILES, GameServerService::TAG_NUM_PATHS },
+                { TAG_NUM_FILES, GraphGeneratorService::TAG_NUM_GRAPHS },
+                { TAG_NN, GraphGeneratorService::TAG_NUM_NODES }
             };
     MAP_ARGS_TO_STRVEC =
             {
@@ -102,6 +104,7 @@ ArgsParser::ArgsParser() {
             };
     MAP_ARGS_BOOLS =
             {
+                { TAG_GRAPHGEN, AppContext::TAG_GRAPHGEN },
                 { TAG_GRAPH, GameServerService::TAG_GRAPH_PATHS },
                 { TAG_LANG, GameServerService::TAG_LANG_PATHS },
                 { TAG_BUILD, GameServerService::TAG_BUILD_PATHS },

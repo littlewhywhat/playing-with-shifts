@@ -8,9 +8,14 @@ void App::run(int argc, char * argsv[]) {
     Bundle config;
     ApplicationArguments arguments(argc, argsv);
     parser.parse(arguments, config);
-    AppContext::get().setup(config);
-    //AppContext::get().get_graphgenerator_service()
-    //            .generate(config);
-    AppContext::get().get_gameserver_service()
-                .launch(config);
+    AppContext& context = AppContext::get();
+    context.setup(config);
+    switch (context.mode()) {
+        case GRAPH_GENERATOR:
+            context.get_graphgenerator_service().generate(config);
+            return;
+        case GAME_SERVER: 
+            context.get_gameserver_service().launch(config);
+            return;
+    }
 }

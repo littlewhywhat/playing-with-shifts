@@ -14,10 +14,16 @@
 #include "graphgen.h"
 #include "graphgeneratorservice.h"
 
+enum APP_MODE {
+    GRAPH_GENERATOR,
+    GAME_SERVER,
+};
+
 /*
  *  Defines context of application by
  *  services and printer parameters stored
  */
+
 class AppContext {
   public:
     static const std::string TAG_FILTER;
@@ -25,6 +31,7 @@ class AppContext {
     static const std::string NOOUT_GAME;
     static const std::string NOOUT_RES;
     static const std::string TESTMODE;
+    static const std::string TAG_GRAPHGEN;
     const RealLanguageService & get_language_service() const {
         return m_LanguageService;
     }
@@ -46,6 +53,9 @@ class AppContext {
     const GraphGeneratorService & get_graphgenerator_service() const {
         return m_GraphGeneratorService;
     }
+    APP_MODE mode() const {
+        return m_Mode;
+    }
     void setup(const Bundle & config);
     static AppContext & get();
   private:
@@ -56,6 +66,7 @@ class AppContext {
     GameServerService m_GameServerService;
     GraphGeneratorService m_GraphGeneratorService;
     GraphGen m_Generator;
+    APP_MODE m_Mode;
     AppContext() {};
     AppContext(const AppContext & src) = delete;
     AppContext & operator = (const AppContext & src) = delete;
