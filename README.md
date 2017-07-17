@@ -1,5 +1,36 @@
+PLAYING WITH SUBSHIFTS
+==================
+
+Imagine a game with two opponents (A and B), a string of some length with open positions to fill in
+and a predefined language or set of words with the same length as a string.
+Each player has its own unique positions to fill that are prescribed by strategy.
+They play in turns (the order is specified by game mode).
+
+`Aim of A` - fill its positions in a such manner that resulting word will be in a language.
+
+`Aim of B` - opposite - fill its positions to make some word out of a language.
+
+Successful strategy is a strategy that doesn't allow B to win.
+
+So far three game modes are considered:
+1. Player B plays its positions first;
+2. Player B plays its positions second;
+3. Player B and player A play the game by order specified by strategy,
+
+This application can construct a language for a game using a graph, file with words or class.
+Then it performs computations on language in a specified game mode using other options provided by user.
+
 USAGE
 ==================
+
+./playshift -f PATH_OR_ID 
+            { { -g|-l -n NUM_FILES } | -b -w WORDLENGTH -m GAMEMODE 
+              [-p PLAYER -nores -nolang -nogame -test -filter]} 
+            | { -gg -nn NUM_NODES -n NUM_GRAPHS } 
+
+examples:
+
+''
 
 printer single parameters:
 
@@ -9,8 +40,10 @@ printer single parameters:
 -test output specific test prefixes
 -filter output only specific rooms (ones with difference in max score)
 
-arguments parser doesn't care if there are some useless arguments - as long as it can find necessary ones it will do the work.
-all parameters are either single tags 
+arguments parser doesn't care about order and if there are some useless arguments - 
+as long as it can find necessary ones it will do the work.
+all parameters are either single tags or followed by string with value.
+
 
 // general
 -f path
@@ -103,28 +136,6 @@ Generated graphs can be filtered by specified filter.
                 -nn number_of_nodes
                 -ns number_of_symbols
                 -gf filter_name
-
-PLAYING WITH SUBSHIFTS
-==================
-
-Imagine a game with two opponents (A and B), a string of some length with open positions to fill in
-and a predefined language or set of words with the same length as a string.
-Each player has its own unique positions to fill that are prescribed by strategy.
-They play in turns (the order is specified by game mode).
-
-`Aim of A` - fill its positions in a such manner that resulting word will be in a language.
-
-`Aim of B` - opposite - fill its positions to make some word out of a language.
-
-Successful strategy is a strategy that doesn't allow B to win.
-
-So far three game modes are considered:
-1. Player B plays its positions first;
-2. Player B plays its positions second;
-3. Player B and player A play the game by order specified by strategy,
-
-This application can construct a language for a game using a graph, file with words or class.
-Then it performs computations on language in a specified game mode using other options provided by user.
 
 ## Build
 
