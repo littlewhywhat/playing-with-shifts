@@ -41,9 +41,12 @@ Both will build an execution file 'playshift' in root folder.
 
 ```
 ./playshift -f PATH_OR_ID 
-            { { -g|-l -n NUM_FILES } | -b -w WORDLENGTH -m GAMEMODE 
+            { { { -g | -l -n NUM_FILES } | -b no3inrow } -w WORDLENGTH -m GAMEMODE 
               [-p PLAYER -nores -nolang -nogame -test -filter]} 
             | { -gg -nn NUM_NODES -n NUM_GRAPHS } 
+
+in [] any argument is optional;
+if { a | b }, use either one or another, not both.
 ```
 
 **Quick examples:**
@@ -80,6 +83,12 @@ After to play in game mode 3 on all 10 generated graphs run:
 
 ```
 ./playshift -g -f path/to/existing/folder/prefix -n 10 -w 10 -m 3 -nolang -p maxbcnt
+```
+
+Play several modes (1 and 3) at once:
+
+```
+./playshift -g -f file_graph0 -w 10 -m 1 3 -nolang -p maxbcnt
 ```
 
 To read more about options please see USAGE.md.
@@ -138,4 +147,14 @@ good strategies are: // list of successful strategies
 101
 011
 max = 2 // maximum number of B's in successful strategies
+```
+
+Output can be customized using input tags:
+```
+-nolang // no language
+-nogame // no strategies
+-nores // no maximum number of B's
+-player maxbcnt // by all strategies are played - with maxbcnt only ones that can give better maximum
+-filter // good for several modes played at once - doesn't output anything if there was no difference in maximum
+-test // some specific test formatting for tests
 ```
