@@ -12,25 +12,60 @@ They play in turns (the order is specified by game mode).
 
 Successful strategy is a strategy that doesn't allow B to win.
 
-So far three game modes are considered:
+So far three game modes are considered (numbering corresponds to input argument options -m):
 1. Player B plays its positions first;
 2. Player B plays its positions second;
 3. Player B and player A play the game by order specified by strategy,
 
 This application can construct a language for a game using a graph, file with words or class.
 Then it performs computations on language in a specified game mode using other options provided by user.
+Moreover it can generate random graphs with specified number of nodes.
 
 USAGE
 ==================
 
+```
 ./playshift -f PATH_OR_ID 
             { { -g|-l -n NUM_FILES } | -b -w WORDLENGTH -m GAMEMODE 
               [-p PLAYER -nores -nolang -nogame -test -filter]} 
             | { -gg -nn NUM_NODES -n NUM_GRAPHS } 
+```
 
-examples:
+**Quick examples:**
 
-''
+Play in game mode 1 on graph specified in 'file_graph' with word length of 10
+
+(don't output language, use player that doesn't play strategies that has less B's than current maximum):
+ 
+```
+./playshift -g -f file_graph -w 10 -m 1 -nolang -p maxbcnt
+```
+
+Play same way as above but on 3 graphs specified by prefix 'file_graph':
+
+```
+./playshift -g -f file_graph -n 3 -w 10 -m 1 -nolang -p maxbcnt
+
+equivalent to
+
+./playshift -g -f file_graph0 -w 10 -m 1 -nolang -p maxbcnt
+./playshift -g -f file_graph1 -w 10 -m 1 -nolang -p maxbcnt
+./playshift -g -f file_graph2 -w 10 -m 1 -nolang -p maxbcnt
+
+```
+
+Generate 10 random graphs with 10 nodes each:
+
+```
+./playshift -gg -f path/to/existing/folder/prefix -n 10 -nn 10
+
+```
+
+After to play in game mode 3 on all 10 generated graphs run:
+
+```
+./playshift -g -f path/to/existing/folder/prefix -n 10 -w 10 -m 3 -nolang -p maxbcnt
+```
 
 printer single parameters:
 
@@ -159,105 +194,8 @@ first line is number of nodes.
 from second line program starts to read edges with startnode, endnode and label 
 specified through comma. Counting of nodes starts from 0.
 
-Example:
+Example (graph with 4 nodes and one edge from node 1 to 0 with label 1):
 ```
 4 
 1,0,1
 ```
-Graph with 4 nodes and one edge from node 1 to 0 with label 1.
-
-## Run
-
-```
-usage: playshift -g graph_path | -b class_name | -l lang_path |
-                -lf lang_folder | -gf graph_folder -m [1..3] -w [1..63]  
-                [ -p player_name -gs gameserver_name -nores -nolang] 
-                | -gg path_with_prefix -nn num_nodes -n num_graphs
-                [-g graph_path | -b class_name | -l lang_path |
-                -lf lang_folder | -gf graph_folder -m [1..3] -w [1..63]  
-                [ -p player_name -gs gameserver_name -nores -nolang]]
-```
-
-
-
-## Examples
-
-To start you can try example graphs in 'data' folder:
-
-`make run`
-
-or
-
-`./playshift -g data/g2wt/in/graph1 -w 3 -p maxbcnt -m 1`
-
-will produce the following output:
-```
-language:
-111
-101
-110
-011
-010
-
-
-good strategies are:
-100
-101
-max = 2
-```
-other examples:
-
-- compute on language of specified graph in mode 1 and
-output language with all successful strategies:
-```
-./playshift -g data/g2wt/in/graph1 -m 1 -w 3
-```
-
-- compute language of specified builder class and
-output language with all successful strategies:
-```
-./playshift -b no3inrow -m 1 -w 3
-```
-
-- compute language of specified set of words and
-output language with all successful strategies:
-```
-./playshift -l data/wt2ss/in/wt0 -m 1 -w 3
-```
-
-- generate graphs:
-```
-./playshift -gg tmp/graph -nn 5 -n 5
-```
-
-## Test
-
-To run all tests you can use the following command:
-
-```
-make test
-```
-
-The program consists of two parts: 
- * translating of graph to wordtable(language) 
-```
-    ./testg2wt.sh
-```
-
- * computation of strategies using wordtable
-```
-    ./testwt2ss.sh
-```
-
-There is also script for testing the whole application:
-```
-    ./test.sh
-```
-
-The commands will compile special execution files for each case,
-read some data in data folder and test outputs of graph translation or
-computation algorithm for mode1 and mode2.
-
-WARNING: this option requires `colordiff` installed on your machine. 
-You can change DIFF variable in both shell scripts to usual `diff` that 
-is usually installed by default
