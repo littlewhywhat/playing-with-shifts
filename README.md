@@ -21,8 +21,23 @@ This application can construct a language for a game using a graph, file with wo
 Then it performs computations on language in a specified game mode using other options provided by user.
 Moreover it can generate random graphs with specified number of nodes.
 
-USAGE
-==================
+## Build
+
+C++11
+
+run the following command in shell from root folder:
+
+`make` (build and run)
+
+or 
+
+`make compile` (build)
+
+Please use Q button to exit bash "less" (to remove "(END)" that appears after compilation)
+
+Both will build an execution file 'playshift' in root folder.
+
+## USAGE
 
 ```
 ./playshift -f PATH_OR_ID 
@@ -67,23 +82,11 @@ After to play in game mode 3 on all 10 generated graphs run:
 ./playshift -g -f path/to/existing/folder/prefix -n 10 -w 10 -m 3 -nolang -p maxbcnt
 ```
 
-## Build
+To read more about options please see USAGE.md.
 
-C++11
+**Input file format**
 
-run the following command in shell from root folder:
-
-`make` (build and run)
-
-or 
-
-`make compile` (build)
-
-Please use Q button to exit bash "less" (to remove "(END)" that appears after compilation)
-
-Both will build an execution file 'playshift' in root folder.
-
-## Graph format
+*Graphs*
 
 first line is number of nodes.
 from second line program starts to read edges with startnode, endnode and label 
@@ -93,4 +96,46 @@ Example (graph with 4 nodes and one edge from node 1 to 0 with label 1):
 ```
 4 
 1,0,1
+```
+
+*Language*
+
+put each binary word on a separate line.
+
+Example (language with 3 words: 001, 010, 100):
+```
+001
+010
+100
+```
+
+**Output format** 
+
+Let's play on language built by rule no 3 ones in a row with word length 4 in mode 3.
+
+Corresponding command will be:
+```
+./playshift -b -f no3inrow -w 3 -m 3
+```
+
+Output will be:
+```
+language: // list of words in language that was played on
+000
+001
+010
+011
+100
+101
+110
+
+no3inrow // source id 
+good strategies are: // list of successful strategies
+100
+010
+110
+001
+101
+011
+max = 2 // maximum number of B's in successful strategies
 ```
